@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>http://localhost:4000</id>
-    <title>Gridea</title>
-    <updated>2021-10-20T05:55:22.347Z</updated>
+    <id>https://notes.yuyzzz.top</id>
+    <title>Yuyzzz&apos;notes</title>
+    <updated>2021-10-20T06:57:54.790Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
-    <link rel="alternate" href="http://localhost:4000"/>
-    <link rel="self" href="http://localhost:4000/atom.xml"/>
-    <subtitle>温故而知新</subtitle>
-    <logo>http://localhost:4000/images/avatar.png</logo>
-    <icon>http://localhost:4000/favicon.ico</icon>
-    <rights>All rights reserved 2021, Gridea</rights>
+    <link rel="alternate" href="https://notes.yuyzzz.top"/>
+    <link rel="self" href="https://notes.yuyzzz.top/atom.xml"/>
+    <subtitle>遊生夢死</subtitle>
+    <logo>https://notes.yuyzzz.top/images/avatar.png</logo>
+    <icon>https://notes.yuyzzz.top/favicon.ico</icon>
+    <rights>All rights reserved 2021, Yuyzzz&apos;notes</rights>
     <entry>
         <title type="html"><![CDATA[Hello Gridea]]></title>
-        <id>http://localhost:4000/post/hello-gridea/</id>
-        <link href="http://localhost:4000/post/hello-gridea/">
+        <id>https://notes.yuyzzz.top/post/hello-gridea/</id>
+        <link href="https://notes.yuyzzz.top/post/hello-gridea/">
         </link>
         <updated>2018-12-11T16:00:00.000Z</updated>
         <summary type="html"><![CDATA[<p>👏  欢迎使用 <strong>Gridea</strong> ！<br>
@@ -25,7 +25,7 @@
 <p><a href="https://github.com/getgridea/gridea">Github</a><br>
 <a href="https://gridea.dev/">Gridea 主页</a><br>
 <a href="http://fehey.com/">示例网站</a></p>
-<p>$ \beta $</p>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>β</mi></mrow><annotation encoding="application/x-tex">\beta</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.05278em;">β</span></span></span></span></p>
 <h2 id="特性">特性👇</h2>
 <p>📝  你可以使用最酷的 <strong>Markdown</strong> 语法，进行快速创作</p>
 <p>🌉  你可以给文章配上精美的封面图和在文章任意位置插入图片</p>

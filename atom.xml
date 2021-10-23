@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>http://localhost:4000</id>
+    <id>https://notes.yuyzzz.top</id>
     <title>Yuyzzz&apos;notes</title>
-    <updated>2021-10-23T08:45:30.299Z</updated>
+    <updated>2021-10-23T08:46:31.747Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
-    <link rel="alternate" href="http://localhost:4000"/>
-    <link rel="self" href="http://localhost:4000/atom.xml"/>
+    <link rel="alternate" href="https://notes.yuyzzz.top"/>
+    <link rel="self" href="https://notes.yuyzzz.top/atom.xml"/>
     <subtitle>遊生夢死</subtitle>
-    <logo>http://localhost:4000/images/avatar.png</logo>
-    <icon>http://localhost:4000/favicon.ico</icon>
+    <logo>https://notes.yuyzzz.top/images/avatar.png</logo>
+    <icon>https://notes.yuyzzz.top/favicon.ico</icon>
     <rights>All rights reserved 2021, Yuyzzz&apos;notes</rights>
     <entry>
         <title type="html"><![CDATA[[计网] 一、概述]]></title>
-        <id>http://localhost:4000/post/ji-wang-bi-ji-1/</id>
-        <link href="http://localhost:4000/post/ji-wang-bi-ji-1/">
+        <id>https://notes.yuyzzz.top/post/ji-wang-bi-ji-1/</id>
+        <link href="https://notes.yuyzzz.top/post/ji-wang-bi-ji-1/">
         </link>
         <updated>2021-10-23T08:40:06.000Z</updated>
         <content type="html"><![CDATA[<h2 id="12-互联网概述">1.2 互联网概述</h2>
@@ -176,8 +176,8 @@
     </entry>
     <entry>
         <title type="html"><![CDATA[Hello Gridea]]></title>
-        <id>http://localhost:4000/post/hello-gridea/</id>
-        <link href="http://localhost:4000/post/hello-gridea/">
+        <id>https://notes.yuyzzz.top/post/hello-gridea/</id>
+        <link href="https://notes.yuyzzz.top/post/hello-gridea/">
         </link>
         <updated>2018-12-11T16:00:00.000Z</updated>
         <summary type="html"><![CDATA[<p>👏  欢迎使用 <strong>Gridea</strong> ！<br>

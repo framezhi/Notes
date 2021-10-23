@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://notes.yuyzzz.top</id>
     <title>Yuyzzz&apos;notes</title>
-    <updated>2021-10-20T07:05:32.726Z</updated>
+    <updated>2021-10-23T08:42:57.929Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://notes.yuyzzz.top"/>
     <link rel="self" href="https://notes.yuyzzz.top/atom.xml"/>
@@ -10,6 +10,170 @@
     <logo>https://notes.yuyzzz.top/images/avatar.png</logo>
     <icon>https://notes.yuyzzz.top/favicon.ico</icon>
     <rights>All rights reserved 2021, Yuyzzz&apos;notes</rights>
+    <entry>
+        <title type="html"><![CDATA[[计网] 一、概述]]></title>
+        <id>https://notes.yuyzzz.top/post/ji-wang-bi-ji-1/</id>
+        <link href="https://notes.yuyzzz.top/post/ji-wang-bi-ji-1/">
+        </link>
+        <updated>2021-10-23T08:40:06.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="12-互联网概述">1.2 互联网概述</h2>
+<h3 id="121-网络的网络">1.2.1 网络的网络</h3>
+<p>互联网(Internet):全球最大的计算机网络，采用TCP/IP协议族</p>
+<p>计算机网络(网络):由若干结点(node)和连接这些结点的链路(link)组成</p>
+<p>互连网(internet)：泛指多个计算机网络互连而成的计算机网络，对网络间的协议没有要求。</p>
+<h3 id="122-互联网基础结构发展的三个阶段">1.2.2 互联网基础结构发展的三个阶段</h3>
+<ul>
+<li>第一阶段：从单个网络ARPANET向互联网发展</li>
+<li>第二阶段：建成了三级结构的互联网：主干网，地区网和校园网（或企业网）</li>
+<li>第三阶段：形成了多层次ISP结构的互联网</li>
+</ul>
+<h3 id="123-互联网的标准化工作">1.2.3 互联网的标准化工作</h3>
+<p>互联网标准以RFC的形式发表，成为标准需要三个阶段</p>
+<ul>
+<li>互联网草案：有效期6个月，此时不是RFC</li>
+<li>建议标准：成为RFC文档</li>
+<li>互联网标准：每个标准分配一个编号，一个标准可以对应多个RFC文档</li>
+</ul>
+<h2 id="13-互联网的组成">1.3 互联网的组成</h2>
+<p>边缘：用户使用，资源共享（资源子网）</p>
+<p>核心：由路由器组成，提供连通性和交换（通信子网）</p>
+<h3 id="131-互联网的边缘部分">1.3.1 互联网的边缘部分</h3>
+<p>主机又称为端系统（end system）</p>
+<p>端系统之间的通信方式：</p>
+<ul>
+<li>客户/服务器（C/S）
+<ul>
+<li>客户主动向服务器发送请求</li>
+<li>服务器被动等待请求</li>
+</ul>
+</li>
+<li>对等方式（P2P）: Peer to Peer
+<ul>
+<li>平等、对等通信</li>
+<li>每个主机既是客户机又是服务器</li>
+</ul>
+</li>
+</ul>
+<h3 id="131-互联网的核心部分">1.3.1 互联网的核心部分</h3>
+<p>起特殊作用的是路由器（router），实现了分组交换</p>
+<h4 id="电路交换circuit-switching">电路交换(circuit switching)</h4>
+<ul>
+<li>使用交换机</li>
+<li>必定是<strong>面向连接</strong></li>
+</ul>
+<p>分为三个阶段：</p>
+<ul>
+<li>建立连接（专用物理线路）</li>
+<li>通信（始终占用端到端资源）</li>
+<li>释放连接</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>建立连接时间长</li>
+<li>信道利用率低</li>
+</ul>
+<h4 id="报文交换message-switching">报文交换(message switching)</h4>
+<h4 id="分组交换packet-switching">分组交换(packet switching)</h4>
+<p>存储转发，把报文分为较短、定长的数据段，在数据段前添加首部构成分组（packet），以分组作为数据传输单元</p>
+<p>路由器：</p>
+<ul>
+<li>将收到分组放入缓存</li>
+<li>查找转发表</li>
+<li>将分组送到适当端口转发</li>
+</ul>
+<p>优点：</p>
+<ul>
+<li>动态分配资源</li>
+<li>迅速、可靠</li>
+</ul>
+<p>带来的问题：</p>
+<ul>
+<li>存储转发需要排队，因此有时延</li>
+<li>首部造成开销</li>
+</ul>
+<h2 id="15-计算机网络的类别">1.5 计算机网络的类别</h2>
+<h3 id="151-计算机网络的定义">1.5.1 计算机网络的定义</h3>
+<p>计算机网络主要是由一些通用的、可编程的硬件互连而成的，而这些硬件并非专门用来实现某一特定目的，这些可编程的硬件能够用来传送多种不同类型的数据，并能支持广泛的和日益增长的应用。</p>
+<h3 id="152-计算机网络的分类">1.5.2 计算机网络的分类</h3>
+<p>从网络的作用范围分类：</p>
+<ul>
+<li>广域网(LAN)</li>
+<li>城域网(MAN)</li>
+<li>局域网(LAN)</li>
+<li>个人区域网(PAN)</li>
+</ul>
+<p>从网络的使用者进行分类：</p>
+<ul>
+<li>公用网</li>
+<li>专用网</li>
+</ul>
+<p>用来把用户接入互联网的网络</p>
+<ul>
+<li>接入网AN(Access Network):用于将用户接入互联网，既不属于核心部分也不属于边缘部分</li>
+</ul>
+<h2 id="16-计算机网络的性能">1.6 计算机网络的性能</h2>
+<h3 id="161-计算机网络的性能指标">1.6.1 计算机网络的性能指标</h3>
+<ol>
+<li>速率：也被称为<strong>数据率</strong>或比特率，单位：bit/s</li>
+<li>带宽：在计算机网络中，表示某信道能通过的“<strong>最大数据率</strong>”，单位：bit/s</li>
+<li>吞吐量：表示单位时间能通过某个网络（或者信道，接口）的数据量</li>
+<li>时延(delay)：数据从网络的一端到另一端所需的时间，包括：发送试验，传播时延，处理时延，排队时延</li>
+<li>时延带宽积：传播时延<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>×</mo></mrow><annotation encoding="application/x-tex">\times</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord">×</span></span></span></span>带宽</li>
+<li>往返时间RTT</li>
+<li>利用率
+<ul>
+<li>信道利用率U，当增大时，该信道引起的时延迅速增加 ：$ D = \frac{D_0}{1-U}$，</li>
+<li>网络利用率</li>
+</ul>
+</li>
+</ol>
+<h3 id="161-计算机网络的非性能特征">1.6.1 计算机网络的非性能特征</h3>
+<p>费用，质量，标准化，可靠性，可扩展性和可升级性，易于管理和维护</p>
+<h2 id="17-计算机网络的体系结构">1.7 计算机网络的体系结构</h2>
+<p>计算机网络的各层及协议的集合就是网络的体系结构</p>
+<h3 id="171-计算机体系机构的形成">1.7.1 计算机体系机构的形成</h3>
+<p>OSI参考模型</p>
+<h3 id="172-协议与划分层次">1.7.2 协议与划分层次</h3>
+<p>协议：数据交换必须遵师事先约定的规则，这些规则明确了交换数据的格式和有关同步的问题</p>
+<ul>
+<li>语法：数据和控制信息的结构和格式</li>
+<li>语义：控制信息的种类，作出响应与反应的类型</li>
+<li>同步：事件实现顺序的说明</li>
+</ul>
+<p>协议的两种形式：</p>
+<ul>
+<li>文字描述</li>
+<li>程序代码</li>
+</ul>
+<p>分层的好处：</p>
+<ul>
+<li>各层独立</li>
+<li>灵活性好</li>
+<li>结构上可分割开</li>
+<li>易于实现和维护</li>
+<li>促进标准化工作</li>
+</ul>
+<p>分层的缺点：</p>
+<ul>
+<li>降低效率</li>
+<li>功能可能重复，产生额外开销</li>
+</ul>
+<p><strong>各层完成的主要功能</strong>：</p>
+<p>①差错控制：使相应层次对等方的通信更加可靠。</p>
+<p>②流量控制：发送端的发送速率必须使接收端来得及接收，不要太快。</p>
+<p>③分段和重装：发送端将要发送的数据块划分为更小的单位，在接收端将其还原。</p>
+<p>④复用和分用：发送端几个高层会话复用一条低层的连接，在接收端再进行分用。</p>
+<p>⑤连接建立和释放：交换数据前先建立一条逻辑连接，数据传送结束后释放连接。</p>
+<h3 id="173-具有五层协议的体系结构">1.7.3 具有五层协议的体系结构</h3>
+<figure data-type="image" tabindex="1"><img src="https://tva1.sinaimg.cn/large/006pkgSjgy1gvpc1lcr4qj60xa0k6grt02.jpg" alt="image-20211004171033999.png" loading="lazy"></figure>
+<h3 id="174-实体-协议-服务和服务访问点">1.7.4 实体、协议、服务和服务访问点</h3>
+<p>实体(entity)：表示任何可发送或接收信息的硬件或软件进程。</p>
+<p>协议：控制两个对等实体(或多个实体)进行通信的规则的集合。</p>
+<p>在协议的控制下，两个对等实体间的通信使得本层能够向上一层提供服务。要实现本层协议，还需要使用下面一层所提供的服务。</p>
+<h3 id="175-tcpip的体系结构">1.7.5 TCP/IP的体系结构</h3>
+<figure data-type="image" tabindex="2"><img src="https://tva1.sinaimg.cn/large/006pkgSjgy1gvpc0yln7jj60t20g678f02.jpg" alt="image-20211004173604031.png" loading="lazy"></figure>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Hello Gridea]]></title>
         <id>https://notes.yuyzzz.top/post/hello-gridea/</id>

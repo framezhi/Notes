@@ -1,0 +1,374 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>[计网] 一、概述 | Yuyzzz&#39;notes</title>
+<link rel="shortcut icon" href="https://notes.yuyzzz.top/favicon.ico?v=1634978575261">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://notes.yuyzzz.top/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="[计网] 一、概述 | Yuyzzz&#39;notes - Atom Feed" href="https://notes.yuyzzz.top/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="1.2 互联网概述
+1.2.1 网络的网络
+互联网(Internet):全球最大的计算机网络，采用TCP/IP协议族
+计算机网络(网络):由若干结点(node)和连接这些结点的链路(link)组成
+互连网(internet)：泛指多个计算机..." />
+    <meta name="keywords" content="计网" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://notes.yuyzzz.top">
+  <img class="avatar" src="https://notes.yuyzzz.top/images/avatar.png?v=1634978575261" alt="">
+  </a>
+  <h1 class="site-title">
+    Yuyzzz&#39;notes
+  </h1>
+  <p class="site-description">
+    遊生夢死
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              [计网] 一、概述
+            </h2>
+            <div class="post-info">
+              <span>
+                2021-10-23
+              </span>
+              <span>
+                6 min read
+              </span>
+              
+                <a href="https://notes.yuyzzz.top/tag/vpb6YRzPC/" class="post-tag">
+                  # 计网
+                </a>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <h2 id="12-互联网概述">1.2 互联网概述</h2>
+<h3 id="121-网络的网络">1.2.1 网络的网络</h3>
+<p>互联网(Internet):全球最大的计算机网络，采用TCP/IP协议族</p>
+<p>计算机网络(网络):由若干结点(node)和连接这些结点的链路(link)组成</p>
+<p>互连网(internet)：泛指多个计算机网络互连而成的计算机网络，对网络间的协议没有要求。</p>
+<h3 id="122-互联网基础结构发展的三个阶段">1.2.2 互联网基础结构发展的三个阶段</h3>
+<ul>
+<li>第一阶段：从单个网络ARPANET向互联网发展</li>
+<li>第二阶段：建成了三级结构的互联网：主干网，地区网和校园网（或企业网）</li>
+<li>第三阶段：形成了多层次ISP结构的互联网</li>
+</ul>
+<h3 id="123-互联网的标准化工作">1.2.3 互联网的标准化工作</h3>
+<p>互联网标准以RFC的形式发表，成为标准需要三个阶段</p>
+<ul>
+<li>互联网草案：有效期6个月，此时不是RFC</li>
+<li>建议标准：成为RFC文档</li>
+<li>互联网标准：每个标准分配一个编号，一个标准可以对应多个RFC文档</li>
+</ul>
+<h2 id="13-互联网的组成">1.3 互联网的组成</h2>
+<p>边缘：用户使用，资源共享（资源子网）</p>
+<p>核心：由路由器组成，提供连通性和交换（通信子网）</p>
+<h3 id="131-互联网的边缘部分">1.3.1 互联网的边缘部分</h3>
+<p>主机又称为端系统（end system）</p>
+<p>端系统之间的通信方式：</p>
+<ul>
+<li>客户/服务器（C/S）
+<ul>
+<li>客户主动向服务器发送请求</li>
+<li>服务器被动等待请求</li>
+</ul>
+</li>
+<li>对等方式（P2P）: Peer to Peer
+<ul>
+<li>平等、对等通信</li>
+<li>每个主机既是客户机又是服务器</li>
+</ul>
+</li>
+</ul>
+<h3 id="131-互联网的核心部分">1.3.1 互联网的核心部分</h3>
+<p>起特殊作用的是路由器（router），实现了分组交换</p>
+<h4 id="电路交换circuit-switching">电路交换(circuit switching)</h4>
+<ul>
+<li>使用交换机</li>
+<li>必定是<strong>面向连接</strong></li>
+</ul>
+<p>分为三个阶段：</p>
+<ul>
+<li>建立连接（专用物理线路）</li>
+<li>通信（始终占用端到端资源）</li>
+<li>释放连接</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>建立连接时间长</li>
+<li>信道利用率低</li>
+</ul>
+<h4 id="报文交换message-switching">报文交换(message switching)</h4>
+<h4 id="分组交换packet-switching">分组交换(packet switching)</h4>
+<p>存储转发，把报文分为较短、定长的数据段，在数据段前添加首部构成分组（packet），以分组作为数据传输单元</p>
+<p>路由器：</p>
+<ul>
+<li>将收到分组放入缓存</li>
+<li>查找转发表</li>
+<li>将分组送到适当端口转发</li>
+</ul>
+<p>优点：</p>
+<ul>
+<li>动态分配资源</li>
+<li>迅速、可靠</li>
+</ul>
+<p>带来的问题：</p>
+<ul>
+<li>存储转发需要排队，因此有时延</li>
+<li>首部造成开销</li>
+</ul>
+<h2 id="15-计算机网络的类别">1.5 计算机网络的类别</h2>
+<h3 id="151-计算机网络的定义">1.5.1 计算机网络的定义</h3>
+<p>计算机网络主要是由一些通用的、可编程的硬件互连而成的，而这些硬件并非专门用来实现某一特定目的，这些可编程的硬件能够用来传送多种不同类型的数据，并能支持广泛的和日益增长的应用。</p>
+<h3 id="152-计算机网络的分类">1.5.2 计算机网络的分类</h3>
+<p>从网络的作用范围分类：</p>
+<ul>
+<li>广域网(LAN)</li>
+<li>城域网(MAN)</li>
+<li>局域网(LAN)</li>
+<li>个人区域网(PAN)</li>
+</ul>
+<p>从网络的使用者进行分类：</p>
+<ul>
+<li>公用网</li>
+<li>专用网</li>
+</ul>
+<p>用来把用户接入互联网的网络</p>
+<ul>
+<li>接入网AN(Access Network):用于将用户接入互联网，既不属于核心部分也不属于边缘部分</li>
+</ul>
+<h2 id="16-计算机网络的性能">1.6 计算机网络的性能</h2>
+<h3 id="161-计算机网络的性能指标">1.6.1 计算机网络的性能指标</h3>
+<ol>
+<li>速率：也被称为<strong>数据率</strong>或比特率，单位：bit/s</li>
+<li>带宽：在计算机网络中，表示某信道能通过的“<strong>最大数据率</strong>”，单位：bit/s</li>
+<li>吞吐量：表示单位时间能通过某个网络（或者信道，接口）的数据量</li>
+<li>时延(delay)：数据从网络的一端到另一端所需的时间，包括：发送试验，传播时延，处理时延，排队时延</li>
+<li>时延带宽积：传播时延<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>×</mo></mrow><annotation encoding="application/x-tex">\times</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord">×</span></span></span></span>带宽</li>
+<li>往返时间RTT</li>
+<li>利用率
+<ul>
+<li>信道利用率U，当增大时，该信道引起的时延迅速增加 ：$ D = \frac{D_0}{1-U}$，</li>
+<li>网络利用率</li>
+</ul>
+</li>
+</ol>
+<h3 id="161-计算机网络的非性能特征">1.6.1 计算机网络的非性能特征</h3>
+<p>费用，质量，标准化，可靠性，可扩展性和可升级性，易于管理和维护</p>
+<h2 id="17-计算机网络的体系结构">1.7 计算机网络的体系结构</h2>
+<p>计算机网络的各层及协议的集合就是网络的体系结构</p>
+<h3 id="171-计算机体系机构的形成">1.7.1 计算机体系机构的形成</h3>
+<p>OSI参考模型</p>
+<h3 id="172-协议与划分层次">1.7.2 协议与划分层次</h3>
+<p>协议：数据交换必须遵师事先约定的规则，这些规则明确了交换数据的格式和有关同步的问题</p>
+<ul>
+<li>语法：数据和控制信息的结构和格式</li>
+<li>语义：控制信息的种类，作出响应与反应的类型</li>
+<li>同步：事件实现顺序的说明</li>
+</ul>
+<p>协议的两种形式：</p>
+<ul>
+<li>文字描述</li>
+<li>程序代码</li>
+</ul>
+<p>分层的好处：</p>
+<ul>
+<li>各层独立</li>
+<li>灵活性好</li>
+<li>结构上可分割开</li>
+<li>易于实现和维护</li>
+<li>促进标准化工作</li>
+</ul>
+<p>分层的缺点：</p>
+<ul>
+<li>降低效率</li>
+<li>功能可能重复，产生额外开销</li>
+</ul>
+<p><strong>各层完成的主要功能</strong>：</p>
+<p>①差错控制：使相应层次对等方的通信更加可靠。</p>
+<p>②流量控制：发送端的发送速率必须使接收端来得及接收，不要太快。</p>
+<p>③分段和重装：发送端将要发送的数据块划分为更小的单位，在接收端将其还原。</p>
+<p>④复用和分用：发送端几个高层会话复用一条低层的连接，在接收端再进行分用。</p>
+<p>⑤连接建立和释放：交换数据前先建立一条逻辑连接，数据传送结束后释放连接。</p>
+<h3 id="173-具有五层协议的体系结构">1.7.3 具有五层协议的体系结构</h3>
+<figure data-type="image" tabindex="1"><img src="https://tva1.sinaimg.cn/large/006pkgSjgy1gvpc1lcr4qj60xa0k6grt02.jpg" alt="image-20211004171033999.png" loading="lazy"></figure>
+<h3 id="174-实体-协议-服务和服务访问点">1.7.4 实体、协议、服务和服务访问点</h3>
+<p>实体(entity)：表示任何可发送或接收信息的硬件或软件进程。</p>
+<p>协议：控制两个对等实体(或多个实体)进行通信的规则的集合。</p>
+<p>在协议的控制下，两个对等实体间的通信使得本层能够向上一层提供服务。要实现本层协议，还需要使用下面一层所提供的服务。</p>
+<h3 id="175-tcpip的体系结构">1.7.5 TCP/IP的体系结构</h3>
+<figure data-type="image" tabindex="2"><img src="https://tva1.sinaimg.cn/large/006pkgSjgy1gvpc0yln7jj60t20g678f02.jpg" alt="image-20211004173604031.png" loading="lazy"></figure>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#12-%E4%BA%92%E8%81%94%E7%BD%91%E6%A6%82%E8%BF%B0">1.2 互联网概述</a>
+<ul>
+<li><a href="#121-%E7%BD%91%E7%BB%9C%E7%9A%84%E7%BD%91%E7%BB%9C">1.2.1 网络的网络</a></li>
+<li><a href="#122-%E4%BA%92%E8%81%94%E7%BD%91%E5%9F%BA%E7%A1%80%E7%BB%93%E6%9E%84%E5%8F%91%E5%B1%95%E7%9A%84%E4%B8%89%E4%B8%AA%E9%98%B6%E6%AE%B5">1.2.2 互联网基础结构发展的三个阶段</a></li>
+<li><a href="#123-%E4%BA%92%E8%81%94%E7%BD%91%E7%9A%84%E6%A0%87%E5%87%86%E5%8C%96%E5%B7%A5%E4%BD%9C">1.2.3 互联网的标准化工作</a></li>
+</ul>
+</li>
+<li><a href="#13-%E4%BA%92%E8%81%94%E7%BD%91%E7%9A%84%E7%BB%84%E6%88%90">1.3 互联网的组成</a>
+<ul>
+<li><a href="#131-%E4%BA%92%E8%81%94%E7%BD%91%E7%9A%84%E8%BE%B9%E7%BC%98%E9%83%A8%E5%88%86">1.3.1 互联网的边缘部分</a></li>
+<li><a href="#131-%E4%BA%92%E8%81%94%E7%BD%91%E7%9A%84%E6%A0%B8%E5%BF%83%E9%83%A8%E5%88%86">1.3.1 互联网的核心部分</a>
+<ul>
+<li><a href="#%E7%94%B5%E8%B7%AF%E4%BA%A4%E6%8D%A2circuit-switching">电路交换(circuit switching)</a></li>
+<li><a href="#%E6%8A%A5%E6%96%87%E4%BA%A4%E6%8D%A2message-switching">报文交换(message switching)</a></li>
+<li><a href="#%E5%88%86%E7%BB%84%E4%BA%A4%E6%8D%A2packet-switching">分组交换(packet switching)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#15-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%9A%84%E7%B1%BB%E5%88%AB">1.5 计算机网络的类别</a>
+<ul>
+<li><a href="#151-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%9A%84%E5%AE%9A%E4%B9%89">1.5.1 计算机网络的定义</a></li>
+<li><a href="#152-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%9A%84%E5%88%86%E7%B1%BB">1.5.2 计算机网络的分类</a></li>
+</ul>
+</li>
+<li><a href="#16-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%9A%84%E6%80%A7%E8%83%BD">1.6 计算机网络的性能</a>
+<ul>
+<li><a href="#161-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%9A%84%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87">1.6.1 计算机网络的性能指标</a></li>
+<li><a href="#161-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%9A%84%E9%9D%9E%E6%80%A7%E8%83%BD%E7%89%B9%E5%BE%81">1.6.1 计算机网络的非性能特征</a></li>
+</ul>
+</li>
+<li><a href="#17-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%9A%84%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84">1.7 计算机网络的体系结构</a>
+<ul>
+<li><a href="#171-%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%BD%93%E7%B3%BB%E6%9C%BA%E6%9E%84%E7%9A%84%E5%BD%A2%E6%88%90">1.7.1 计算机体系机构的形成</a></li>
+<li><a href="#172-%E5%8D%8F%E8%AE%AE%E4%B8%8E%E5%88%92%E5%88%86%E5%B1%82%E6%AC%A1">1.7.2 协议与划分层次</a></li>
+<li><a href="#173-%E5%85%B7%E6%9C%89%E4%BA%94%E5%B1%82%E5%8D%8F%E8%AE%AE%E7%9A%84%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84">1.7.3 具有五层协议的体系结构</a></li>
+<li><a href="#174-%E5%AE%9E%E4%BD%93-%E5%8D%8F%E8%AE%AE-%E6%9C%8D%E5%8A%A1%E5%92%8C%E6%9C%8D%E5%8A%A1%E8%AE%BF%E9%97%AE%E7%82%B9">1.7.4 实体、协议、服务和服务访问点</a></li>
+<li><a href="#175-tcpip%E7%9A%84%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84">1.7.5 TCP/IP的体系结构</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://notes.yuyzzz.top/post/hello-gridea/">
+              <h3 class="post-title">
+                Hello Gridea
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://notes.yuyzzz.top/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

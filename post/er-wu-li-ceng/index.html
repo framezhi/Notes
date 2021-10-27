@@ -1,0 +1,332 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>二、物理层 | Yuyzzz&#39;notes</title>
+<link rel="shortcut icon" href="https://notes.yuyzzz.top/favicon.ico?v=1635325763109">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://notes.yuyzzz.top/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="二、物理层 | Yuyzzz&#39;notes - Atom Feed" href="https://notes.yuyzzz.top/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="物理层（Physical Layer）是计算机网络OSI模型中最低的一层，位于OSI参考模型的最底层，它直接面向实际承担数据传输的物理媒体（即通信通道）
+
+2.1 物理层的基本概念
+传输媒体接口的有关特性
+
+机械特性
+电气特性：电压范围，编..." />
+    <meta name="keywords" content="计网" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://notes.yuyzzz.top">
+  <img class="avatar" src="https://notes.yuyzzz.top/images/avatar.png?v=1635325763109" alt="">
+  </a>
+  <h1 class="site-title">
+    Yuyzzz&#39;notes
+  </h1>
+  <p class="site-description">
+    遊生夢死
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              二、物理层
+            </h2>
+            <div class="post-info">
+              <span>
+                2021-10-27
+              </span>
+              <span>
+                5 min read
+              </span>
+              
+                <a href="https://notes.yuyzzz.top/tag/vpb6YRzPC/" class="post-tag">
+                  # 计网
+                </a>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>物理层（Physical Layer）是计算机网络OSI模型中最低的一层，位于OSI参考模型的最底层，它直接面向实际承担数据传输的物理媒体（即通信通道）</p>
+<!-- more-->
+<h2 id="21-物理层的基本概念">2.1 物理层的基本概念</h2>
+<p>传输媒体接口的有关特性</p>
+<ul>
+<li>机械特性</li>
+<li>电气特性：电压范围，编码等</li>
+<li>功能特性：指明某一电平的电压表示的意义</li>
+<li>过程特性：指不同功能的各种可能事件出现的顺序</li>
+</ul>
+<h2 id="22-数据通信的基础">2.2 数据通信的基础</h2>
+<h3 id="221-基本概念">2.2.1 基本概念</h3>
+<ol>
+<li>
+<p>信号分类</p>
+<ul>
+<li>基带(baseband)信号：将信号0或1用不同信号表示(低频信号，未调制)</li>
+<li>宽带信号：将基带信号调制后形成的多路复用模拟信号</li>
+</ul>
+</li>
+<li>
+<p>信道分类：</p>
+<ul>
+<li>单工：单向通信</li>
+<li>半双工：双向交替通信</li>
+<li>全双工：双向同时通信</li>
+</ul>
+</li>
+<li>
+<p>同步通信和异步通信：目的都是为了同步，保证数据传输不出差错</p>
+<p>异步通信：</p>
+<ul>
+<li>字符为单位：
+<ul>
+<li>发送的字符之间的<strong>时间间隔可以是任意的</strong></li>
+<li>可以在<strong>任意时刻发送</strong>，故必须在每个字符的开头和结束的地方加上标志(起始位和停止位)</li>
+</ul>
+</li>
+<li>帧为单位：
+<ul>
+<li><strong>帧定界</strong>：帧首部一些特殊的比特组合，用于识别帧的开始，还包含帧的结束位置(帧尾添加特殊比特组合或帧首设置帧的长度)</li>
+</ul>
+</li>
+</ul>
+<p>同步通信：双方建立同步，即双方的时钟频率要相同，收发双方不停接收和发送同步比特流</p>
+</li>
+</ol>
+<h3 id="222-信道最大传输率">2.2.2 信道最大传输率</h3>
+<ol>
+<li>
+<p>奈奎斯特采样定理：模拟信号经F频率采样称为离散信号，能够通过数字信道传送无失真恢复，则要求<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>F</mi><mo>≥</mo><mn>2</mn><mi>f</mi></mrow><annotation encoding="application/x-tex">F \geq 2f</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8193em;vertical-align:-0.13597em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≥</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord">2</span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span></span></span></span>, f是模拟信号的最高频率</p>
+<p>奈氏公式(理想信道)：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>C</mi><mo>=</mo><mn>2</mn><mi>H</mi><mi>l</mi><mi>o</mi><msub><mi>g</mi><mn>2</mn></msub><mi>L</mi></mrow><annotation encoding="application/x-tex">C=2Hlog_{2}L</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord">2</span><span class="mord mathdefault" style="margin-right:0.08125em;">H</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">o</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord mathdefault">L</span></span></span></span>(没有对信息传输速率bps给出限制)</p>
+<ul>
+<li>H: 低通信道的带宽(Hz)</li>
+<li>L: 某给定时刻数字信号可能取的离散值个数</li>
+<li>C: 信道最大数据传输率(b/s)</li>
+</ul>
+</li>
+<li>
+<p>Shannon公式：<strong>给出了信息传输速率的极限</strong></p>
+<p>有噪声信道的最大数据传输率：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>C</mi><mo>=</mo><mi>H</mi><mi>l</mi><mi>o</mi><msub><mi>g</mi><mn>2</mn></msub><mo>(</mo><mn>1</mn><mo>+</mo><mi>S</mi><mi mathvariant="normal">/</mi><mi>N</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">C=Hlog_{2}(1+S/N)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.08125em;">H</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">o</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="mord">/</span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span><span class="mclose">)</span></span></span></span></p>
+<ul>
+<li>B: 带宽</li>
+<li>S/N：信道噪声比，常用<strong>分贝</strong>为计量单位，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mtext>分贝数</mtext><mo>=</mo><mn>10</mn><mi>l</mi><mi>o</mi><msub><mi>g</mi><mn>2</mn></msub><mi>S</mi><mi mathvariant="normal">/</mi><mi>N</mi></mrow><annotation encoding="application/x-tex">\text{分贝数}=10log_{2}S/N</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord text"><span class="mord cjk_fallback">分贝数</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mord">0</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">o</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="mord">/</span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span></span></span></span></li>
+</ul>
+<p>若想提高信息的传输速率：</p>
+<ul>
+<li>提高传输线路的带宽</li>
+<li>提高信号的信噪比</li>
+</ul>
+</li>
+<li>
+<p>比特率C和波特率B：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>C</mi><mo>=</mo><mi>B</mi><mi>l</mi><mi>o</mi><msub><mi>g</mi><mn>2</mn></msub><mi>L</mi></mrow><annotation encoding="application/x-tex">C=Blog_{2}L</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.05017em;">B</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">o</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord mathdefault">L</span></span></span></span></p>
+<ul>
+<li>
+<p>波特率B：每秒信号调制数(传输符号的个数)</p>
+</li>
+<li>
+<p>比特率C：每秒传送的位数</p>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="223-数据调制与编码">2.2.3 数据调制与编码</h3>
+<ol>
+<li>
+<p>分类：传输的数据有模拟和数字之分</p>
+</li>
+<li>
+<p>数字数据的数字信号编码</p>
+<ul>
+<li>要求：使用数字信号，包含比特同步信息</li>
+<li>方法：双极性，单极性，归零RZ，不归零NRZ</li>
+</ul>
+<p><strong>归零编码RZ、不归零编码NRZ</strong>：逻辑1表示正电压下的信号，逻辑 0 表示负电压下的信号，在 NRZ 方法中，从逻辑0到逻辑1的转换（反之亦然），直接跨越零电压电平，而在 RZ 方法中，转换暂时停留在零电压电平上</p>
+<img src="https://tva1.sinaimg.cn/large/006pkgSjgy1gvpe6rex0dj60su082jte02.jpg" alt="image-20211023175243393.png" style="zoom:67%;" />
+<p><strong>曼切斯特编码</strong>:一个周期为T，将其分为前后T/2，前低后高为0，前高后低为1，也可反过来定义</p>
+<img src="https://tva1.sinaimg.cn/large/006pkgSjgy1gvss5ysisuj30qo0b4ac9.jpg" alt="image.png" style="zoom:50%;" />
+<p><strong>差分曼切斯特编码</strong>：每一位的中心处始终有跳变，位开始边界有跳变表示0，位开始边界没有跳变表示1</p>
+<img src="https://tva1.sinaimg.cn/large/006pkgSjgy1gvtywfgaf6j30zo0ekdna.jpg" alt="image.png" style="zoom:60%;" />
+</li>
+</ol>
+<h2 id="23-传输介质">2.3 传输介质</h2>
+<p>传输介质不属于物理层</p>
+<h3 id="231-有线传输介质">2.3.1 有线传输介质</h3>
+<ol>
+<li>双绞线</li>
+<li>同轴电缆</li>
+<li>光纤</li>
+</ol>
+<h3 id="232-无线传输介质">2.3.2 无线传输介质</h3>
+<ol>
+<li>无线电微波</li>
+<li>地面微波</li>
+<li>卫星微波</li>
+</ol>
+<h2 id="24-模拟传输与数字传输">2.4 模拟传输与数字传输</h2>
+<h3 id="241-数字调制技术">2.4.1 数字调制技术</h3>
+<ul>
+<li>调幅：载波的振幅随着基带数字信号而变化</li>
+<li>调频：载波的频率随着基带数字信号而变化</li>
+<li>调相：载波的初始相位随着基带数字信号而变化</li>
+</ul>
+<img src="https://tva1.sinaimg.cn/large/006pkgSjgy1gvpepnere0j60xu0l8ag202.jpg" alt="image-20211023181052413.png" style="zoom: 50%;" />
+<h3 id="242-传统com口调制解调器分类">2.4.2 传统COM口调制解调器分类</h3>
+<ul>
+<li>低速：小于600b/s</li>
+<li>中速：600b/s~9600b/s</li>
+<li>高速：大于9600b/s</li>
+</ul>
+<h3 id="243-数字传输系统">2.4.3 数字传输系统</h3>
+<img src="https://tva1.sinaimg.cn/large/006pkgSjgy1gvpf5kmz4oj61380nc47502.jpg" alt="image-20211023182605550.png" style="zoom: 67%;" />
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#21-%E7%89%A9%E7%90%86%E5%B1%82%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5">2.1 物理层的基本概念</a></li>
+<li><a href="#22-%E6%95%B0%E6%8D%AE%E9%80%9A%E4%BF%A1%E7%9A%84%E5%9F%BA%E7%A1%80">2.2 数据通信的基础</a>
+<ul>
+<li><a href="#221-%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5">2.2.1 基本概念</a></li>
+<li><a href="#222-%E4%BF%A1%E9%81%93%E6%9C%80%E5%A4%A7%E4%BC%A0%E8%BE%93%E7%8E%87">2.2.2 信道最大传输率</a></li>
+<li><a href="#223-%E6%95%B0%E6%8D%AE%E8%B0%83%E5%88%B6%E4%B8%8E%E7%BC%96%E7%A0%81">2.2.3 数据调制与编码</a></li>
+</ul>
+</li>
+<li><a href="#23-%E4%BC%A0%E8%BE%93%E4%BB%8B%E8%B4%A8">2.3 传输介质</a>
+<ul>
+<li><a href="#231-%E6%9C%89%E7%BA%BF%E4%BC%A0%E8%BE%93%E4%BB%8B%E8%B4%A8">2.3.1 有线传输介质</a></li>
+<li><a href="#232-%E6%97%A0%E7%BA%BF%E4%BC%A0%E8%BE%93%E4%BB%8B%E8%B4%A8">2.3.2 无线传输介质</a></li>
+</ul>
+</li>
+<li><a href="#24-%E6%A8%A1%E6%8B%9F%E4%BC%A0%E8%BE%93%E4%B8%8E%E6%95%B0%E5%AD%97%E4%BC%A0%E8%BE%93">2.4 模拟传输与数字传输</a>
+<ul>
+<li><a href="#241-%E6%95%B0%E5%AD%97%E8%B0%83%E5%88%B6%E6%8A%80%E6%9C%AF">2.4.1 数字调制技术</a></li>
+<li><a href="#242-%E4%BC%A0%E7%BB%9Fcom%E5%8F%A3%E8%B0%83%E5%88%B6%E8%A7%A3%E8%B0%83%E5%99%A8%E5%88%86%E7%B1%BB">2.4.2 传统COM口调制解调器分类</a></li>
+<li><a href="#243-%E6%95%B0%E5%AD%97%E4%BC%A0%E8%BE%93%E7%B3%BB%E7%BB%9F">2.4.3 数字传输系统</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://notes.yuyzzz.top/post/ji-wang-bi-ji-1/">
+              <h3 class="post-title">
+                一、计网概述
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://notes.yuyzzz.top/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

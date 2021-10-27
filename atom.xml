@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://notes.yuyzzz.top</id>
     <title>Yuyzzz&apos;notes</title>
-    <updated>2021-10-23T08:46:31.747Z</updated>
+    <updated>2021-10-27T09:09:50.838Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://notes.yuyzzz.top"/>
     <link rel="self" href="https://notes.yuyzzz.top/atom.xml"/>
@@ -11,33 +11,268 @@
     <icon>https://notes.yuyzzz.top/favicon.ico</icon>
     <rights>All rights reserved 2021, Yuyzzz&apos;notes</rights>
     <entry>
-        <title type="html"><![CDATA[[计网] 一、概述]]></title>
+        <title type="html"><![CDATA[一、云计算概述]]></title>
+        <id>https://notes.yuyzzz.top/post/yi-yun-ji-suan-gai-shu/</id>
+        <link href="https://notes.yuyzzz.top/post/yi-yun-ji-suan-gai-shu/">
+        </link>
+        <updated>2021-10-27T08:54:22.000Z</updated>
+        <summary type="html"><![CDATA[<p>介绍了云计算的定义、<strong>体系架构</strong>、服务类型、云计算优势和相关技术</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>介绍了云计算的定义、<strong>体系架构</strong>、服务类型、云计算优势和相关技术</p>
+<!--more -->
+<h2 id="11-什么是云计算">1.1 什么是云计算</h2>
+<p>大数据与云计算之间的关系：<br>
+<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>G</mi><mo>=</mo><mi>f</mi><mo>(</mo><mi>x</mi><mo>)</mo><mo separator="true">,</mo><mi>G</mi><mi mathvariant="normal">为</mi><mi mathvariant="normal">目</mi><mi mathvariant="normal">标</mi><mi mathvariant="normal">，</mi><mi>f</mi><mi mathvariant="normal">为</mi><mi mathvariant="normal">云</mi><mi mathvariant="normal">计</mi><mi mathvariant="normal">算</mi><mi mathvariant="normal">，</mi><mi>x</mi><mi mathvariant="normal">为</mi><mi mathvariant="normal">大</mi><mi mathvariant="normal">数</mi><mi mathvariant="normal">据</mi></mrow><annotation encoding="application/x-tex">G=f(x), G为目标，f为云计算，x为大数据</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault">G</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mclose">)</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">G</span><span class="mord cjk_fallback">为</span><span class="mord cjk_fallback">目</span><span class="mord cjk_fallback">标</span><span class="mord cjk_fallback">，</span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mord cjk_fallback">为</span><span class="mord cjk_fallback">云</span><span class="mord cjk_fallback">计</span><span class="mord cjk_fallback">算</span><span class="mord cjk_fallback">，</span><span class="mord mathdefault">x</span><span class="mord cjk_fallback">为</span><span class="mord cjk_fallback">大</span><span class="mord cjk_fallback">数</span><span class="mord cjk_fallback">据</span></span></span></span></p>
+<h3 id="111-云计算定义">1.1.1 云计算定义</h3>
+<ul>
+<li>商业计算模型，将计算任务分布在大量计算机构成的资源上</li>
+<li>是分布式计算（Distributed Computing）、并行计算（Parallel Computing）、效用计算（Utility Computing）、网络存储（Network Storage Technologies）、虚拟化（Virtualization）、负载均衡 （Load Balance）、热备份冗余（High Available）等传统计算机网络和技术发展的产物</li>
+<li>按网络按需提供可动态伸缩的廉价计算服务</li>
+</ul>
+<h3 id="112-云计算的体系架构">1.1.2 云计算的体系架构</h3>
+<figure data-type="image" tabindex="1"><img src="https://tva1.sinaimg.cn/large/006pkgSjgy1gvspmio8p0j317i0ikgvg.jpg" alt="image.png" loading="lazy"></figure>
+<ul>
+<li>SOA 构建层：封装云计算能力成标准的Web Services服务，并纳入到SOA体系</li>
+<li>管理中间件层：云计算的资源管理，并对众多应用任务进行调度，使资源能够高效、安全地为应用提供服务</li>
+<li>资源池层：将大量相同类型的资源构成同构或接近同构的资源池</li>
+</ul>
+<h3 id="113-云计算的服务类型">1.1.3 云计算的服务类型</h3>
+<ul>
+<li>软件即服务(SaaS):将某些特定应用软件功能封装成服务，向用户提供基于web的软件
+<ul>
+<li>可以使用先进的应用程序</li>
+<li>只为自己使用的东西付费</li>
+<li>免客户端软件使用</li>
+<li>轻松增强员工移动性</li>
+<li>从任何位置访问应用数据</li>
+</ul>
+</li>
+<li>平台即服务(PaaS)：将服务器平台或者开发环境作为服务进行提供。开发简单、部署简单、维护简单
+<ul>
+<li>减少编码时间</li>
+<li>无需增员便可提高开发能力</li>
+<li>使用经济实惠的先进工具</li>
+<li>支持地理位置分散的开发团队</li>
+<li>有效管理应用程序生命周期</li>
+</ul>
+</li>
+<li>基础设施即服务(IaaS, Infrastructure as a Service): 将多台服务器组成的“云端”服务作为计量服务提供给用户。
+<ul>
+<li>消除资金投入并降低后续费用</li>
+<li>改进业务连续性和灾难恢复</li>
+<li>快速创新</li>
+<li>专注于核心业务</li>
+<li>增强稳定性、可靠性和可支持性</li>
+<li>更安全</li>
+</ul>
+</li>
+</ul>
+<p>容器即服务(CaaS): 以容器为资源分割和调度的基本单位，封装整个软件运行时环境</p>
+<p>多租户：多个租户共享硬件资源，硬件资源提供一个共享的应用和数据库实例，租户间共享资源越多的架构，租户隔离难度越大，成 本越高。租户隔离难度越大， 应用开发难度，测试与维护成本都会上升。</p>
+<h3 id="114-云部署模式">1.1.4 云部署模式</h3>
+<ul>
+<li>公有云：指为外部客户提供的云</li>
+<li>私有云：企业内部使用的云</li>
+<li>混合云：指供自己和客户共同使用的云，它所提供的服务既可以供别人使用，也可以供自己使用</li>
+</ul>
+<h2 id="12-云计算的优势">1.2 云计算的优势</h2>
+<ul>
+<li>
+<p>提供弹性的服务，在超大资源池中动态分配和释放资源</p>
+</li>
+<li>
+<p>云计算平台的规模极大，比较容易平稳整体负载</p>
+</li>
+<li>
+<p>资源利用率达到80%左右，是传统模式5～7倍</p>
+</li>
+<li>
+<p>降低了使用计算资源的成本</p>
+</li>
+</ul>
+<h2 id="13-云计算的相关技术">1.3 云计算的相关技术</h2>
+<ul>
+<li>分布式计算：主要研究如何应用分布式系统(Distributed System)进行计算。分布式系统中的组件位于不同的计算机上，它们之间通过消息传递进行交流、协作，最终实现一个共同的目标</li>
+<li>并行计算：在并行机上，将一个应用分解成多个子任务，分配给不同的处理器，各个处理器之间相互协同，并行地执行子任务。并行计算有多种形式</li>
+<li>雾计算：数据、(数据)处理和应用 程序集中在网络边缘的设备中，而不是几乎全部保存在云中</li>
+<li>边缘计算：靠近物或数据源头的一侧，采用网络、计算、存储、应用核心能力为一体的开放平台，就近提供最近端服务。其应用程序在边缘侧发起，产生更快的网络服务响应，满足行业在实时业务、应用智能、安全与隐私保护等方面的基本需求</li>
+</ul>
+<figure data-type="image" tabindex="2"><img src="https://tva1.sinaimg.cn/large/006pkgSjgy1gvss1exx7dj31ai0ky1cr.jpg" alt="image.png" loading="lazy"></figure>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[二、物理层]]></title>
+        <id>https://notes.yuyzzz.top/post/er-wu-li-ceng/</id>
+        <link href="https://notes.yuyzzz.top/post/er-wu-li-ceng/">
+        </link>
+        <updated>2021-10-27T08:53:00.000Z</updated>
+        <summary type="html"><![CDATA[<p>物理层（Physical Layer）是计算机网络OSI模型中最低的一层，位于OSI参考模型的最底层，它直接面向实际承担数据传输的物理媒体（即通信通道）</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>物理层（Physical Layer）是计算机网络OSI模型中最低的一层，位于OSI参考模型的最底层，它直接面向实际承担数据传输的物理媒体（即通信通道）</p>
+<!-- more-->
+<h2 id="21-物理层的基本概念">2.1 物理层的基本概念</h2>
+<p>传输媒体接口的有关特性</p>
+<ul>
+<li>机械特性</li>
+<li>电气特性：电压范围，编码等</li>
+<li>功能特性：指明某一电平的电压表示的意义</li>
+<li>过程特性：指不同功能的各种可能事件出现的顺序</li>
+</ul>
+<h2 id="22-数据通信的基础">2.2 数据通信的基础</h2>
+<h3 id="221-基本概念">2.2.1 基本概念</h3>
+<ol>
+<li>
+<p>信号分类</p>
+<ul>
+<li>基带(baseband)信号：将信号0或1用不同信号表示(低频信号，未调制)</li>
+<li>宽带信号：将基带信号调制后形成的多路复用模拟信号</li>
+</ul>
+</li>
+<li>
+<p>信道分类：</p>
+<ul>
+<li>单工：单向通信</li>
+<li>半双工：双向交替通信</li>
+<li>全双工：双向同时通信</li>
+</ul>
+</li>
+<li>
+<p>同步通信和异步通信：目的都是为了同步，保证数据传输不出差错</p>
+<p>异步通信：</p>
+<ul>
+<li>字符为单位：
+<ul>
+<li>发送的字符之间的<strong>时间间隔可以是任意的</strong></li>
+<li>可以在<strong>任意时刻发送</strong>，故必须在每个字符的开头和结束的地方加上标志(起始位和停止位)</li>
+</ul>
+</li>
+<li>帧为单位：
+<ul>
+<li><strong>帧定界</strong>：帧首部一些特殊的比特组合，用于识别帧的开始，还包含帧的结束位置(帧尾添加特殊比特组合或帧首设置帧的长度)</li>
+</ul>
+</li>
+</ul>
+<p>同步通信：双方建立同步，即双方的时钟频率要相同，收发双方不停接收和发送同步比特流</p>
+</li>
+</ol>
+<h3 id="222-信道最大传输率">2.2.2 信道最大传输率</h3>
+<ol>
+<li>
+<p>奈奎斯特采样定理：模拟信号经F频率采样称为离散信号，能够通过数字信道传送无失真恢复，则要求<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>F</mi><mo>≥</mo><mn>2</mn><mi>f</mi></mrow><annotation encoding="application/x-tex">F \geq 2f</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8193em;vertical-align:-0.13597em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≥</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord">2</span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span></span></span></span>, f是模拟信号的最高频率</p>
+<p>奈氏公式(理想信道)：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>C</mi><mo>=</mo><mn>2</mn><mi>H</mi><mi>l</mi><mi>o</mi><msub><mi>g</mi><mn>2</mn></msub><mi>L</mi></mrow><annotation encoding="application/x-tex">C=2Hlog_{2}L</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord">2</span><span class="mord mathdefault" style="margin-right:0.08125em;">H</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">o</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord mathdefault">L</span></span></span></span>(没有对信息传输速率bps给出限制)</p>
+<ul>
+<li>H: 低通信道的带宽(Hz)</li>
+<li>L: 某给定时刻数字信号可能取的离散值个数</li>
+<li>C: 信道最大数据传输率(b/s)</li>
+</ul>
+</li>
+<li>
+<p>Shannon公式：<strong>给出了信息传输速率的极限</strong></p>
+<p>有噪声信道的最大数据传输率：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>C</mi><mo>=</mo><mi>H</mi><mi>l</mi><mi>o</mi><msub><mi>g</mi><mn>2</mn></msub><mo>(</mo><mn>1</mn><mo>+</mo><mi>S</mi><mi mathvariant="normal">/</mi><mi>N</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">C=Hlog_{2}(1+S/N)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.08125em;">H</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">o</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="mord">/</span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span><span class="mclose">)</span></span></span></span></p>
+<ul>
+<li>B: 带宽</li>
+<li>S/N：信道噪声比，常用<strong>分贝</strong>为计量单位，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mtext>分贝数</mtext><mo>=</mo><mn>10</mn><mi>l</mi><mi>o</mi><msub><mi>g</mi><mn>2</mn></msub><mi>S</mi><mi mathvariant="normal">/</mi><mi>N</mi></mrow><annotation encoding="application/x-tex">\text{分贝数}=10log_{2}S/N</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord text"><span class="mord cjk_fallback">分贝数</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mord">0</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">o</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="mord">/</span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span></span></span></span></li>
+</ul>
+<p>若想提高信息的传输速率：</p>
+<ul>
+<li>提高传输线路的带宽</li>
+<li>提高信号的信噪比</li>
+</ul>
+</li>
+<li>
+<p>比特率C和波特率B：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>C</mi><mo>=</mo><mi>B</mi><mi>l</mi><mi>o</mi><msub><mi>g</mi><mn>2</mn></msub><mi>L</mi></mrow><annotation encoding="application/x-tex">C=Blog_{2}L</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.05017em;">B</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">o</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord mathdefault">L</span></span></span></span></p>
+<ul>
+<li>
+<p>波特率B：每秒信号调制数(传输符号的个数)</p>
+</li>
+<li>
+<p>比特率C：每秒传送的位数</p>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="223-数据调制与编码">2.2.3 数据调制与编码</h3>
+<ol>
+<li>
+<p>分类：传输的数据有模拟和数字之分</p>
+</li>
+<li>
+<p>数字数据的数字信号编码</p>
+<ul>
+<li>要求：使用数字信号，包含比特同步信息</li>
+<li>方法：双极性，单极性，归零RZ，不归零NRZ</li>
+</ul>
+<p><strong>归零编码RZ、不归零编码NRZ</strong>：逻辑1表示正电压下的信号，逻辑 0 表示负电压下的信号，在 NRZ 方法中，从逻辑0到逻辑1的转换（反之亦然），直接跨越零电压电平，而在 RZ 方法中，转换暂时停留在零电压电平上</p>
+<img src="https://tva1.sinaimg.cn/large/006pkgSjgy1gvpe6rex0dj60su082jte02.jpg" alt="image-20211023175243393.png" style="zoom:67%;" />
+<p><strong>曼切斯特编码</strong>:一个周期为T，将其分为前后T/2，前低后高为0，前高后低为1，也可反过来定义</p>
+<img src="https://tva1.sinaimg.cn/large/006pkgSjgy1gvss5ysisuj30qo0b4ac9.jpg" alt="image.png" style="zoom:50%;" />
+<p><strong>差分曼切斯特编码</strong>：每一位的中心处始终有跳变，位开始边界有跳变表示0，位开始边界没有跳变表示1</p>
+<img src="https://tva1.sinaimg.cn/large/006pkgSjgy1gvtywfgaf6j30zo0ekdna.jpg" alt="image.png" style="zoom:60%;" />
+</li>
+</ol>
+<h2 id="23-传输介质">2.3 传输介质</h2>
+<p>传输介质不属于物理层</p>
+<h3 id="231-有线传输介质">2.3.1 有线传输介质</h3>
+<ol>
+<li>双绞线</li>
+<li>同轴电缆</li>
+<li>光纤</li>
+</ol>
+<h3 id="232-无线传输介质">2.3.2 无线传输介质</h3>
+<ol>
+<li>无线电微波</li>
+<li>地面微波</li>
+<li>卫星微波</li>
+</ol>
+<h2 id="24-模拟传输与数字传输">2.4 模拟传输与数字传输</h2>
+<h3 id="241-数字调制技术">2.4.1 数字调制技术</h3>
+<ul>
+<li>调幅：载波的振幅随着基带数字信号而变化</li>
+<li>调频：载波的频率随着基带数字信号而变化</li>
+<li>调相：载波的初始相位随着基带数字信号而变化</li>
+</ul>
+<img src="https://tva1.sinaimg.cn/large/006pkgSjgy1gvpepnere0j60xu0l8ag202.jpg" alt="image-20211023181052413.png" style="zoom: 50%;" />
+<h3 id="242-传统com口调制解调器分类">2.4.2 传统COM口调制解调器分类</h3>
+<ul>
+<li>低速：小于600b/s</li>
+<li>中速：600b/s~9600b/s</li>
+<li>高速：大于9600b/s</li>
+</ul>
+<h3 id="243-数字传输系统">2.4.3 数字传输系统</h3>
+<img src="https://tva1.sinaimg.cn/large/006pkgSjgy1gvpf5kmz4oj61380nc47502.jpg" alt="image-20211023182605550.png" style="zoom: 67%;" />]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[一、计网概述]]></title>
         <id>https://notes.yuyzzz.top/post/ji-wang-bi-ji-1/</id>
         <link href="https://notes.yuyzzz.top/post/ji-wang-bi-ji-1/">
         </link>
         <updated>2021-10-23T08:40:06.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="12-互联网概述">1.2 互联网概述</h2>
-<h3 id="121-网络的网络">1.2.1 网络的网络</h3>
+        <summary type="html"><![CDATA[<p>本章主要介绍计算机网络的定义和发展阶段，计算机网络的组成、<strong>分组交换、体系结构</strong>，以及<strong>计算机网络的性能指标</strong></p>
+]]></summary>
+        <content type="html"><![CDATA[<p>本章主要介绍计算机网络的定义和发展阶段，计算机网络的组成、<strong>分组交换、体系结构</strong>，以及<strong>计算机网络的性能指标</strong></p>
+<!-- more-->
+<h2 id="11-互联网概述">1.1 互联网概述</h2>
+<h3 id="111-网络的网络">1.1.1 网络的网络</h3>
 <p>互联网(Internet):全球最大的计算机网络，采用TCP/IP协议族</p>
 <p>计算机网络(网络):由若干结点(node)和连接这些结点的链路(link)组成</p>
 <p>互连网(internet)：泛指多个计算机网络互连而成的计算机网络，对网络间的协议没有要求。</p>
-<h3 id="122-互联网基础结构发展的三个阶段">1.2.2 互联网基础结构发展的三个阶段</h3>
+<h3 id="112-互联网基础结构发展的三个阶段">1.1.2 互联网基础结构发展的三个阶段</h3>
 <ul>
 <li>第一阶段：从单个网络ARPANET向互联网发展</li>
 <li>第二阶段：建成了三级结构的互联网：主干网，地区网和校园网（或企业网）</li>
 <li>第三阶段：形成了多层次ISP结构的互联网</li>
 </ul>
-<h3 id="123-互联网的标准化工作">1.2.3 互联网的标准化工作</h3>
+<h3 id="113-互联网的标准化工作">1.1.3 互联网的标准化工作</h3>
 <p>互联网标准以RFC的形式发表，成为标准需要三个阶段</p>
 <ul>
 <li>互联网草案：有效期6个月，此时不是RFC</li>
 <li>建议标准：成为RFC文档</li>
 <li>互联网标准：每个标准分配一个编号，一个标准可以对应多个RFC文档</li>
 </ul>
-<h2 id="13-互联网的组成">1.3 互联网的组成</h2>
+<h2 id="12-互联网的组成">1.2 互联网的组成</h2>
 <p>边缘：用户使用，资源共享（资源子网）</p>
 <p>核心：由路由器组成，提供连通性和交换（通信子网）</p>
-<h3 id="131-互联网的边缘部分">1.3.1 互联网的边缘部分</h3>
+<h3 id="121-互联网的边缘部分">1.2.1 互联网的边缘部分</h3>
 <p>主机又称为端系统（end system）</p>
 <p>端系统之间的通信方式：</p>
 <ul>
@@ -54,7 +289,7 @@
 </ul>
 </li>
 </ul>
-<h3 id="131-互联网的核心部分">1.3.1 互联网的核心部分</h3>
+<h3 id="121-互联网的核心部分">1.2.1 互联网的核心部分</h3>
 <p>起特殊作用的是路由器（router），实现了分组交换</p>
 <h4 id="电路交换circuit-switching">电路交换(circuit switching)</h4>
 <ul>
@@ -91,10 +326,10 @@
 <li>存储转发需要排队，因此有时延</li>
 <li>首部造成开销</li>
 </ul>
-<h2 id="15-计算机网络的类别">1.5 计算机网络的类别</h2>
-<h3 id="151-计算机网络的定义">1.5.1 计算机网络的定义</h3>
+<h2 id="13-计算机网络的类别">1.3 计算机网络的类别</h2>
+<h3 id="131-计算机网络的定义">1.3.1 计算机网络的定义</h3>
 <p>计算机网络主要是由一些通用的、可编程的硬件互连而成的，而这些硬件并非专门用来实现某一特定目的，这些可编程的硬件能够用来传送多种不同类型的数据，并能支持广泛的和日益增长的应用。</p>
-<h3 id="152-计算机网络的分类">1.5.2 计算机网络的分类</h3>
+<h3 id="132-计算机网络的分类">1.3.2 计算机网络的分类</h3>
 <p>从网络的作用范围分类：</p>
 <ul>
 <li>广域网(LAN)</li>
@@ -111,8 +346,8 @@
 <ul>
 <li>接入网AN(Access Network):用于将用户接入互联网，既不属于核心部分也不属于边缘部分</li>
 </ul>
-<h2 id="16-计算机网络的性能">1.6 计算机网络的性能</h2>
-<h3 id="161-计算机网络的性能指标">1.6.1 计算机网络的性能指标</h3>
+<h2 id="14-计算机网络的性能">1.4 计算机网络的性能</h2>
+<h3 id="141-计算机网络的性能指标">1.4.1 计算机网络的性能指标</h3>
 <ol>
 <li>速率：也被称为<strong>数据率</strong>或比特率，单位：bit/s</li>
 <li>带宽：在计算机网络中，表示某信道能通过的“<strong>最大数据率</strong>”，单位：bit/s</li>
@@ -127,13 +362,13 @@
 </ul>
 </li>
 </ol>
-<h3 id="161-计算机网络的非性能特征">1.6.1 计算机网络的非性能特征</h3>
+<h3 id="141-计算机网络的非性能特征">1.4.1 计算机网络的非性能特征</h3>
 <p>费用，质量，标准化，可靠性，可扩展性和可升级性，易于管理和维护</p>
-<h2 id="17-计算机网络的体系结构">1.7 计算机网络的体系结构</h2>
+<h2 id="15-计算机网络的体系结构">1.5 计算机网络的体系结构</h2>
 <p>计算机网络的各层及协议的集合就是网络的体系结构</p>
-<h3 id="171-计算机体系机构的形成">1.7.1 计算机体系机构的形成</h3>
+<h3 id="151-计算机体系机构的形成">1.5.1 计算机体系机构的形成</h3>
 <p>OSI参考模型</p>
-<h3 id="172-协议与划分层次">1.7.2 协议与划分层次</h3>
+<h3 id="152-协议与划分层次">1.5.2 协议与划分层次</h3>
 <p>协议：数据交换必须遵师事先约定的规则，这些规则明确了交换数据的格式和有关同步的问题</p>
 <ul>
 <li>语法：数据和控制信息的结构和格式</li>
@@ -164,13 +399,13 @@
 <p>③分段和重装：发送端将要发送的数据块划分为更小的单位，在接收端将其还原。</p>
 <p>④复用和分用：发送端几个高层会话复用一条低层的连接，在接收端再进行分用。</p>
 <p>⑤连接建立和释放：交换数据前先建立一条逻辑连接，数据传送结束后释放连接。</p>
-<h3 id="173-具有五层协议的体系结构">1.7.3 具有五层协议的体系结构</h3>
+<h3 id="153-具有五层协议的体系结构">1.5.3 具有五层协议的体系结构</h3>
 <figure data-type="image" tabindex="1"><img src="https://tva1.sinaimg.cn/large/006pkgSjgy1gvpc1lcr4qj60xa0k6grt02.jpg" alt="image-20211004171033999.png" loading="lazy"></figure>
-<h3 id="174-实体-协议-服务和服务访问点">1.7.4 实体、协议、服务和服务访问点</h3>
+<h3 id="154-实体-协议-服务和服务访问点">1.5.4 实体、协议、服务和服务访问点</h3>
 <p>实体(entity)：表示任何可发送或接收信息的硬件或软件进程。</p>
 <p>协议：控制两个对等实体(或多个实体)进行通信的规则的集合。</p>
 <p>在协议的控制下，两个对等实体间的通信使得本层能够向上一层提供服务。要实现本层协议，还需要使用下面一层所提供的服务。</p>
-<h3 id="175-tcpip的体系结构">1.7.5 TCP/IP的体系结构</h3>
+<h3 id="155-tcpip的体系结构">1.5.5 TCP/IP的体系结构</h3>
 <figure data-type="image" tabindex="2"><img src="https://tva1.sinaimg.cn/large/006pkgSjgy1gvpc0yln7jj60t20g678f02.jpg" alt="image-20211004173604031.png" loading="lazy"></figure>
 ]]></content>
     </entry>

@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://notes.yuyzzz.top</id>
     <title>Yuyzzz&apos;notes</title>
-    <updated>2021-12-06T08:57:53.404Z</updated>
+    <updated>2021-12-06T10:03:07.142Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://notes.yuyzzz.top"/>
     <link rel="self" href="https://notes.yuyzzz.top/atom.xml"/>
@@ -240,18 +240,21 @@ CODE  ENDS
 <pre><code class="language-assembly">BUFW DW 1234H,5678H
 
 MOV AX, BUFW
-MOV AL, BYTE PTR BUFW ;临时改变BUFw的字属性为字节属性
+
+MOV AL, BYTE PTR BUFW ;临时改变BUFW的字属性为字节属性
 </code></pre>
 </li>
 <li>
 <p>指定内存操作数的类型：</p>
 <pre><code class="language-assembly">INC BYTE PTR [BX] ;字节属性
+
 INC WORD PTR [BX][SI] ;子属性
 </code></pre>
 </li>
 <li>
 <p>和EQU一起定义一个新类型变量: 新变量或新标号的段属性、偏移属性与前一个已定义的变量或标号段属性、偏移属性相同</p>
 <pre><code class="language-assembly">BUFW DW 1234H, 5678H
+
 BUFB EQU BYTE PTR BUFW 
 </code></pre>
 </li>
@@ -260,6 +263,7 @@ BUFB EQU BYTE PTR BUFW
 <li>
 <p>THIS，格式：<code>THIS 类型</code>，可以像PTR一样建立一个指定类型的地址操作数，该操作数的段地址和偏移地址与下一个存储单元地址相同。</p>
 <pre><code class="language-assembly">BUFB EQU THIS BYTE
+
 BUFW DW 1234H,5678H
 </code></pre>
 </li>
@@ -269,7 +273,9 @@ BUFW DW 1234H,5678H
 <li>
 <p>字节分离字符 HIGH/LOW，返回表达式的高字节或低字节</p>
 <pre><code class="language-assembly">CONST EQU 0ABCDH
+
 MOV AH,HIGH CONST ;(AH)=OABH
+
 MOV CL,LOW CONST  ;(CL)=0CDH
 </code></pre>
 </li>
@@ -314,6 +320,7 @@ MOV CL,LOW CONST  ;(CL)=0CDH
 <li>
 <p>用&quot;?&quot;预留存储空间</p>
 <pre><code class="language-assembly">MEM1      DB  34H, ’A’, ?, ?, ?
+
           DW  20  DUP(?) ; 预留40个字节单元
 </code></pre>
 </li>
@@ -332,7 +339,9 @@ MOV CL,LOW CONST  ;(CL)=0CDH
 </li>
 <li>
 <p>功能：给表达式赋予一个名字。定义后，可用名字代替表达式。在同一源程序中，一个名字只能用EQU定义一次</p>
-<pre><code class="language-assembly">A    EQU  7B    EQU  A-2
+<pre><code class="language-assembly">A    EQU  7
+
+B    EQU  A-2
 </code></pre>
 </li>
 </ul>
@@ -345,7 +354,12 @@ MOV CL,LOW CONST  ;(CL)=0CDH
 </li>
 <li>
 <p>功能：与EQU基本相同，不同的是它可以对一个名字重新定义</p>
-<pre><code class="language-assembly">COUNT = 10MOV  AL,COUNT…COUNT = 5
+<pre><code class="language-assembly">COUNT = 10
+
+MOV  AL,COUNT
+…
+
+COUNT = 5
 </code></pre>
 </li>
 </ul>
@@ -363,7 +377,18 @@ MOV CL,LOW CONST  ;(CL)=0CDH
 <li>
 <p>功能：定义变量或标号的属性类型，而变量或标号的段属性和偏移属性由该语句所处的位置确定<br>
 例: 用LABEL使同一个数据区有一个或一个以上的类型和相关属性</p>
-<pre><code class="language-assembly">AREAW  LABEL  WORD     ;AREAW与AREAB指向相同的数据区,                       ;AREAW类型为字,AREAB类型为字节AREAB  DB  100 DUP(?)   …MOV  AX,2011HMOV  AREAW,AX  	;(AREAW)=2011H…MOV  BL,AREAB   ;BL=11H
+<pre><code class="language-assembly">AREAW  LABEL  WORD     ;AREAW与AREAB指向相同的数据区,        
+
+;AREAW类型为字,AREAB类型为字节
+
+AREAB  DB  100 DUP(?)
+…
+MOV  AX,2011H
+
+MOV  AREAW,AX  ;(AREAW)=2011H
+…
+
+MOV  BL,AREAB   ;BL=11H
 </code></pre>
 </li>
 </ul>
@@ -402,7 +427,11 @@ MOV CL,LOW CONST  ;(CL)=0CDH
 <li>没有类别名的段，与其他无类别名的段一起连续装入内存。</li>
 <li>典型的类型名有：“STACK”，“CODE”，“DATA”</li>
 </ul>
-<pre><code class="language-assembly">DATA  SEGMENT  PUBLIC  'CODE'MEM1  DB  11H，22HDATA  ENDS
+<pre><code class="language-assembly">DATA  SEGMENT  PUBLIC  'CODE'
+
+   MEM1  DB  11H，22H
+
+DATA  ENDS
 </code></pre>
 </li>
 </ul>
@@ -424,7 +453,9 @@ MOV CL,LOW CONST  ;(CL)=0CDH
 </li>
 <li>
 <p>格式：</p>
-<pre><code class="language-assembly">过程名   PROC  [ NEAR / FAR ]                     ┇                    RET过程名   ENDP
+<pre><code class="language-assembly">过程名   PROC  [ NEAR / FAR ]                     
+┇                    
+RET过程名   ENDP
 </code></pre>
 </li>
 <li>
@@ -438,7 +469,29 @@ MOV CL,LOW CONST  ;(CL)=0CDH
 <li>END: 表示汇编语言程序的结束, 格式: <code>END [标号]</code>，标号仅表示改程序的起始地址，多个模块连接时只有主程序要使用标号</li>
 </ul>
 <p>一个完整源程序实例：</p>
-<pre><code class="language-assembly">DSEG    SEGMENTDATA1   DB  1，2，DATA2   DW  1234HDSEG    ENDSESEG    SEGMENT        DB  20  DUP(?)ESEG    ENDSSSEG    SEGMENT  STACK  'STACK'        DB  200  DUP(?)SSEG    ENDS CSEG SEGMENT           ASSUME  CS：CSEG，DS：DSEG，                             ES：ESEG，SS：SSEG START：MOV  AX，DSEG                 MOV  DS，AX                 MOV  AX，ESEG                 MOV  ES，AX                 MOV  AX，SSEG                 MOV  SS，AX          ┇ CSEG  ENDS       END  START
+<pre><code class="language-assembly">DSEG    SEGMENT
+DATA1   DB  1，2，
+DATA2   DW  1234H
+DSEG    ENDS
+ESEG    SEGMENT
+        DB  20  DUP(?)
+ESEG    ENDS
+SSEG    SEGMENT  STACK  'STACK'
+        DB  200  DUP(?)
+SSEG    ENDS
+
+ CSEG SEGMENT
+           ASSUME  CS：CSEG，DS：DSEG，
+                             ES：ESEG，SS：SSEG
+ START：MOV  AX，DSEG
+                 MOV  DS，AX
+                 MOV  AX，ESEG
+                 MOV  ES，AX
+                 MOV  AX，SSEG
+                 MOV  SS，AX
+          ┇
+ CSEG  ENDS
+       END  START
 </code></pre>
 <h2 id="43-系统功能调用">4.3 系统功能调用</h2>
 <ul>
@@ -458,7 +511,11 @@ MOV CL,LOW CONST  ;(CL)=0CDH
 </li>
 <li>
 <p>功能调用格式：</p>
-<pre><code class="language-assembly">[置入口参数]MOV AH, 功能号 ;功能调用号送入AH寄存器INT 21H       ;执行软中断z
+<pre><code class="language-assembly">[置入口参数]
+
+MOV AH, 功能号  ;功能调用号送入AH寄存器
+
+INT 21H       ;执行软中断z
 </code></pre>
 </li>
 </ul>
@@ -473,7 +530,9 @@ MOV CL,LOW CONST  ;(CL)=0CDH
 <p>输入字符的ASCII码存入AL寄存器。若按下组合键Ctr+Break或CtrH+C，则程序返回DOS。</p>
 </li>
 </ul>
-<pre><code class="language-assembly">MOV AH, 01HINT 21H
+<pre><code class="language-assembly">MOV AH, 01H
+
+INT 21H
 </code></pre>
 </li>
 <li>
@@ -485,18 +544,32 @@ MOV CL,LOW CONST  ;(CL)=0CDH
 <li>输入字符串以回车结束，回车符不计入字符数</li>
 </ul>
 <p>例: 如下代码允许输入的字符串长度不超过100</p>
-<pre><code class="language-assembly">DATA SEGMENT	BUF DB 100		DB ?		DB 100 DUP(?)DATA ENDSCODE SEGMENT	...	MOV DX,OFFSET BUF	MOV AH,OAH	INT	21HCODE ENDS
-</code></pre>
+<pre><code class="language-assembly"></code></pre>
 </li>
-<li>
-<p><strong>单字符输出</strong></p>
-<ul>
-<li>功能调用号：AH=02H</li>
-<li>将要显示的字符的ASCII码保存于寄存器DL</li>
-</ul>
-<pre><code class="language-assembly">MOV DL,'2'MOV AH,02HINT 21H
+</ol>
+<p>DATA SEGMENT<br>
+BUF DB 100<br>
+DB ?<br>
+DB 100 DUP(?)<br>
+DATA ENDS</p>
+<p>CODE SEGMENT<br>
+...<br>
+MOV DX,OFFSET BUF<br>
+MOV AH,OAH<br>
+INT	21H<br>
+CODE ENDS</p>
+<pre><code>
+3. **单字符输出**
+
+* 功能调用号：AH=02H
+* 将要显示的字符的ASCII码保存于寄存器DL
+
+```assembly
+MOV DL,'2'
+MOV AH,02H
+INT 21H
 </code></pre>
-</li>
+<ol start="4">
 <li>
 <p><strong>字符串输出显示</strong></p>
 <ul>
@@ -504,7 +577,17 @@ MOV CL,LOW CONST  ;(CL)=0CDH
 <li>寄存器DS和DX，分别存入被输出字符串首地址的段基值和偏移量。</li>
 <li>要求字符串以“$”结束，该字符作为字符串结束符，不输出。</li>
 </ul>
-<pre><code class="language-assembly">DATA	 SEGMENTMESS1  DB  'Input String:' 0DH，0AH,'$'	                                                ;被显示的字符串必须以‘$’结束DATA  ENDSCODE  SEGMENT		 ┇MOV	DX，SEG  MESS1 ;待输出字符串的偏移地址→ DS：DXMOV	DS，DXMOV	DX，OFFSET  MESS1MOV	AH，09		;功能号O9H→AHINT	21H
+<pre><code class="language-assembly"> DATA	 SEGMENT
+ MESS1  DB  'Input String:' 0DH，0AH,'$'	
+                                                 ;被显示的字符串必须以‘$’结束
+ DATA  ENDS
+ CODE  SEGMENT
+         ┇
+ MOV	DX，SEG  MESS1 ;待输出字符串的偏移地址→ DS：DX
+ MOV	DS，DX
+ MOV	DX，OFFSET  MESS1
+ MOV	AH，09		;功能号O9H→AH
+ INT	21H
 </code></pre>
 </li>
 <li>
@@ -513,7 +596,8 @@ MOV CL,LOW CONST  ;(CL)=0CDH
 <li>功能调用号AH=4CH</li>
 <li>结束当前程序，返回DOS</li>
 </ul>
-<pre><code class="language-assembly">MOV AH,4CHINT 21H
+<pre><code class="language-assembly">MOV AH,4CH
+INT 21H
 </code></pre>
 </li>
 </ol>
@@ -539,13 +623,56 @@ MOV CL,LOW CONST  ;(CL)=0CDH
 <img src="https://tva1.sinaimg.cn/large/006pkgSjgy1gwlv4oefd8j30k60bx0tx.jpg" alt="image.png" style="zoom:80%;" />
 <p>例：编程将内存数据段字节单元INDAT存放的一个数n (假设0≤ n ≤9)以十进制形式在屏幕上显示出来。</p>
 <img src="https://tva1.sinaimg.cn/large/006pkgSjgy1gwlvd4aro6j308f0nyaej.jpg" alt="image.png" style="zoom: 50%;" />
-<pre><code class="language-assembly">DATA SEGMENT	INDAT DB 8DATA ENDSCODE SEGMENT ASSUME CS:CODE, DS:DATASTART:	MOV AX,DATA	MOV DS,AX ;初始化DS	MOV DL,INDAT ;取操作数	OR DL,30H ;与30H(0)作或运算，获取DL的ASCII码	MOV AH,02H	INT 21H	MOV DL,'D'	MOV AH,02H	INT 21H	MOV AH,4CH	INT 21HCODE ENDS	END START
+<pre><code class="language-assembly">DATA SEGMENT
+	INDAT DB 8
+DATA ENDS
+
+CODE SEGMENT
+ ASSUME CS:CODE, DS:DATA
+START:
+	MOV AX,DATA
+	MOV DS,AX ;初始化DS
+	MOV DL,INDAT ;取操作数
+	OR DL,30H ;与30H(0)作或运算，获取DL的ASCII码
+	MOV AH,02H
+	INT 21H
+	MOV DL,'D'
+	MOV AH,02H
+	INT 21H
+	MOV AH,4CH
+	INT 21H
+CODE ENDS
+	END START
 </code></pre>
 <h3 id="442-分支结构">4.4.2 分支结构</h3>
 <img src="https://tva1.sinaimg.cn/large/006pkgSjgy1gwlw4js8iwj30ys0egwl2.jpg" alt="image.png" style="zoom:80%;" />
 <p>例：编程求分段函数Y的值。已知变量X为16位带符号数，分段函数的值要求保存到字单元Y中。函数定义如下<img src="https://tva1.sinaimg.cn/large/006pkgSjgy1gwlw7tryvsj3091044mxt.jpg" alt="image.png" style="zoom:80%;" /></p>
 <img src="https://tva1.sinaimg.cn/large/006pkgSjgy1gwmuyj5zfaj30b10fbq3n.jpg" alt="image.png" style="zoom:80%;" />
-<pre><code class="language-assembly">DATA SEGMENT	X DW -128	Y DW ?DATA ENDSCODE SEGMENT 	ASSUME CS:CODE, DS:DATASTART:	MOV AX, DATA	MOV DS, AX	MOV AX, X	CMP AX, 0	JG ISPN	JZ ISZN	MOV Y,-1	JMP FINISHISPN:MOV Y,1	JMP FINISHISZN:MOV Y,0	JMP FINISHFINISH:	MOV AH,4CH	INT 21HCODE ENDS	END START ;END START标签只是告诉编译器,从程序从这里结束,并且程序从START标号开始执行
+<pre><code class="language-assembly">DATA SEGMENT
+	X DW -128
+	Y DW ?
+DATA ENDS
+
+CODE SEGMENT
+ 	ASSUME CS:CODE, DS:DATA
+START:
+	MOV AX, DATA
+	MOV DS, AX
+	MOV AX, X
+	CMP AX, 0
+	JG ISPN
+	JZ ISZN
+	MOV Y,-1
+	JMP FINISH
+ISPN:MOV Y,1
+	JMP FINISH
+ISZN:MOV Y,0
+	JMP FINISH
+FINISH:
+	MOV AH,4CH
+	INT 21H
+CODE ENDS
+	END START ;END START标签只是告诉编译器,从程序从这里结束,并且程序从START标号开始执行
 </code></pre>
 <h3 id="443-循环结构">4.4.3 循环结构</h3>
 <p>循环程序由以下三个部分组成</p>
@@ -558,10 +685,54 @@ MOV CL,LOW CONST  ;(CL)=0CDH
 <img src="https://tva1.sinaimg.cn/large/006pkgSjgy1gwlx8gpfxrj30ys0kcn3r.jpg" alt="image.png" style="zoom: 50%;" />
 <p>例1：编程显示以&quot;!&quot;结尾的字符串, 如'Welcome to MASM!'</p>
 <img src="https://tva1.sinaimg.cn/large/006pkgSjly1gwlxdztk4ej30fw0qsq8c.jpg" alt="image.png" style="zoom: 50%;" />
-<pre><code class="language-assembly">DATA SEGMENT	MYSTR DB 'Welcome to MASM!'DATA ENDSCODE SEGMENT	ASSUME CS:CODE, DS:DATASTART:	MOV AX, DATA	MOV DS, AX	LEA SI, MYSTRNEXTCHAR:	MOV DL, [SI]	CMP DL, '!'	JZ FINISH	MOV AH, 2	INT 21H	INT SI	JMP NEXTCHARFINISH:	MOV AH,2	INT 21H ;输出'!'	MOV AH,4CH	INT 21HCODE ENDS	END START
+<pre><code class="language-assembly">DATA SEGMENT
+	MYSTR DB 'Welcome to MASM!'
+DATA ENDS
+CODE SEGMENT
+	ASSUME CS:CODE, DS:DATA
+START:
+	MOV AX, DATA
+	MOV DS, AX
+	LEA SI, MYSTR
+NEXTCHAR:
+	MOV DL, [SI]
+	CMP DL, '!'
+	JZ FINISH
+	MOV AH, 2
+	INT 21H
+	INT SI
+	JMP NEXTCHAR
+FINISH:
+	MOV AH,2
+	INT 21H ;输出'!'
+	MOV AH,4CH
+	INT 21H
+
+CODE ENDS
+	END START
 </code></pre>
 <p>例2：编程以二进制显示BX的值(假设为无符号数)，如果(BX)=20, 则显示: 0000000000010100B</p>
-<pre><code class="language-assembly">CODE SEGMENT	ASSUME CS:CODESTART:	MOV BX,20	MOV CX,16 ;LOOP隐含使用CX寄存器作为计数器NEXTCHAR:	ROL BX,1  ;从左到右取BX的最高位放在BX的最低位(循环左移)	MOV DL,BL ;只取低八位就可以	AND DL,1  ;BX最低位和1与运算,而D7-D1均为0	OR DL,30H ;得到最低位ASCII码	MOV AH,2	INT 21H	LOOP NEXTCHARFINISH:	MOV DL,'B'	MOV AH,2	INT 21H	MOV AH,4CH	INT 21HCODE ENDS	END START
+<pre><code class="language-assembly">CODE SEGMENT
+	ASSUME CS:CODE
+START:
+	MOV BX,20
+	MOV CX,16 ;LOOP隐含使用CX寄存器作为计数器
+NEXTCHAR:
+	ROL BX,1  ;从左到右取BX的最高位放在BX的最低位(循环左移)
+	MOV DL,BL ;只取低八位就可以
+	AND DL,1  ;BX最低位和1与运算,而D7-D1均为0
+	OR DL,30H ;得到最低位ASCII码
+	MOV AH,2
+	INT 21H
+	LOOP NEXTCHAR
+FINISH:
+	MOV DL,'B'
+	MOV AH,2
+	INT 21H
+	MOV AH,4CH
+	INT 21H
+CODE ENDS
+	END START
 </code></pre>
 <h3 id="444-子程序设计">4.4.4 子程序设计</h3>
 <p>采用子程序进行程序设计的注意点:</p>
@@ -594,7 +765,36 @@ MOV CL,LOW CONST  ;(CL)=0CDH
 </li>
 </ul>
 <p>例1：利用寄存器传递参数。编写子程序，实现以二进制形式显示BX的值（假设为无符号数）</p>
-<pre><code class="language-assembly">;-------------------------;子程序名:DISP_BINARY;功能:以二进制形式显示BX的值(假设为无符号数);入口参数:BX;出口参数:无;------------------------DISP_BINARY  PROC	PUSH  CX		 ;保护现场	PUSH  DX	PUSH  AX	PUSHF	MOV  CX,16NEXTCHAR:	ROL  BX,1		MOV  DL,BL	AND  DL,1	OR   DL,30H   	MOV  AH,2	INT  21H	LOOP  NEXTCHARFINISH:    MOV  DL,'B'    MOV  AH,2    INT  21H    POPF			;恢复现场    POP  AX		    POP  DX    POP  CX    RETDISP_BINARY  ENDP
+<pre><code class="language-assembly">;-------------------------
+;子程序名:DISP_BINARY
+;功能:以二进制形式显示BX的值(假设为无符号数)
+;入口参数:BX
+;出口参数:无
+;------------------------
+DISP_BINARY  PROC
+	PUSH  CX		 ;保护现场
+	PUSH  DX
+	PUSH  AX
+	PUSHF
+	MOV  CX,16
+NEXTCHAR:
+	ROL  BX,1	
+	MOV  DL,BL
+	AND  DL,1
+	OR   DL,30H
+   	MOV  AH,2
+	INT  21H
+	LOOP  NEXTCHAR
+FINISH:
+    MOV  DL,'B'
+    MOV  AH,2
+    INT  21H
+    POPF			;恢复现场
+    POP  AX		
+    POP  DX
+    POP  CX
+    RET
+DISP_BINARY  ENDP
 </code></pre>
 <ul>
 <li>作为入口参数的寄存器可以保护也可以不保护</li>

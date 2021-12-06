@@ -1,0 +1,682 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>4. 8086汇编语言程序设计 | Yuyzzz&#39;notes</title>
+<link rel="shortcut icon" href="https://notes.yuyzzz.top/favicon.ico?v=1638781068538">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://notes.yuyzzz.top/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="4. 8086汇编语言程序设计 | Yuyzzz&#39;notes - Atom Feed" href="https://notes.yuyzzz.top/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="汇编语言是介于机器语言和高级语言之间的计算机语言，是一种用符号表示的面向机器的程序设计语言。本章主要介绍汇编语言的基础知识、什么是伪指令、系统功能调用、汇编语言程序设计（流程）等
+
+4.1 汇编语言基础知识
+4.1.1 概述
+
+汇编语言（A..." />
+    <meta name="keywords" content="微机" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://notes.yuyzzz.top">
+  <img class="avatar" src="https://notes.yuyzzz.top/images/avatar.png?v=1638781068538" alt="">
+  </a>
+  <h1 class="site-title">
+    Yuyzzz&#39;notes
+  </h1>
+  <p class="site-description">
+    遊生夢死
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              4. 8086汇编语言程序设计
+            </h2>
+            <div class="post-info">
+              <span>
+                2021-12-06
+              </span>
+              <span>
+                17 min read
+              </span>
+              
+                <a href="https://notes.yuyzzz.top/tag/w8OgjPlVy/" class="post-tag">
+                  # 微机
+                </a>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>汇编语言是介于机器语言和高级语言之间的计算机语言，是一种用符号表示的面向机器的程序设计语言。本章主要介绍汇编语言的基础知识、什么是伪指令、系统功能调用、汇编语言程序设计（流程）等</p>
+<!-- more -->
+<h2 id="41-汇编语言基础知识">4.1 汇编语言基础知识</h2>
+<h3 id="411-概述">4.1.1 概述</h3>
+<ul>
+<li>汇编语言（Assembly Language）是一种用符号表示的面向机器的程序设计语言,不同CPU的计算机有不同的汇编语言。</li>
+<li>比机器语言易于阅读、编写和修改，能充分利用计算机的硬件资源，占用内存空间少。</li>
+<li>常用于计算机控制系统的开发和高级语言编译程序的编制等应用场合。</li>
+</ul>
+<img src="https://tva1.sinaimg.cn/large/006pkgSjly1gwh1fal2ktj30mo0760up.jpg" alt="image.png" style="zoom:80%;" />
+<h3 id="412-汇编语言源程序结构">4.1.2 汇编语言源程序结构</h3>
+<img src="https://tva1.sinaimg.cn/large/006pkgSjgy1gwmuxmgrqtj30is087tbf.jpg" alt="image.png" style="zoom:67%;" />
+<p>例：编写汇编程序，计算2010H+2011H，并把和存入RESULT单元</p>
+<pre><code class="language-assembly">DATA  SEGMENT		;定义数据段
+    X  DW  2010H     	;定义被加数
+    Y  DW  2011H	;定义加数
+    RESULT  DW   ? 	;分配和数存放单元
+DATA  ENDS       	;数据段定义结束
+CODE  SEGMENT
+            MAIN  PROC  FAR
+	ASSUME  CS:CODE，DS:DATA 
+START:  PUSH  DS
+        MOV   AX,0
+        PUSH  AX
+        MOV   AX,DATA 
+        MOV   DS,AX
+        MOV  AX,X
+        ADD  AX,Y
+        MOV  RESULT,AX
+        RET 
+        MAIN  ENDP
+CODE  ENDS
+    END  START
+</code></pre>
+<h3 id="413-汇编语言语句">4.1.3 汇编语言语句</h3>
+<ol>
+<li>
+<p>指令性语句：CPU执行的语句，能够生成目标代码，每条指令语句表达了计算机具有的一种基本能力,</p>
+<p>格式：<code>[标号:] [前缀] 助记符 [操作数]，[操作数] [;注释]</code></p>
+</li>
+<li>
+<p>指示性语句：CPU不执行，而由汇编程序执行的语句，不生成目标代码，仅仅告诉汇编程序哪些语句属于一个段、是什么类型的段等等</p>
+<p>格式：<code>[名字] 伪指令助记符 操作数 [,操作数,] [;注释]</code></p>
+</li>
+</ol>
+<p>标号与符号名都称为名字。标号是可选项，一般设置在程序的入口处或程序跳转点处，表示一条指令的符号地址，在代码段中定义，后面必须跟上冒号“:”。符号名也是一个可选项，可以是常量、变量、段名、过程名、宏名，后面不能跟冒号。</p>
+<h3 id="414-汇编语言的数据">4.1.4 汇编语言的数据</h3>
+<ol>
+<li>常量：
+<ul>
+<li>数字常量</li>
+<li>字符串常量：用引号引起的字符或字符串，如'A'等，汇编时被译成对应的ASCII码</li>
+</ul>
+</li>
+<li>变量：<strong>存储单元的符号地址</strong>，其存储单元的内容在程序运行时可以被修改。变量有如下属性
+<ul>
+<li>段属性：变量所在段的段地址</li>
+<li>偏移属性：变量所在段的段内偏移量</li>
+<li>类型属性：变量所占单元的字节数（字节、字和双字）</li>
+</ul>
+</li>
+<li>标号：<strong>指令的符号地址</strong>，可用作控制转移指令的操作数。标号有如下属性：
+<ul>
+<li>段属性:标号所在段的段地址。</li>
+<li>偏移属性:标号所在段的段内偏移地址。</li>
+<li>类型属性:也叫距离属性,表示标号可作为段内或段间的转移特性</li>
+</ul>
+</li>
+</ol>
+<img src="https://tva1.sinaimg.cn/large/006pkgSjgy1gwi65mb7buj30mo08fjtf.jpg" alt="image.png" style="zoom:80%;" />
+<h3 id="415-汇编语言的操作符与表达式">4.1.5 汇编语言的操作符与表达式</h3>
+<ol>
+<li>
+<p>算数运算符和逻辑运算符</p>
+<ul>
+<li>算术运算符：+，-，*，/，MOD</li>
+<li>逻辑运算符：AND，OR，NOT，XOR</li>
+</ul>
+</li>
+<li>
+<p>关系运算符</p>
+<img src="https://tva1.sinaimg.cn/large/006pkgSjgy1gwi67wa4qzj30fa05440j.jpg" alt="image.png" style="zoom:80%;" />
+</li>
+<li>
+<p>位移运算符：SHL/SHR, 按位操作</p>
+</li>
+<li>
+<p>数值回送操作符</p>
+<ul>
+<li>
+<p>OFFSET   取得其后变量或标号的偏移地址</p>
+<p>SEG        取得其后变量或标号的段地址</p>
+</li>
+<li>
+<p>TYPE       取变量的类型</p>
+<p>LENGTH   取所定义存储区的长度</p>
+<p>SIZE     	取所定义存储区的字节数</p>
+</li>
+</ul>
+</li>
+<li>
+<p>属性操作符</p>
+<ul>
+<li>
+<p>PTR，格式: <code>类型 PTR 变量/标号</code>，返回具有规定属性的变量或编号，典型应用如下：</p>
+<ul>
+<li>
+<p>重新指定变量类型：</p>
+<pre><code class="language-assembly">BUFW DW 1234H,5678H
+
+MOV AX, BUFW
+MOV AL, BYTE PTR BUFW ;临时改变BUFw的字属性为字节属性
+</code></pre>
+</li>
+<li>
+<p>指定内存操作数的类型：</p>
+<pre><code class="language-assembly">INC BYTE PTR [BX] ;字节属性
+INC WORD PTR [BX][SI] ;子属性
+</code></pre>
+</li>
+<li>
+<p>和EQU一起定义一个新类型变量: 新变量或新标号的段属性、偏移属性与前一个已定义的变量或标号段属性、偏移属性相同</p>
+<pre><code class="language-assembly">BUFW DW 1234H, 5678H
+BUFB EQU BYTE PTR BUFW 
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p>THIS，格式：<code>THIS 类型</code>，可以像PTR一样建立一个指定类型的地址操作数，该操作数的段地址和偏移地址与下一个存储单元地址相同。</p>
+<pre><code class="language-assembly">BUFB EQU THIS BYTE
+BUFW DW 1234H,5678H
+</code></pre>
+</li>
+<li>
+<p>SHORT，格式：<code>SHORT 标号</code>， 用于JMP指令，即:JMP SHORT 标号，指明是短转移。</p>
+</li>
+<li>
+<p>字节分离字符 HIGH/LOW，返回表达式的高字节或低字节</p>
+<pre><code class="language-assembly">CONST EQU 0ABCDH
+MOV AH,HIGH CONST ;(AH)=OABH
+MOV CL,LOW CONST  ;(CL)=0CDH
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p>其他运算符</p>
+<ul>
+<li>方括号：<code>[]</code>, 方括号中内容为操作数的偏移地址</li>
+<li>段重设符: <code>段寄存器名:[]</code>, 用于修改默认的段基地址</li>
+</ul>
+</li>
+</ol>
+<h2 id="42-伪指令">4.2 伪指令</h2>
+<p>伪指令作用：用于定义变量、分配存储区、定义逻辑段、指示程序开始和结束等</p>
+<h3 id="421-变量定义伪指令">4.2.1 变量定义伪指令</h3>
+<ul>
+<li>
+<p>用于定义数据区中变量的类型</p>
+</li>
+<li>
+<p>格式: <code>变量名 伪指令助记符 操作数, … ;注释</code>，变量名某些情况下可省略</p>
+</li>
+<li>
+<p>伪指令助记符：</p>
+<ul>
+<li>DB    定义的变量为字节型</li>
+<li>DW    定义的变量为字类型（双字节)</li>
+<li>DD    定义的变量为双字型（4字节）</li>
+<li>DQ    定义的变量为4字型（8字节）</li>
+<li>DT    定义的变量为10字节型</li>
+</ul>
+<p>定义字符串必须用DB伪指令</p>
+<pre><code class="language-assembly">DATA1 DB 'ABCD', 66H
+</code></pre>
+</li>
+<li>
+<p>重复操作符：为一个数据区的个单元设置相同的初值</p>
+<p>格式：<code>[变量名] 伪指令助记符 n DUP（初值，…）</code></p>
+<img src="https://tva1.sinaimg.cn/large/006pkgSjly1gwj8nrrpnlj30ii04wq4d.jpg" alt="image.png" style="zoom:80%;" />
+</li>
+<li>
+<p>用&quot;?&quot;预留存储空间</p>
+<pre><code class="language-assembly">MEM1      DB  34H, ’A’, ?, ?, ?
+          DW  20  DUP(?) ; 预留40个字节单元
+</code></pre>
+</li>
+</ul>
+<h3 id="422-符号定义伪指令">4.2.2 符号定义伪指令</h3>
+<ul>
+<li>符号包括汇编语言的变量名、标号名、过程名等。</li>
+<li>常用符号定义伪指令有：EQU, &quot;=&quot;, LABEL</li>
+</ul>
+<ol>
+<li>
+<p>EQU伪指令</p>
+<ul>
+<li>
+<p>格式：<code>名字 EQU 表达式</code></p>
+</li>
+<li>
+<p>功能：给表达式赋予一个名字。定义后，可用名字代替表达式。在同一源程序中，一个名字只能用EQU定义一次</p>
+<pre><code class="language-assembly">A    EQU  7B    EQU  A-2
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p>&quot;=&quot;伪指令</p>
+<ul>
+<li>
+<p>格式：<code>名字=表达式</code></p>
+</li>
+<li>
+<p>功能：与EQU基本相同，不同的是它可以对一个名字重新定义</p>
+<pre><code class="language-assembly">COUNT = 10MOV  AL,COUNT…COUNT = 5
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p>LABEL伪指令</p>
+<ul>
+<li>
+<p>格式：<code>变量/标号 LABEL 类型</code></p>
+<ul>
+<li>变量的类型有：BYTE、WORD、DWORD、DQ、DT</li>
+<li>标号的类型有：NEAR、FAR。</li>
+</ul>
+</li>
+<li>
+<p>功能：定义变量或标号的属性类型，而变量或标号的段属性和偏移属性由该语句所处的位置确定<br>
+例: 用LABEL使同一个数据区有一个或一个以上的类型和相关属性</p>
+<pre><code class="language-assembly">AREAW  LABEL  WORD     ;AREAW与AREAB指向相同的数据区,                       ;AREAW类型为字,AREAB类型为字节AREAB  DB  100 DUP(?)   …MOV  AX,2011HMOV  AREAW,AX  	;(AREAW)=2011H…MOV  BL,AREAB   ;BL=11H
+</code></pre>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="423-段定义伪指令">4.2.3 段定义伪指令</h3>
+<ol>
+<li>
+<p>段定义伪指令</p>
+<ul>
+<li>
+<p>说明段的开始和结束</p>
+</li>
+<li>
+<p>说明不同程序模块中同类逻辑段之间的联系形态</p>
+<img src="https://tva1.sinaimg.cn/large/006pkgSjgy1gwjb4x1r73j30km09fwjc.jpg" alt="image.png" style="zoom:80%;" />
+<p>定位类型：说明段的起始地址有应有怎样的边界值</p>
+<ul>
+<li>BYTE： 段的起点从存储器任何地址开始,这种类型段间不留空隙，存储器利用率高。</li>
+<li>WORD： 段的起点从偶地址开始</li>
+<li>PARA：<strong>定位类型的默认值为PARA</strong>。段的起点从节边界开始（16个字节为1节）,所以起始地址必为16的倍数, 段间往往有空隙。</li>
+<li>PAGE：段的起点从页边界开始（256个字节为1页），其起始地址必为256的倍数。</li>
+</ul>
+<p>组合类型：</p>
+<ul>
+<li>PUBLIC：本段与其他模块中说明为PUBLIC的<strong>同名同类别的段</strong>链接起来，公用一个段地址，形成一个新的逻辑段，所有偏移量调整为相对于新逻辑段起始地址的值。</li>
+<li>STACK：本段与其他模块中说明为STACK的<strong>同名的堆栈段</strong>链接起来，公用一个段地址，形成一个新的逻辑段。同时，系统自动初始化SS及SP。</li>
+<li>COMMON：同名段从同一个内存地址开始装入。所以，各个逻辑段将发生覆盖。连接以后，该段长度取决于同名段中最长的那个，而内容有效的是最后装入的那个。</li>
+<li>MEMORY：与PUBLIC同义，只不过MEMORY定义的段装在所有同名段的最后。若连接时出现多个MEMORY，则最先遇到的段按组合类型MEMORY处理，其他段组合类型按PUBLIC处理。</li>
+<li>PRIVATE：不组合，该段与其他段逻辑上不发生关系，即使同名，各段拥有各自的段基值。组合类型的默认值为PRIVATE。</li>
+<li>AT exp：段地址为表达式exp的值（长度为16位）。此项不能用于代码段。例如：AT 0530H，表示本段从物理地址0530H开始。</li>
+</ul>
+<p>类别：必须用单引号括起来</p>
+<ul>
+<li>当几个程序模块进行连接时，其中具有相同类别名的段按出现的先后顺序被装入连续的内存区。</li>
+<li>没有类别名的段，与其他无类别名的段一起连续装入内存。</li>
+<li>典型的类型名有：“STACK”，“CODE”，“DATA”</li>
+</ul>
+<pre><code class="language-assembly">DATA  SEGMENT  PUBLIC  'CODE'MEM1  DB  11H，22HDATA  ENDS
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p>设定段寄存器伪指令：说明所定义逻辑段与段寄存器之间的关系</p>
+<p>格式：<code>ASSUME 段寄存器名：段名[，段寄存器名：段名，…]</code></p>
+<ul>
+<li>段寄存器可以是：CS、DS、ES、SS。</li>
+<li>ASSUME伪指令只是指示各逻辑段使用段寄存器的情况，<strong>并没有对段寄存器的内容进行赋值</strong>。</li>
+<li>DS、ES的值必须在程序段中用指令语句进行赋值，而CS、SS由系统负责设置，程序中也可对SS进行赋值，<strong>但不允许对CS赋值</strong>。</li>
+</ul>
+</li>
+</ol>
+<h3 id="424-过程定义伪指令">4.2.4 过程定义伪指令</h3>
+<ul>
+<li>
+<p>用于定义一个过程体</p>
+</li>
+<li>
+<p>格式：</p>
+<pre><code class="language-assembly">过程名   PROC  [ NEAR / FAR ]                     ┇                    RET过程名   ENDP
+</code></pre>
+</li>
+<li>
+<p>过程名按汇编语言命名规则设定，汇编及链接后，该名称表示过程程序的入口地址，供调用使用</p>
+</li>
+</ul>
+<h3 id="425-模块定义结束伪指令">4.2.5 模块定义结束伪指令</h3>
+<ul>
+<li>NAME: 为目标程序设定一个名字，格式: <code>NAME 模块名</code>, 如果程序中没有NAME伪指令，则汇编程序将TITLE伪指令定义的标题名前6个字符作为模块名; 如果程序中既没有NAME，又没有TITLE，则汇编程序将汇编语言程序的文件名作为目标程序的模块名。</li>
+<li>TITLE: 指定每页上打印的标题，格式:<code>TITLE 标题</code></li>
+<li>END: 表示汇编语言程序的结束, 格式: <code>END [标号]</code>，标号仅表示改程序的起始地址，多个模块连接时只有主程序要使用标号</li>
+</ul>
+<p>一个完整源程序实例：</p>
+<pre><code class="language-assembly">DSEG    SEGMENTDATA1   DB  1，2，DATA2   DW  1234HDSEG    ENDSESEG    SEGMENT        DB  20  DUP(?)ESEG    ENDSSSEG    SEGMENT  STACK  'STACK'        DB  200  DUP(?)SSEG    ENDS CSEG SEGMENT           ASSUME  CS：CSEG，DS：DSEG，                             ES：ESEG，SS：SSEG START：MOV  AX，DSEG                 MOV  DS，AX                 MOV  AX，ESEG                 MOV  ES，AX                 MOV  AX，SSEG                 MOV  SS，AX          ┇ CSEG  ENDS       END  START
+</code></pre>
+<h2 id="43-系统功能调用">4.3 系统功能调用</h2>
+<ul>
+<li>DOS功能调用：高级调用，操作系统提供</li>
+<li>BIOS功能调用：低级调用</li>
+</ul>
+<p>编程时遵循的原则：</p>
+<ul>
+<li>尽可能使用DOS的系统功能调用，以降低编程的复杂性。</li>
+<li>在DOS功能不能实现情况下考虑用BIOS功能调用。</li>
+<li>在DOS和BIOS的中断子程不能解决问题时使用IN/OUT指令直接控制硬件。</li>
+</ul>
+<h3 id="431-dos功能调用">4.3.1 DOS功能调用</h3>
+<ul>
+<li>
+<p>包含多个子功能的功能包，各子功能采用功能号来区分</p>
+</li>
+<li>
+<p>功能调用格式：</p>
+<pre><code class="language-assembly">[置入口参数]MOV AH, 功能号 ;功能调用号送入AH寄存器INT 21H       ;执行软中断z
+</code></pre>
+</li>
+</ul>
+<ol>
+<li>
+<p><strong>从键盘输入单字符并显示</strong></p>
+<ul>
+<li>
+<p>功能调用号：AH=01H</p>
+</li>
+<li>
+<p>输入字符的ASCII码存入AL寄存器。若按下组合键Ctr+Break或CtrH+C，则程序返回DOS。</p>
+</li>
+</ul>
+<pre><code class="language-assembly">MOV AH, 01HINT 21H
+</code></pre>
+</li>
+<li>
+<p><strong>字符串输入</strong></p>
+<ul>
+<li>功能调用号：AH=0AH</li>
+<li>DS, DX存放接收缓冲区首地址，分别存放段地址和偏移地址；缓冲区第一字节存放接收字符串最大字符个数</li>
+<li>缓冲区第二字节存放实际输入的字符个数(不包括回车符)，第三字节开始存放接收的字符串</li>
+<li>输入字符串以回车结束，回车符不计入字符数</li>
+</ul>
+<p>例: 如下代码允许输入的字符串长度不超过100</p>
+<pre><code class="language-assembly">DATA SEGMENT	BUF DB 100		DB ?		DB 100 DUP(?)DATA ENDSCODE SEGMENT	...	MOV DX,OFFSET BUF	MOV AH,OAH	INT	21HCODE ENDS
+</code></pre>
+</li>
+<li>
+<p><strong>单字符输出</strong></p>
+<ul>
+<li>功能调用号：AH=02H</li>
+<li>将要显示的字符的ASCII码保存于寄存器DL</li>
+</ul>
+<pre><code class="language-assembly">MOV DL,'2'MOV AH,02HINT 21H
+</code></pre>
+</li>
+<li>
+<p><strong>字符串输出显示</strong></p>
+<ul>
+<li>功能调用号：AH=9</li>
+<li>寄存器DS和DX，分别存入被输出字符串首地址的段基值和偏移量。</li>
+<li>要求字符串以“$”结束，该字符作为字符串结束符，不输出。</li>
+</ul>
+<pre><code class="language-assembly">DATA	 SEGMENTMESS1  DB  'Input String:' 0DH，0AH,'$'	                                                ;被显示的字符串必须以‘$’结束DATA  ENDSCODE  SEGMENT		 ┇MOV	DX，SEG  MESS1 ;待输出字符串的偏移地址→ DS：DXMOV	DS，DXMOV	DX，OFFSET  MESS1MOV	AH，09		;功能号O9H→AHINT	21H
+</code></pre>
+</li>
+<li>
+<p><strong>进程终止</strong>:</p>
+<ul>
+<li>功能调用号AH=4CH</li>
+<li>结束当前程序，返回DOS</li>
+</ul>
+<pre><code class="language-assembly">MOV AH,4CHINT 21H
+</code></pre>
+</li>
+</ol>
+<h2 id="44-汇编语言程序设计">4.4 汇编语言程序设计</h2>
+<p><strong>设计步骤：</strong></p>
+<ul>
+<li>根据实际问题抽象出数学模型</li>
+<li>确定算法</li>
+<li>画程序流程图</li>
+<li>分配内存工作单元和寄存器</li>
+<li>程序编码</li>
+<li>调试</li>
+<li>文档整理</li>
+</ul>
+<p>汇编语言程序的三种结构：</p>
+<ul>
+<li>顺序结构</li>
+<li>分支结构</li>
+<li>循环结构</li>
+</ul>
+<h3 id="441-顺序结构程序设计">4.4.1 顺序结构程序设计</h3>
+<p>程序流程图符号</p>
+<img src="https://tva1.sinaimg.cn/large/006pkgSjgy1gwlv4oefd8j30k60bx0tx.jpg" alt="image.png" style="zoom:80%;" />
+<p>例：编程将内存数据段字节单元INDAT存放的一个数n (假设0≤ n ≤9)以十进制形式在屏幕上显示出来。</p>
+<img src="https://tva1.sinaimg.cn/large/006pkgSjgy1gwlvd4aro6j308f0nyaej.jpg" alt="image.png" style="zoom: 50%;" />
+<pre><code class="language-assembly">DATA SEGMENT	INDAT DB 8DATA ENDSCODE SEGMENT ASSUME CS:CODE, DS:DATASTART:	MOV AX,DATA	MOV DS,AX ;初始化DS	MOV DL,INDAT ;取操作数	OR DL,30H ;与30H(0)作或运算，获取DL的ASCII码	MOV AH,02H	INT 21H	MOV DL,'D'	MOV AH,02H	INT 21H	MOV AH,4CH	INT 21HCODE ENDS	END START
+</code></pre>
+<h3 id="442-分支结构">4.4.2 分支结构</h3>
+<img src="https://tva1.sinaimg.cn/large/006pkgSjgy1gwlw4js8iwj30ys0egwl2.jpg" alt="image.png" style="zoom:80%;" />
+<p>例：编程求分段函数Y的值。已知变量X为16位带符号数，分段函数的值要求保存到字单元Y中。函数定义如下<img src="https://tva1.sinaimg.cn/large/006pkgSjgy1gwlw7tryvsj3091044mxt.jpg" alt="image.png" style="zoom:80%;" /></p>
+<img src="https://tva1.sinaimg.cn/large/006pkgSjgy1gwmuyj5zfaj30b10fbq3n.jpg" alt="image.png" style="zoom:80%;" />
+<pre><code class="language-assembly">DATA SEGMENT	X DW -128	Y DW ?DATA ENDSCODE SEGMENT 	ASSUME CS:CODE, DS:DATASTART:	MOV AX, DATA	MOV DS, AX	MOV AX, X	CMP AX, 0	JG ISPN	JZ ISZN	MOV Y,-1	JMP FINISHISPN:MOV Y,1	JMP FINISHISZN:MOV Y,0	JMP FINISHFINISH:	MOV AH,4CH	INT 21HCODE ENDS	END START ;END START标签只是告诉编译器,从程序从这里结束,并且程序从START标号开始执行
+</code></pre>
+<h3 id="443-循环结构">4.4.3 循环结构</h3>
+<p>循环程序由以下三个部分组成</p>
+<ul>
+<li>初始化部分:完成地址指针、循环计数、结束条件等初值的设置。</li>
+<li>循环体部分：完成程序的基本操作；修改循环工作部分的变量地址等；检测和修改循环控制计数器，控制循环的运行和结束。</li>
+<li>结束部分：完成循环结束后的处理，如数据分析、结果的存放等。</li>
+</ul>
+<p>循环程序结构：</p>
+<img src="https://tva1.sinaimg.cn/large/006pkgSjgy1gwlx8gpfxrj30ys0kcn3r.jpg" alt="image.png" style="zoom: 50%;" />
+<p>例1：编程显示以&quot;!&quot;结尾的字符串, 如'Welcome to MASM!'</p>
+<img src="https://tva1.sinaimg.cn/large/006pkgSjly1gwlxdztk4ej30fw0qsq8c.jpg" alt="image.png" style="zoom: 50%;" />
+<pre><code class="language-assembly">DATA SEGMENT	MYSTR DB 'Welcome to MASM!'DATA ENDSCODE SEGMENT	ASSUME CS:CODE, DS:DATASTART:	MOV AX, DATA	MOV DS, AX	LEA SI, MYSTRNEXTCHAR:	MOV DL, [SI]	CMP DL, '!'	JZ FINISH	MOV AH, 2	INT 21H	INT SI	JMP NEXTCHARFINISH:	MOV AH,2	INT 21H ;输出'!'	MOV AH,4CH	INT 21HCODE ENDS	END START
+</code></pre>
+<p>例2：编程以二进制显示BX的值(假设为无符号数)，如果(BX)=20, 则显示: 0000000000010100B</p>
+<pre><code class="language-assembly">CODE SEGMENT	ASSUME CS:CODESTART:	MOV BX,20	MOV CX,16 ;LOOP隐含使用CX寄存器作为计数器NEXTCHAR:	ROL BX,1  ;从左到右取BX的最高位放在BX的最低位(循环左移)	MOV DL,BL ;只取低八位就可以	AND DL,1  ;BX最低位和1与运算,而D7-D1均为0	OR DL,30H ;得到最低位ASCII码	MOV AH,2	INT 21H	LOOP NEXTCHARFINISH:	MOV DL,'B'	MOV AH,2	INT 21H	MOV AH,4CH	INT 21HCODE ENDS	END START
+</code></pre>
+<h3 id="444-子程序设计">4.4.4 子程序设计</h3>
+<p>采用子程序进行程序设计的注意点:</p>
+<ul>
+<li>
+<p>现场保护和恢复</p>
+<ul>
+<li>
+<p>&quot;现场保护&quot;——子程序运行时，对可能破坏的主程序用到的寄存器、堆栈、标志位、内存数据值进行的保护。</p>
+</li>
+<li>
+<p>&quot;现场恢复&quot;——子程序结束运行返回主程序时，对被保护的寄存器、堆栈、标志位、内存数据值的恢复。</p>
+</li>
+</ul>
+</li>
+<li>
+<p>子程序可嵌套: 子程序中使用堆栈来保护断点，由堆栈操作的“后进先出”特性保证各个层次子程序断点的正确入栈和返回，实现嵌套。因此在子程序中对堆栈的操作要精确控制。</p>
+</li>
+<li>
+<p>参数传递，主要方法有<strong>寄存器传递、内存变量传递和堆栈传递。</strong></p>
+</li>
+<li>
+<p>编写子程序调用方法说明, 子程序调用方法说明包括</p>
+<ul>
+<li>子程序功能</li>
+<li>入口参数</li>
+<li>出口参数</li>
+<li>使用的寄存器或存储器及调用实例</li>
+</ul>
+</li>
+</ul>
+<p>例1：利用寄存器传递参数。编写子程序，实现以二进制形式显示BX的值（假设为无符号数）</p>
+<pre><code class="language-assembly">;-------------------------;子程序名:DISP_BINARY;功能:以二进制形式显示BX的值(假设为无符号数);入口参数:BX;出口参数:无;------------------------DISP_BINARY  PROC	PUSH  CX		 ;保护现场	PUSH  DX	PUSH  AX	PUSHF	MOV  CX,16NEXTCHAR:	ROL  BX,1		MOV  DL,BL	AND  DL,1	OR   DL,30H   	MOV  AH,2	INT  21H	LOOP  NEXTCHARFINISH:    MOV  DL,'B'    MOV  AH,2    INT  21H    POPF			;恢复现场    POP  AX		    POP  DX    POP  CX    RETDISP_BINARY  ENDP
+</code></pre>
+<ul>
+<li>作为入口参数的寄存器可以保护也可以不保护</li>
+<li><strong>作为出口参数的寄存器是不能保护的</strong></li>
+<li>寄存器数量有限，只适合少量数据传递</li>
+</ul>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#41-%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86">4.1 汇编语言基础知识</a>
+<ul>
+<li><a href="#411-%E6%A6%82%E8%BF%B0">4.1.1 概述</a></li>
+<li><a href="#412-%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E6%BA%90%E7%A8%8B%E5%BA%8F%E7%BB%93%E6%9E%84">4.1.2 汇编语言源程序结构</a></li>
+<li><a href="#413-%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E8%AF%AD%E5%8F%A5">4.1.3 汇编语言语句</a></li>
+<li><a href="#414-%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E7%9A%84%E6%95%B0%E6%8D%AE">4.1.4 汇编语言的数据</a></li>
+<li><a href="#415-%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E7%9A%84%E6%93%8D%E4%BD%9C%E7%AC%A6%E4%B8%8E%E8%A1%A8%E8%BE%BE%E5%BC%8F">4.1.5 汇编语言的操作符与表达式</a></li>
+</ul>
+</li>
+<li><a href="#42-%E4%BC%AA%E6%8C%87%E4%BB%A4">4.2 伪指令</a>
+<ul>
+<li><a href="#421-%E5%8F%98%E9%87%8F%E5%AE%9A%E4%B9%89%E4%BC%AA%E6%8C%87%E4%BB%A4">4.2.1 变量定义伪指令</a></li>
+<li><a href="#422-%E7%AC%A6%E5%8F%B7%E5%AE%9A%E4%B9%89%E4%BC%AA%E6%8C%87%E4%BB%A4">4.2.2 符号定义伪指令</a></li>
+<li><a href="#423-%E6%AE%B5%E5%AE%9A%E4%B9%89%E4%BC%AA%E6%8C%87%E4%BB%A4">4.2.3 段定义伪指令</a></li>
+<li><a href="#424-%E8%BF%87%E7%A8%8B%E5%AE%9A%E4%B9%89%E4%BC%AA%E6%8C%87%E4%BB%A4">4.2.4 过程定义伪指令</a></li>
+<li><a href="#425-%E6%A8%A1%E5%9D%97%E5%AE%9A%E4%B9%89%E7%BB%93%E6%9D%9F%E4%BC%AA%E6%8C%87%E4%BB%A4">4.2.5 模块定义结束伪指令</a></li>
+</ul>
+</li>
+<li><a href="#43-%E7%B3%BB%E7%BB%9F%E5%8A%9F%E8%83%BD%E8%B0%83%E7%94%A8">4.3 系统功能调用</a>
+<ul>
+<li><a href="#431-dos%E5%8A%9F%E8%83%BD%E8%B0%83%E7%94%A8">4.3.1 DOS功能调用</a></li>
+</ul>
+</li>
+<li><a href="#44-%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1">4.4 汇编语言程序设计</a>
+<ul>
+<li><a href="#441-%E9%A1%BA%E5%BA%8F%E7%BB%93%E6%9E%84%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1">4.4.1 顺序结构程序设计</a></li>
+<li><a href="#442-%E5%88%86%E6%94%AF%E7%BB%93%E6%9E%84">4.4.2 分支结构</a></li>
+<li><a href="#443-%E5%BE%AA%E7%8E%AF%E7%BB%93%E6%9E%84">4.4.3 循环结构</a></li>
+<li><a href="#444-%E5%AD%90%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1">4.4.4 子程序设计</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://notes.yuyzzz.top/post/3-8086-xun-zhi-fang-shi-he-zhi-ling-xi-tong/">
+              <h3 class="post-title">
+                3. 8086寻址方式和指令系统
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://notes.yuyzzz.top/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

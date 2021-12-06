@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://notes.yuyzzz.top</id>
     <title>Yuyzzz&apos;notes</title>
-    <updated>2021-11-10T08:57:21.903Z</updated>
+    <updated>2021-12-06T08:57:53.404Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://notes.yuyzzz.top"/>
     <link rel="self" href="https://notes.yuyzzz.top/atom.xml"/>
@@ -10,6 +10,1198 @@
     <logo>https://notes.yuyzzz.top/images/avatar.png</logo>
     <icon>https://notes.yuyzzz.top/favicon.ico</icon>
     <rights>All rights reserved 2021, Yuyzzz&apos;notes</rights>
+    <entry>
+        <title type="html"><![CDATA[6. 存储器]]></title>
+        <id>https://notes.yuyzzz.top/post/6-cun-chu-qi/</id>
+        <link href="https://notes.yuyzzz.top/post/6-cun-chu-qi/">
+        </link>
+        <updated>2021-12-06T08:56:07.000Z</updated>
+        <summary type="html"><![CDATA[<p>简单介绍了半导体存储器；存储器的扩展、译码；CPU与存储器的连接</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>简单介绍了半导体存储器；存储器的扩展、译码；CPU与存储器的连接</p>
+<!-- more -->
+<h2 id="61-半导体存储器的分类">6.1 半导体存储器的分类</h2>
+<p>内存储器一般半导体存储器组成</p>
+<img src="https://tva1.sinaimg.cn/large/006pkgSjgy1gwmv4aqbdbj30v90f7jy6.jpg" alt="image.png" style="zoom:67%;" />
+<h2 id="62-半导体存储器的主要技术指标">6.2 半导体存储器的主要技术指标</h2>
+<ul>
+<li>
+<p><strong>存储容量</strong>: 存储容量就是以字或字节为单位来表示存储器存储单元的总数。</p>
+</li>
+<li>
+<p><strong>读写速度</strong>: 半导体存储器的速度一般用<strong>存取时间</strong>和<strong>存储周期</strong>两个指标来衡量。</p>
+</li>
+<li>
+<p><strong>可靠性</strong>: 通常指存储器对温度、电磁场等环境变化的抵抗能力和工作寿命。</p>
+</li>
+<li>
+<p>存取时间：从启动一次存储器操作到完成该操作所经历的时间</p>
+</li>
+<li>
+<p>存取周期：连续启动两次独立的存储器操作(例如连续两次读操作)所需间隔的最小时间。</p>
+</li>
+</ul>
+<h2 id="63-存储器与系统的连接">6.3 存储器与系统的连接</h2>
+<p>CPU对存储器进行读/写操作时，首先由地址总线给出地址信号，然后要对存储器发出读操作或写操作的控制信号，最后在数据总线上进行信息交换</p>
+<h3 id="631-存储器扩展">6.3.1 存储器扩展</h3>
+<ul>
+<li>位扩展</li>
+<li>子扩展</li>
+<li>字位扩展</li>
+</ul>
+<ol>
+<li>
+<p>位扩展：</p>
+<ul>
+<li>用多个存储器器件对字长进行扩充。一个地址同时控制多个存储器芯片</li>
+<li>扩展条件：设目标容量为M字×N位，存储器芯片容量为m字×n位，M＝m ，N&gt;n，则需要的存储器芯片数＝N/n。</li>
+</ul>
+<img src="https://tva1.sinaimg.cn/large/006pkgSjgy1gwmvua0ycfj30qm0j1jwl.jpg" alt="image.png" style="zoom: 70%;" />
+</li>
+<li>
+<p>子扩展：</p>
+<ul>
+<li>
+<p>增加存储器中字的数量</p>
+</li>
+<li>
+<p>设目标容量为M字×N位，存储器芯片容量为m字×n位，M&gt;m ，N＝n，则需要的存储器芯片数＝M/m。</p>
+</li>
+</ul>
+<img src="https://tva1.sinaimg.cn/large/006pkgSjgy1gwmvxgf5pyj30tj0eudm7.jpg" alt="image.png" style="zoom:67%;" />
+</li>
+<li>
+<p>字位扩展</p>
+<ul>
+<li>字向和位向同时扩充</li>
+<li>目标容量为M字×N位，存储器芯片容量为m字×n位，M&gt;m ，N&gt;n，则需要的存储器芯片数＝（M/m）×（N/n）</li>
+</ul>
+</li>
+</ol>
+<h3 id="632-存储器地址译码">6.3.2 存储器地址译码</h3>
+<p>存储单元地址由片内地址信号和片选信号线状态共同决定</p>
+<p>常用片选信号产生方法：</p>
+<ul>
+<li>
+<p><strong>全地址译码</strong>：</p>
+<ul>
+<li>片选信号由除片内寻址外的<strong>全部高位地址线</strong>产生</li>
+<li>特点：寻址范围大，地址连续，不会发生因高位地址不确定而产生的地址重复现象</li>
+</ul>
+<img src="https://tva1.sinaimg.cn/large/006pkgSjgy1gwmwjr91h9j30jk0ck43f.jpg" alt="image.png" style="zoom:80%;" />
+</li>
+<li>
+<p><strong>部分地址译码</strong>：</p>
+<ul>
+<li>用除片内寻址外的<strong>高位地址的一部分</strong>来译码产生片选信号</li>
+<li>特点：某些高位地址线被省略而不参加地址译码，简化了地址译码电路，但地址空间有重叠。</li>
+</ul>
+<img src="https://tva1.sinaimg.cn/large/006pkgSjgy1gwmwjcqz8mj30j50biwii.jpg" alt="image.png" style="zoom:80%;" />
+</li>
+<li>
+<p><strong>线选择译码</strong>：</p>
+<ul>
+<li>直接用高位地址线中的某一条作为存储器芯片的片选控制信号</li>
+<li>特点：选择芯片不需要外加逻辑电路，译码线路简单。地址重叠区域多，适用于扩展容量较小的系统。</li>
+</ul>
+<img src="https://tva1.sinaimg.cn/large/006pkgSjgy1gwmwijfvs2j30go0csadv.jpg" alt="image.png" style="zoom: 80%;" />
+</li>
+</ul>
+<h3 id="633-8086cpu与存储器的连接">6.3.3 8086CPU与存储器的连接</h3>
+<img src="https://tva1.sinaimg.cn/large/006pkgSjgy1gwn246wistj30tv0gb0yj.jpg" alt="image.png" style="zoom: 50%;" />
+<ul>
+<li>空间1MB，分为两个512KB存储体</li>
+<li>奇体与数据线D8-15连接，偶体与数据线D0-7连接</li>
+<li>地址线A0和控制线/BHE分别作为存储体的选择控制线</li>
+</ul>
+<ol>
+<li>
+<p>CPU与存储器的接口</p>
+<img src="https://tva1.sinaimg.cn/large/006pkgSjgy1gwn2hyamc1j30vl0g6juk.jpg" alt="image.png" style="zoom: 67%;" /></li>
+</ol>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[4. 8086汇编语言程序设计]]></title>
+        <id>https://notes.yuyzzz.top/post/4-8086-hui-bian-yu-yan-cheng-xu-she-ji/</id>
+        <link href="https://notes.yuyzzz.top/post/4-8086-hui-bian-yu-yan-cheng-xu-she-ji/">
+        </link>
+        <updated>2021-12-06T08:51:38.000Z</updated>
+        <summary type="html"><![CDATA[<p>汇编语言是介于机器语言和高级语言之间的计算机语言，是一种用符号表示的面向机器的程序设计语言。本章主要介绍汇编语言的基础知识、什么是伪指令、系统功能调用、汇编语言程序设计（流程）等</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>汇编语言是介于机器语言和高级语言之间的计算机语言，是一种用符号表示的面向机器的程序设计语言。本章主要介绍汇编语言的基础知识、什么是伪指令、系统功能调用、汇编语言程序设计（流程）等</p>
+<!-- more -->
+<h2 id="41-汇编语言基础知识">4.1 汇编语言基础知识</h2>
+<h3 id="411-概述">4.1.1 概述</h3>
+<ul>
+<li>汇编语言（Assembly Language）是一种用符号表示的面向机器的程序设计语言,不同CPU的计算机有不同的汇编语言。</li>
+<li>比机器语言易于阅读、编写和修改，能充分利用计算机的硬件资源，占用内存空间少。</li>
+<li>常用于计算机控制系统的开发和高级语言编译程序的编制等应用场合。</li>
+</ul>
+<img src="https://tva1.sinaimg.cn/large/006pkgSjly1gwh1fal2ktj30mo0760up.jpg" alt="image.png" style="zoom:80%;" />
+<h3 id="412-汇编语言源程序结构">4.1.2 汇编语言源程序结构</h3>
+<img src="https://tva1.sinaimg.cn/large/006pkgSjgy1gwmuxmgrqtj30is087tbf.jpg" alt="image.png" style="zoom:67%;" />
+<p>例：编写汇编程序，计算2010H+2011H，并把和存入RESULT单元</p>
+<pre><code class="language-assembly">DATA  SEGMENT		;定义数据段
+    X  DW  2010H     	;定义被加数
+    Y  DW  2011H	;定义加数
+    RESULT  DW   ? 	;分配和数存放单元
+DATA  ENDS       	;数据段定义结束
+CODE  SEGMENT
+            MAIN  PROC  FAR
+	ASSUME  CS:CODE，DS:DATA 
+START:  PUSH  DS
+        MOV   AX,0
+        PUSH  AX
+        MOV   AX,DATA 
+        MOV   DS,AX
+        MOV  AX,X
+        ADD  AX,Y
+        MOV  RESULT,AX
+        RET 
+        MAIN  ENDP
+CODE  ENDS
+    END  START
+</code></pre>
+<h3 id="413-汇编语言语句">4.1.3 汇编语言语句</h3>
+<ol>
+<li>
+<p>指令性语句：CPU执行的语句，能够生成目标代码，每条指令语句表达了计算机具有的一种基本能力,</p>
+<p>格式：<code>[标号:] [前缀] 助记符 [操作数]，[操作数] [;注释]</code></p>
+</li>
+<li>
+<p>指示性语句：CPU不执行，而由汇编程序执行的语句，不生成目标代码，仅仅告诉汇编程序哪些语句属于一个段、是什么类型的段等等</p>
+<p>格式：<code>[名字] 伪指令助记符 操作数 [,操作数,] [;注释]</code></p>
+</li>
+</ol>
+<p>标号与符号名都称为名字。标号是可选项，一般设置在程序的入口处或程序跳转点处，表示一条指令的符号地址，在代码段中定义，后面必须跟上冒号“:”。符号名也是一个可选项，可以是常量、变量、段名、过程名、宏名，后面不能跟冒号。</p>
+<h3 id="414-汇编语言的数据">4.1.4 汇编语言的数据</h3>
+<ol>
+<li>常量：
+<ul>
+<li>数字常量</li>
+<li>字符串常量：用引号引起的字符或字符串，如'A'等，汇编时被译成对应的ASCII码</li>
+</ul>
+</li>
+<li>变量：<strong>存储单元的符号地址</strong>，其存储单元的内容在程序运行时可以被修改。变量有如下属性
+<ul>
+<li>段属性：变量所在段的段地址</li>
+<li>偏移属性：变量所在段的段内偏移量</li>
+<li>类型属性：变量所占单元的字节数（字节、字和双字）</li>
+</ul>
+</li>
+<li>标号：<strong>指令的符号地址</strong>，可用作控制转移指令的操作数。标号有如下属性：
+<ul>
+<li>段属性:标号所在段的段地址。</li>
+<li>偏移属性:标号所在段的段内偏移地址。</li>
+<li>类型属性:也叫距离属性,表示标号可作为段内或段间的转移特性</li>
+</ul>
+</li>
+</ol>
+<img src="https://tva1.sinaimg.cn/large/006pkgSjgy1gwi65mb7buj30mo08fjtf.jpg" alt="image.png" style="zoom:80%;" />
+<h3 id="415-汇编语言的操作符与表达式">4.1.5 汇编语言的操作符与表达式</h3>
+<ol>
+<li>
+<p>算数运算符和逻辑运算符</p>
+<ul>
+<li>算术运算符：+，-，*，/，MOD</li>
+<li>逻辑运算符：AND，OR，NOT，XOR</li>
+</ul>
+</li>
+<li>
+<p>关系运算符</p>
+<img src="https://tva1.sinaimg.cn/large/006pkgSjgy1gwi67wa4qzj30fa05440j.jpg" alt="image.png" style="zoom:80%;" />
+</li>
+<li>
+<p>位移运算符：SHL/SHR, 按位操作</p>
+</li>
+<li>
+<p>数值回送操作符</p>
+<ul>
+<li>
+<p>OFFSET   取得其后变量或标号的偏移地址</p>
+<p>SEG        取得其后变量或标号的段地址</p>
+</li>
+<li>
+<p>TYPE       取变量的类型</p>
+<p>LENGTH   取所定义存储区的长度</p>
+<p>SIZE     	取所定义存储区的字节数</p>
+</li>
+</ul>
+</li>
+<li>
+<p>属性操作符</p>
+<ul>
+<li>
+<p>PTR，格式: <code>类型 PTR 变量/标号</code>，返回具有规定属性的变量或编号，典型应用如下：</p>
+<ul>
+<li>
+<p>重新指定变量类型：</p>
+<pre><code class="language-assembly">BUFW DW 1234H,5678H
+
+MOV AX, BUFW
+MOV AL, BYTE PTR BUFW ;临时改变BUFw的字属性为字节属性
+</code></pre>
+</li>
+<li>
+<p>指定内存操作数的类型：</p>
+<pre><code class="language-assembly">INC BYTE PTR [BX] ;字节属性
+INC WORD PTR [BX][SI] ;子属性
+</code></pre>
+</li>
+<li>
+<p>和EQU一起定义一个新类型变量: 新变量或新标号的段属性、偏移属性与前一个已定义的变量或标号段属性、偏移属性相同</p>
+<pre><code class="language-assembly">BUFW DW 1234H, 5678H
+BUFB EQU BYTE PTR BUFW 
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p>THIS，格式：<code>THIS 类型</code>，可以像PTR一样建立一个指定类型的地址操作数，该操作数的段地址和偏移地址与下一个存储单元地址相同。</p>
+<pre><code class="language-assembly">BUFB EQU THIS BYTE
+BUFW DW 1234H,5678H
+</code></pre>
+</li>
+<li>
+<p>SHORT，格式：<code>SHORT 标号</code>， 用于JMP指令，即:JMP SHORT 标号，指明是短转移。</p>
+</li>
+<li>
+<p>字节分离字符 HIGH/LOW，返回表达式的高字节或低字节</p>
+<pre><code class="language-assembly">CONST EQU 0ABCDH
+MOV AH,HIGH CONST ;(AH)=OABH
+MOV CL,LOW CONST  ;(CL)=0CDH
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p>其他运算符</p>
+<ul>
+<li>方括号：<code>[]</code>, 方括号中内容为操作数的偏移地址</li>
+<li>段重设符: <code>段寄存器名:[]</code>, 用于修改默认的段基地址</li>
+</ul>
+</li>
+</ol>
+<h2 id="42-伪指令">4.2 伪指令</h2>
+<p>伪指令作用：用于定义变量、分配存储区、定义逻辑段、指示程序开始和结束等</p>
+<h3 id="421-变量定义伪指令">4.2.1 变量定义伪指令</h3>
+<ul>
+<li>
+<p>用于定义数据区中变量的类型</p>
+</li>
+<li>
+<p>格式: <code>变量名 伪指令助记符 操作数, … ;注释</code>，变量名某些情况下可省略</p>
+</li>
+<li>
+<p>伪指令助记符：</p>
+<ul>
+<li>DB    定义的变量为字节型</li>
+<li>DW    定义的变量为字类型（双字节)</li>
+<li>DD    定义的变量为双字型（4字节）</li>
+<li>DQ    定义的变量为4字型（8字节）</li>
+<li>DT    定义的变量为10字节型</li>
+</ul>
+<p>定义字符串必须用DB伪指令</p>
+<pre><code class="language-assembly">DATA1 DB 'ABCD', 66H
+</code></pre>
+</li>
+<li>
+<p>重复操作符：为一个数据区的个单元设置相同的初值</p>
+<p>格式：<code>[变量名] 伪指令助记符 n DUP（初值，…）</code></p>
+<img src="https://tva1.sinaimg.cn/large/006pkgSjly1gwj8nrrpnlj30ii04wq4d.jpg" alt="image.png" style="zoom:80%;" />
+</li>
+<li>
+<p>用&quot;?&quot;预留存储空间</p>
+<pre><code class="language-assembly">MEM1      DB  34H, ’A’, ?, ?, ?
+          DW  20  DUP(?) ; 预留40个字节单元
+</code></pre>
+</li>
+</ul>
+<h3 id="422-符号定义伪指令">4.2.2 符号定义伪指令</h3>
+<ul>
+<li>符号包括汇编语言的变量名、标号名、过程名等。</li>
+<li>常用符号定义伪指令有：EQU, &quot;=&quot;, LABEL</li>
+</ul>
+<ol>
+<li>
+<p>EQU伪指令</p>
+<ul>
+<li>
+<p>格式：<code>名字 EQU 表达式</code></p>
+</li>
+<li>
+<p>功能：给表达式赋予一个名字。定义后，可用名字代替表达式。在同一源程序中，一个名字只能用EQU定义一次</p>
+<pre><code class="language-assembly">A    EQU  7B    EQU  A-2
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p>&quot;=&quot;伪指令</p>
+<ul>
+<li>
+<p>格式：<code>名字=表达式</code></p>
+</li>
+<li>
+<p>功能：与EQU基本相同，不同的是它可以对一个名字重新定义</p>
+<pre><code class="language-assembly">COUNT = 10MOV  AL,COUNT…COUNT = 5
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p>LABEL伪指令</p>
+<ul>
+<li>
+<p>格式：<code>变量/标号 LABEL 类型</code></p>
+<ul>
+<li>变量的类型有：BYTE、WORD、DWORD、DQ、DT</li>
+<li>标号的类型有：NEAR、FAR。</li>
+</ul>
+</li>
+<li>
+<p>功能：定义变量或标号的属性类型，而变量或标号的段属性和偏移属性由该语句所处的位置确定<br>
+例: 用LABEL使同一个数据区有一个或一个以上的类型和相关属性</p>
+<pre><code class="language-assembly">AREAW  LABEL  WORD     ;AREAW与AREAB指向相同的数据区,                       ;AREAW类型为字,AREAB类型为字节AREAB  DB  100 DUP(?)   …MOV  AX,2011HMOV  AREAW,AX  	;(AREAW)=2011H…MOV  BL,AREAB   ;BL=11H
+</code></pre>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="423-段定义伪指令">4.2.3 段定义伪指令</h3>
+<ol>
+<li>
+<p>段定义伪指令</p>
+<ul>
+<li>
+<p>说明段的开始和结束</p>
+</li>
+<li>
+<p>说明不同程序模块中同类逻辑段之间的联系形态</p>
+<img src="https://tva1.sinaimg.cn/large/006pkgSjgy1gwjb4x1r73j30km09fwjc.jpg" alt="image.png" style="zoom:80%;" />
+<p>定位类型：说明段的起始地址有应有怎样的边界值</p>
+<ul>
+<li>BYTE： 段的起点从存储器任何地址开始,这种类型段间不留空隙，存储器利用率高。</li>
+<li>WORD： 段的起点从偶地址开始</li>
+<li>PARA：<strong>定位类型的默认值为PARA</strong>。段的起点从节边界开始（16个字节为1节）,所以起始地址必为16的倍数, 段间往往有空隙。</li>
+<li>PAGE：段的起点从页边界开始（256个字节为1页），其起始地址必为256的倍数。</li>
+</ul>
+<p>组合类型：</p>
+<ul>
+<li>PUBLIC：本段与其他模块中说明为PUBLIC的<strong>同名同类别的段</strong>链接起来，公用一个段地址，形成一个新的逻辑段，所有偏移量调整为相对于新逻辑段起始地址的值。</li>
+<li>STACK：本段与其他模块中说明为STACK的<strong>同名的堆栈段</strong>链接起来，公用一个段地址，形成一个新的逻辑段。同时，系统自动初始化SS及SP。</li>
+<li>COMMON：同名段从同一个内存地址开始装入。所以，各个逻辑段将发生覆盖。连接以后，该段长度取决于同名段中最长的那个，而内容有效的是最后装入的那个。</li>
+<li>MEMORY：与PUBLIC同义，只不过MEMORY定义的段装在所有同名段的最后。若连接时出现多个MEMORY，则最先遇到的段按组合类型MEMORY处理，其他段组合类型按PUBLIC处理。</li>
+<li>PRIVATE：不组合，该段与其他段逻辑上不发生关系，即使同名，各段拥有各自的段基值。组合类型的默认值为PRIVATE。</li>
+<li>AT exp：段地址为表达式exp的值（长度为16位）。此项不能用于代码段。例如：AT 0530H，表示本段从物理地址0530H开始。</li>
+</ul>
+<p>类别：必须用单引号括起来</p>
+<ul>
+<li>当几个程序模块进行连接时，其中具有相同类别名的段按出现的先后顺序被装入连续的内存区。</li>
+<li>没有类别名的段，与其他无类别名的段一起连续装入内存。</li>
+<li>典型的类型名有：“STACK”，“CODE”，“DATA”</li>
+</ul>
+<pre><code class="language-assembly">DATA  SEGMENT  PUBLIC  'CODE'MEM1  DB  11H，22HDATA  ENDS
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p>设定段寄存器伪指令：说明所定义逻辑段与段寄存器之间的关系</p>
+<p>格式：<code>ASSUME 段寄存器名：段名[，段寄存器名：段名，…]</code></p>
+<ul>
+<li>段寄存器可以是：CS、DS、ES、SS。</li>
+<li>ASSUME伪指令只是指示各逻辑段使用段寄存器的情况，<strong>并没有对段寄存器的内容进行赋值</strong>。</li>
+<li>DS、ES的值必须在程序段中用指令语句进行赋值，而CS、SS由系统负责设置，程序中也可对SS进行赋值，<strong>但不允许对CS赋值</strong>。</li>
+</ul>
+</li>
+</ol>
+<h3 id="424-过程定义伪指令">4.2.4 过程定义伪指令</h3>
+<ul>
+<li>
+<p>用于定义一个过程体</p>
+</li>
+<li>
+<p>格式：</p>
+<pre><code class="language-assembly">过程名   PROC  [ NEAR / FAR ]                     ┇                    RET过程名   ENDP
+</code></pre>
+</li>
+<li>
+<p>过程名按汇编语言命名规则设定，汇编及链接后，该名称表示过程程序的入口地址，供调用使用</p>
+</li>
+</ul>
+<h3 id="425-模块定义结束伪指令">4.2.5 模块定义结束伪指令</h3>
+<ul>
+<li>NAME: 为目标程序设定一个名字，格式: <code>NAME 模块名</code>, 如果程序中没有NAME伪指令，则汇编程序将TITLE伪指令定义的标题名前6个字符作为模块名; 如果程序中既没有NAME，又没有TITLE，则汇编程序将汇编语言程序的文件名作为目标程序的模块名。</li>
+<li>TITLE: 指定每页上打印的标题，格式:<code>TITLE 标题</code></li>
+<li>END: 表示汇编语言程序的结束, 格式: <code>END [标号]</code>，标号仅表示改程序的起始地址，多个模块连接时只有主程序要使用标号</li>
+</ul>
+<p>一个完整源程序实例：</p>
+<pre><code class="language-assembly">DSEG    SEGMENTDATA1   DB  1，2，DATA2   DW  1234HDSEG    ENDSESEG    SEGMENT        DB  20  DUP(?)ESEG    ENDSSSEG    SEGMENT  STACK  'STACK'        DB  200  DUP(?)SSEG    ENDS CSEG SEGMENT           ASSUME  CS：CSEG，DS：DSEG，                             ES：ESEG，SS：SSEG START：MOV  AX，DSEG                 MOV  DS，AX                 MOV  AX，ESEG                 MOV  ES，AX                 MOV  AX，SSEG                 MOV  SS，AX          ┇ CSEG  ENDS       END  START
+</code></pre>
+<h2 id="43-系统功能调用">4.3 系统功能调用</h2>
+<ul>
+<li>DOS功能调用：高级调用，操作系统提供</li>
+<li>BIOS功能调用：低级调用</li>
+</ul>
+<p>编程时遵循的原则：</p>
+<ul>
+<li>尽可能使用DOS的系统功能调用，以降低编程的复杂性。</li>
+<li>在DOS功能不能实现情况下考虑用BIOS功能调用。</li>
+<li>在DOS和BIOS的中断子程不能解决问题时使用IN/OUT指令直接控制硬件。</li>
+</ul>
+<h3 id="431-dos功能调用">4.3.1 DOS功能调用</h3>
+<ul>
+<li>
+<p>包含多个子功能的功能包，各子功能采用功能号来区分</p>
+</li>
+<li>
+<p>功能调用格式：</p>
+<pre><code class="language-assembly">[置入口参数]MOV AH, 功能号 ;功能调用号送入AH寄存器INT 21H       ;执行软中断z
+</code></pre>
+</li>
+</ul>
+<ol>
+<li>
+<p><strong>从键盘输入单字符并显示</strong></p>
+<ul>
+<li>
+<p>功能调用号：AH=01H</p>
+</li>
+<li>
+<p>输入字符的ASCII码存入AL寄存器。若按下组合键Ctr+Break或CtrH+C，则程序返回DOS。</p>
+</li>
+</ul>
+<pre><code class="language-assembly">MOV AH, 01HINT 21H
+</code></pre>
+</li>
+<li>
+<p><strong>字符串输入</strong></p>
+<ul>
+<li>功能调用号：AH=0AH</li>
+<li>DS, DX存放接收缓冲区首地址，分别存放段地址和偏移地址；缓冲区第一字节存放接收字符串最大字符个数</li>
+<li>缓冲区第二字节存放实际输入的字符个数(不包括回车符)，第三字节开始存放接收的字符串</li>
+<li>输入字符串以回车结束，回车符不计入字符数</li>
+</ul>
+<p>例: 如下代码允许输入的字符串长度不超过100</p>
+<pre><code class="language-assembly">DATA SEGMENT	BUF DB 100		DB ?		DB 100 DUP(?)DATA ENDSCODE SEGMENT	...	MOV DX,OFFSET BUF	MOV AH,OAH	INT	21HCODE ENDS
+</code></pre>
+</li>
+<li>
+<p><strong>单字符输出</strong></p>
+<ul>
+<li>功能调用号：AH=02H</li>
+<li>将要显示的字符的ASCII码保存于寄存器DL</li>
+</ul>
+<pre><code class="language-assembly">MOV DL,'2'MOV AH,02HINT 21H
+</code></pre>
+</li>
+<li>
+<p><strong>字符串输出显示</strong></p>
+<ul>
+<li>功能调用号：AH=9</li>
+<li>寄存器DS和DX，分别存入被输出字符串首地址的段基值和偏移量。</li>
+<li>要求字符串以“$”结束，该字符作为字符串结束符，不输出。</li>
+</ul>
+<pre><code class="language-assembly">DATA	 SEGMENTMESS1  DB  'Input String:' 0DH，0AH,'$'	                                                ;被显示的字符串必须以‘$’结束DATA  ENDSCODE  SEGMENT		 ┇MOV	DX，SEG  MESS1 ;待输出字符串的偏移地址→ DS：DXMOV	DS，DXMOV	DX，OFFSET  MESS1MOV	AH，09		;功能号O9H→AHINT	21H
+</code></pre>
+</li>
+<li>
+<p><strong>进程终止</strong>:</p>
+<ul>
+<li>功能调用号AH=4CH</li>
+<li>结束当前程序，返回DOS</li>
+</ul>
+<pre><code class="language-assembly">MOV AH,4CHINT 21H
+</code></pre>
+</li>
+</ol>
+<h2 id="44-汇编语言程序设计">4.4 汇编语言程序设计</h2>
+<p><strong>设计步骤：</strong></p>
+<ul>
+<li>根据实际问题抽象出数学模型</li>
+<li>确定算法</li>
+<li>画程序流程图</li>
+<li>分配内存工作单元和寄存器</li>
+<li>程序编码</li>
+<li>调试</li>
+<li>文档整理</li>
+</ul>
+<p>汇编语言程序的三种结构：</p>
+<ul>
+<li>顺序结构</li>
+<li>分支结构</li>
+<li>循环结构</li>
+</ul>
+<h3 id="441-顺序结构程序设计">4.4.1 顺序结构程序设计</h3>
+<p>程序流程图符号</p>
+<img src="https://tva1.sinaimg.cn/large/006pkgSjgy1gwlv4oefd8j30k60bx0tx.jpg" alt="image.png" style="zoom:80%;" />
+<p>例：编程将内存数据段字节单元INDAT存放的一个数n (假设0≤ n ≤9)以十进制形式在屏幕上显示出来。</p>
+<img src="https://tva1.sinaimg.cn/large/006pkgSjgy1gwlvd4aro6j308f0nyaej.jpg" alt="image.png" style="zoom: 50%;" />
+<pre><code class="language-assembly">DATA SEGMENT	INDAT DB 8DATA ENDSCODE SEGMENT ASSUME CS:CODE, DS:DATASTART:	MOV AX,DATA	MOV DS,AX ;初始化DS	MOV DL,INDAT ;取操作数	OR DL,30H ;与30H(0)作或运算，获取DL的ASCII码	MOV AH,02H	INT 21H	MOV DL,'D'	MOV AH,02H	INT 21H	MOV AH,4CH	INT 21HCODE ENDS	END START
+</code></pre>
+<h3 id="442-分支结构">4.4.2 分支结构</h3>
+<img src="https://tva1.sinaimg.cn/large/006pkgSjgy1gwlw4js8iwj30ys0egwl2.jpg" alt="image.png" style="zoom:80%;" />
+<p>例：编程求分段函数Y的值。已知变量X为16位带符号数，分段函数的值要求保存到字单元Y中。函数定义如下<img src="https://tva1.sinaimg.cn/large/006pkgSjgy1gwlw7tryvsj3091044mxt.jpg" alt="image.png" style="zoom:80%;" /></p>
+<img src="https://tva1.sinaimg.cn/large/006pkgSjgy1gwmuyj5zfaj30b10fbq3n.jpg" alt="image.png" style="zoom:80%;" />
+<pre><code class="language-assembly">DATA SEGMENT	X DW -128	Y DW ?DATA ENDSCODE SEGMENT 	ASSUME CS:CODE, DS:DATASTART:	MOV AX, DATA	MOV DS, AX	MOV AX, X	CMP AX, 0	JG ISPN	JZ ISZN	MOV Y,-1	JMP FINISHISPN:MOV Y,1	JMP FINISHISZN:MOV Y,0	JMP FINISHFINISH:	MOV AH,4CH	INT 21HCODE ENDS	END START ;END START标签只是告诉编译器,从程序从这里结束,并且程序从START标号开始执行
+</code></pre>
+<h3 id="443-循环结构">4.4.3 循环结构</h3>
+<p>循环程序由以下三个部分组成</p>
+<ul>
+<li>初始化部分:完成地址指针、循环计数、结束条件等初值的设置。</li>
+<li>循环体部分：完成程序的基本操作；修改循环工作部分的变量地址等；检测和修改循环控制计数器，控制循环的运行和结束。</li>
+<li>结束部分：完成循环结束后的处理，如数据分析、结果的存放等。</li>
+</ul>
+<p>循环程序结构：</p>
+<img src="https://tva1.sinaimg.cn/large/006pkgSjgy1gwlx8gpfxrj30ys0kcn3r.jpg" alt="image.png" style="zoom: 50%;" />
+<p>例1：编程显示以&quot;!&quot;结尾的字符串, 如'Welcome to MASM!'</p>
+<img src="https://tva1.sinaimg.cn/large/006pkgSjly1gwlxdztk4ej30fw0qsq8c.jpg" alt="image.png" style="zoom: 50%;" />
+<pre><code class="language-assembly">DATA SEGMENT	MYSTR DB 'Welcome to MASM!'DATA ENDSCODE SEGMENT	ASSUME CS:CODE, DS:DATASTART:	MOV AX, DATA	MOV DS, AX	LEA SI, MYSTRNEXTCHAR:	MOV DL, [SI]	CMP DL, '!'	JZ FINISH	MOV AH, 2	INT 21H	INT SI	JMP NEXTCHARFINISH:	MOV AH,2	INT 21H ;输出'!'	MOV AH,4CH	INT 21HCODE ENDS	END START
+</code></pre>
+<p>例2：编程以二进制显示BX的值(假设为无符号数)，如果(BX)=20, 则显示: 0000000000010100B</p>
+<pre><code class="language-assembly">CODE SEGMENT	ASSUME CS:CODESTART:	MOV BX,20	MOV CX,16 ;LOOP隐含使用CX寄存器作为计数器NEXTCHAR:	ROL BX,1  ;从左到右取BX的最高位放在BX的最低位(循环左移)	MOV DL,BL ;只取低八位就可以	AND DL,1  ;BX最低位和1与运算,而D7-D1均为0	OR DL,30H ;得到最低位ASCII码	MOV AH,2	INT 21H	LOOP NEXTCHARFINISH:	MOV DL,'B'	MOV AH,2	INT 21H	MOV AH,4CH	INT 21HCODE ENDS	END START
+</code></pre>
+<h3 id="444-子程序设计">4.4.4 子程序设计</h3>
+<p>采用子程序进行程序设计的注意点:</p>
+<ul>
+<li>
+<p>现场保护和恢复</p>
+<ul>
+<li>
+<p>&quot;现场保护&quot;——子程序运行时，对可能破坏的主程序用到的寄存器、堆栈、标志位、内存数据值进行的保护。</p>
+</li>
+<li>
+<p>&quot;现场恢复&quot;——子程序结束运行返回主程序时，对被保护的寄存器、堆栈、标志位、内存数据值的恢复。</p>
+</li>
+</ul>
+</li>
+<li>
+<p>子程序可嵌套: 子程序中使用堆栈来保护断点，由堆栈操作的“后进先出”特性保证各个层次子程序断点的正确入栈和返回，实现嵌套。因此在子程序中对堆栈的操作要精确控制。</p>
+</li>
+<li>
+<p>参数传递，主要方法有<strong>寄存器传递、内存变量传递和堆栈传递。</strong></p>
+</li>
+<li>
+<p>编写子程序调用方法说明, 子程序调用方法说明包括</p>
+<ul>
+<li>子程序功能</li>
+<li>入口参数</li>
+<li>出口参数</li>
+<li>使用的寄存器或存储器及调用实例</li>
+</ul>
+</li>
+</ul>
+<p>例1：利用寄存器传递参数。编写子程序，实现以二进制形式显示BX的值（假设为无符号数）</p>
+<pre><code class="language-assembly">;-------------------------;子程序名:DISP_BINARY;功能:以二进制形式显示BX的值(假设为无符号数);入口参数:BX;出口参数:无;------------------------DISP_BINARY  PROC	PUSH  CX		 ;保护现场	PUSH  DX	PUSH  AX	PUSHF	MOV  CX,16NEXTCHAR:	ROL  BX,1		MOV  DL,BL	AND  DL,1	OR   DL,30H   	MOV  AH,2	INT  21H	LOOP  NEXTCHARFINISH:    MOV  DL,'B'    MOV  AH,2    INT  21H    POPF			;恢复现场    POP  AX		    POP  DX    POP  CX    RETDISP_BINARY  ENDP
+</code></pre>
+<ul>
+<li>作为入口参数的寄存器可以保护也可以不保护</li>
+<li><strong>作为出口参数的寄存器是不能保护的</strong></li>
+<li>寄存器数量有限，只适合少量数据传递</li>
+</ul>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[3. 8086寻址方式和指令系统]]></title>
+        <id>https://notes.yuyzzz.top/post/3-8086-xun-zhi-fang-shi-he-zhi-ling-xi-tong/</id>
+        <link href="https://notes.yuyzzz.top/post/3-8086-xun-zhi-fang-shi-he-zhi-ling-xi-tong/">
+        </link>
+        <updated>2021-12-06T08:47:05.000Z</updated>
+        <summary type="html"><![CDATA[<p>本章主要介绍8086的7种寻址方式，和8086的指令系统（即各种指令的功能和用法）</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>本章主要介绍8086的7种寻址方式，和8086的指令系统（即各种指令的功能和用法）</p>
+<!-- more -->
+<h2 id="31-概述"><strong>3.1</strong> 概述</h2>
+<p>一条指令包括操作数和操作码</p>
+<p>指令的一般格式：</p>
+<ul>
+<li>没有操作数的指令：无操作数指令</li>
+<li>两个操作数的指令称为双操作数或二地址指令。</li>
+</ul>
+<h2 id="32-8086寻址方式">3.2 8086寻址方式</h2>
+<h3 id="321-立即寻址">3.2.1 立即寻址</h3>
+<ul>
+<li>
+<p>操作数直接出现在指令中，此时操作数也叫立即数</p>
+</li>
+<li>
+<p>操作数存放在代码段中，操作数紧跟在操作码后面，例如：</p>
+</li>
+</ul>
+<pre><code>MOV AX, 2010H 
+</code></pre>
+<figure data-type="image" tabindex="1"><img src="https://tva1.sinaimg.cn/large/006pkgSjgy1gvymvhe7mej30al07fq33.jpg" alt="image.png" loading="lazy"></figure>
+<p>约束条件：</p>
+<ul>
+<li>立即数只能作源操作数，不能作目标操作数</li>
+<li>立即数应和目标操作数长度一致</li>
+<li>立即数默认十进制，十六进制加H，八进制加Q，若十六进制以字母开头需加0为前缀</li>
+<li>立即数可以用表示+、-、×、/表示的算术表达式，也可以用括号改变运算顺序</li>
+<li>立即数是整数</li>
+</ul>
+<h3 id="322-寄存器寻址">3.2.2 寄存器寻址</h3>
+<ul>
+<li>操作数在指定寄存器(CPU内部寄存器)中</li>
+<li>由于寄存器号较短，故采用寄存器寻址的指令的机器码长度较短</li>
+</ul>
+<p>约束条件：</p>
+<ul>
+<li>在一条指令中，寄存器寻址方式既可用于源操作数，也可用于目标操作数，还可以两者都用寄存器寻址方式。</li>
+<li>源操作数与目标操作数的长度应一致。</li>
+<li>两个操作数不能同时为段寄存器。</li>
+<li>目标操作数不能是代码段寄存器。</li>
+</ul>
+<p>接下来的五种寻址方式的操作数都在存储器中，因此称为存储器寻址，其操作数称为内存操作数</p>
+<h3 id="323-直接寻址">3.2.3 直接寻址</h3>
+<ul>
+<li>指令中<strong>给出操作数的有效地址</strong>，为了与立即数区别，该有效地址必须用<code>[]</code>括起</li>
+<li><strong>操作数在存储器中</strong></li>
+</ul>
+<pre><code>MOV AX, [2010H]
+</code></pre>
+<p>若:(DS)=2000H, 指令执行后(AX)=1225H</p>
+<figure data-type="image" tabindex="2"><img src="https://tva1.sinaimg.cn/large/006pkgSjgy1gw0tog3tr3j30ca0almxm.jpg" alt="image.png" loading="lazy"></figure>
+<p>约束条件：</p>
+<ul>
+<li>若没有前缀指明操作数在哪个段，则默认放在数据段</li>
+<li>允许操作数存放在代码段、堆栈段或附加段。此时就需要在指令中指明段超越,如：MOV ES:[1225H], AX</li>
+<li>在汇编语言指令中，可以用符号地址代替数值地址</li>
+</ul>
+<h3 id="324-寄存器间接寻址">3.2.4 寄存器间接寻址</h3>
+<ul>
+<li>操作数的有效地址放在基址寄存器BX, BP或变址寄存器SI, DI中，指令中指定的寄存器名要用<code>[]</code>括起来</li>
+<li>如果有效地址在SI、DI和BX中，则以DS段寄存器的内容为段值；如果有效地址在BP中，则以SS段寄存器的内容为段值</li>
+</ul>
+<pre><code>MOV AX, [SI]
+</code></pre>
+<p>若 (DS)=2000H, (SI) = 2010H, 则执行后(AX)=1225H</p>
+<figure data-type="image" tabindex="3"><img src="https://tva1.sinaimg.cn/large/006pkgSjgy1gw0u3c9nyhj30dv0bnjrx.jpg" alt="image.png" loading="lazy"></figure>
+<h3 id="325-寄存器相对寻址">3.2.5 寄存器相对寻址</h3>
+<ul>
+<li>
+<p>操作数在存储器中，有效地址是基址或变址寄存器与偏移量之和</p>
+</li>
+<li>
+<p>操作数的物理地址=(DS)x 10H+(SI)/(DI)/(BX)+8位或16位偏移量</p>
+<p>或：操作数的物理地址=(SS)x 10H+(BP)+8位或16位偏移量</p>
+</li>
+<li>
+<p>8位偏移量的取值范围为：00～0FFH(即+127D～-128D)</p>
+</li>
+<li>
+<p>16位位移量的取值范围为：0000～0FFFFH(即+32767D～-32768D)</p>
+</li>
+<li>
+<p>8086允许以下三种方式表示寄存器相对寻址，他们是等效的</p>
+<pre><code>MOV AX，[BX]+8 
+MOV AX，8[BX] 
+MOV AX，[BX+8]
+</code></pre>
+</li>
+</ul>
+<p>若(DS)=2000H, (BX)=2008H,则执行后(AX)=1225H</p>
+<figure data-type="image" tabindex="4"><img src="https://tva1.sinaimg.cn/large/006pkgSjgy1gw0uzukszzj30dv0b174t.jpg" alt="image.png" loading="lazy"></figure>
+<h3 id="326-基址变址寻址">3.2.6 基址变址寻址</h3>
+<ul>
+<li>
+<p>有效地址是指令中基址寄存器和变址寄存器的和</p>
+</li>
+<li>
+<p>操作数在内存，使用基址寄存器BX时，操作数默认存放在数据段中；使用基址寄存器BP时，操作数默认存放在堆栈段中，允许段超越</p>
+<p>操作数的物理地址=（DS）×10H+（SI）/（DI）+（BX）</p>
+<p>或 =（SS）×10H+（SI）/（DI）+（BP）</p>
+</li>
+</ul>
+<pre><code>MOV AX, [BX][SI]
+</code></pre>
+<p>若(DS)=2000H, (BX)=2008H, (SI)=8H, 则执行后(AX)=1225H</p>
+<h3 id="327-相对基址变址寻址">3.2.7 相对基址变址寻址</h3>
+<ul>
+<li>
+<p>有效地址是指令中基址寄存器值和变址寄存器值及8位或16位偏移量偏移量之和</p>
+</li>
+<li>
+<p>使用基址寄存器BX时，操作数默认存放在数据段中；使用基址寄存器BP时，操作数默认存放在堆栈段中，允许段超越</p>
+<p>操作数的物理地址=（DS）×10H+ (SI)/(DI) +（BX）+ 8位或16位偏移量</p>
+<p>或 =（SS）×10H+ (SI)/(DI) +（BP）+ 8位或16位偏移量</p>
+</li>
+</ul>
+<pre><code>MOV AX, 3[BX][SI]
+</code></pre>
+<p>若(DS)=2000H, (BX)=2008H, (SI)=5H, 则执行后(AX)=1225H</p>
+<img src="https://tva1.sinaimg.cn/large/006pkgSjgy1gw0vkfk4orj30re0mcgp9.jpg" alt="image.png" style="zoom:50%;" />
+<h2 id="33-8086指令系统">3.3 8086指令系统</h2>
+<p>六大指令类型：数据传送指令、算术运算指令、位运算指令、串操作指令、控制转移指令、处理器控制指令</p>
+<h3 id="331-数据传送指令">3.3.1 数据传送指令</h3>
+<p>指将数据或地址传送到寄存器，存储单元或I/O端口中</p>
+<p><strong>数据传送指令的特点：</strong></p>
+<ul>
+<li>除了POPF和SAHF指令外，其他的数据传送指令的执行结果都不影响标志位</li>
+<li>指令中如果列出两个操作数，则指令的执行过程是：目标操作数←源操作数。指令中如果仅列出一个操作数，则另一个操作数为隐含操作数</li>
+</ul>
+<ol>
+<li>
+<p>通用数据传送指令</p>
+<ul>
+<li>
+<p><strong>传送指令</strong></p>
+<pre><code>MOV 目标操作数, 源操作数
+</code></pre>
+<p>说明：</p>
+<ul>
+<li>源操作数可以是立即数、寄存器或内存操作数</li>
+<li>目的操作数可以是寄存器、内存操作数</li>
+<li>立即数和CS寄存器只能成为源操作数，不能成为目标操作数</li>
+<li>IP和FR都不允许成为源操作数和目标操作数</li>
+<li>立即数不允许传送到DS、ES或SS</li>
+<li>源操作数和目标操作数不能同时是内存操作数，也不能同时是段寄存器</li>
+<li>源操作数和目标操作数类型必须相同，为字节或字类型</li>
+</ul>
+</li>
+<li>
+<p><strong>数据交换指令</strong>：源操作数与目标操作数的内容互换</p>
+<pre><code>XCHG 目标操作数, 源操作数
+</code></pre>
+<p>说明：</p>
+<ul>
+<li>源操作数和目标操作数都可以是寄存器或内存操作数</li>
+<li>不能同时是内存操作数、不能同时是寄存器AX</li>
+<li>段寄存器、寄存器IP或立即数不能作为源操作数和目标操作数</li>
+</ul>
+</li>
+<li>
+<p><strong>堆栈操作指令</strong>：操作数的类型只能是<strong>字(两个字节)</strong>，而不是字节，并且不能是立即数</p>
+<ul>
+<li>
+<p><strong>进栈指令</strong>：源操作数入栈，且栈指针SP－2</p>
+<pre><code>PUSH 源操作数
+</code></pre>
+<p>SP = SP -1 操作低字节</p>
+<p>SP = SP -2 操作高字节</p>
+<p>说明：</p>
+<ul>
+<li>PUSH命令总是把两个字节一起推入堆栈</li>
+<li>源操作数可以是寄存器或内存操作数</li>
+</ul>
+<img src="https://tva1.sinaimg.cn/large/006pkgSjgy1gw238xakx3j31aw0sih0p.jpg" alt="image.png" style="zoom:43%;" />
+</li>
+<li>
+<p>出栈指令：弹出栈顶两个字节</p>
+<pre><code>POP 目标操作数
+</code></pre>
+<p>说明：</p>
+<ul>
+<li>执行后SS:SP指针指向目标操作数</li>
+<li>SP = SP + 2</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>累加器专用传送指令</p>
+<p>XLAT, 将内存表格中指定单元值送入寄存器AL, 把数据段中偏移地址为BX+AL的内存单元的内容送到AL中，即：AL← (BX + AL)</p>
+<pre><code>XLAT
+XLAT 表格首地址
+</code></pre>
+<p>约束：</p>
+<ul>
+<li>BX保存内存表格的首地址；寄存器AL保存表格中某单元在此表格中的偏移量</li>
+<li>该指令能访问的内存表格中的数据只能是字节类型的</li>
+<li>该指令能访问的内存表格的最大容量是256字节</li>
+</ul>
+</li>
+<li>
+<p>地址传送指令</p>
+<ul>
+<li>
+<p>取有效地址指令LEA: 取内存单元mem的<strong>有效地址</strong>，送入16位寄存器中</p>
+<pre><code>LEA r16, mem
+</code></pre>
+</li>
+<li>
+<p>地址指针装入DS指令LDS: 将内存中32位(逻辑地址)源操作数的低16位送入指定寄存器r16中，高16送入段寄存器DS中</p>
+<pre><code>LDS r16, m32
+</code></pre>
+<img src="https://tva1.sinaimg.cn/large/006pkgSjgy1gw32yzvn21j311y0swwwy.jpg" alt="image.png" style="zoom:40%;" />
+</li>
+<li>
+<p>地址指针装入ES指令LES: 将上述DS换成ES</p>
+</li>
+</ul>
+</li>
+<li>
+<p>标志传送指令</p>
+<ul>
+<li>取标志指令LAHF(Load AH from flags): 源操作数隐含为标志寄存器PSW的低8位，目标操作数隐含为寄存器AH</li>
+<li>置标志指令SAHF(Store AH onto flags): 将AH的内容写入标志寄存器的0-7位</li>
+<li>标志入栈指令PUSHF: 将标志寄存器入栈, ① SP ← SP–2; ② (SP + 1，SP) ← FLAG</li>
+<li>标志出栈指令POPF: 将数据出栈到标志寄存器，① FLAG ← (SP+1，SP); ② SP ← SP + 2</li>
+</ul>
+</li>
+<li>
+<p>数据类型转换指令</p>
+<ul>
+<li>
+<p>字节转换为字指令CBW：将寄存器AL中数据的符号位扩展到AH中，使字节转换为字</p>
+<p>当：(AL)&lt;80H, AH&lt;-00H, (AL)&gt;=80H, AH&lt;-FFH</p>
+</li>
+<li>
+<p>字转换为双字指令CWD: 将寄存器AX中数据的符号位扩展到DX，使字转换为双字</p>
+<p>当：(AX)&lt;8000H, DX&lt;-0000H; (AX)&gt;=8000H, DX&lt;-FFFFH</p>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="332-算术运算指令">3.3.2 算术运算指令</h3>
+<ul>
+<li>双操作数指令中，除了源操作数是立即数这种情况外， 其余情况下，必须有一个操作数在寄存器中</li>
+<li>单操作数指令中的操作数不允许是立即数</li>
+</ul>
+<ol>
+<li>
+<p>加法指令</p>
+<ul>
+<li>
+<p>不带进位的加法指令 ADD；AF、CF、OF、PF、SF、ZF受影响</p>
+<pre><code>ADD dest, src
+;即(dest)&lt;- (dest)+(src)
+</code></pre>
+</li>
+<li>
+<p>带进位的加法指令 ADC；AF、CF、OF、PF、SF、ZF受影响</p>
+<pre><code>ADC dest, arc
+;即(dest)&lt;- (dest)+(src)+CF
+</code></pre>
+</li>
+<li>
+<p>加1指令 INC；AF、OF、PF、SF、ZF受影响</p>
+<pre><code>INC dest
+;即(dest)&lt;-(dest)+1
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p>减法指令</p>
+<ul>
+<li>
+<p>不带借位的减法指令SUB，当减去一个立即数字节时，应先扩展为16位操作数</p>
+<pre><code>SUB dest, arc
+</code></pre>
+</li>
+<li>
+<p>带借位的减法SBB：进行减法时同时减去CF；AF、CF、OF、PF、SF、ZF受影响</p>
+<pre><code>SBB dest, arc
+</code></pre>
+</li>
+<li>
+<p>减1指令DEC, AF、OF、PF、SF、ZF受影响</p>
+<pre><code>DEC dest
+</code></pre>
+</li>
+<li>
+<p>比较指令CMP，从目的操作数（左边）中减去源操作数(右边)，但结果不送回，而只按减的结果影响标志</p>
+<p>AF、CF、OF、PF、SF、ZF受影响，源操作数和目标操作数类型要相同</p>
+<pre><code>CMP dest, src
+</code></pre>
+</li>
+<li>
+<p>求补指令NEG</p>
+<pre><code>NEG dest
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p>乘法指令：字节乘时，高8位存放在AH中，低8位存放在AL中；字乘时，被乘数隐含为AX，高16位存放于DX中，低16位存放于AX中</p>
+<ul>
+<li>
+<p>无符号数乘法指令</p>
+<pre><code>MUL src
+</code></pre>
+<p>CF、OF受影响, AF、PF、SF、ZF 不受影响，DX和AH中分别为乘积高位，如乘积高位不为0，CF和OF为1，表示结果为有效数；若运算结果OF=CF=0，表示其为无效数据。</p>
+</li>
+<li>
+<p>有符号数乘法指令</p>
+<pre><code>IMUL src
+</code></pre>
+<p>CF、OF 受影响，AF、PF、SF、ZF 无意义。如果乘积的高一半为低一半的符号扩展，则CF和OF置0，表示其为无效数据。当CF和OF为1 时，说明AH 或DX 中的内容是乘积的高位</p>
+</li>
+</ul>
+</li>
+<li>
+<p>除法指令：要求被除数是除数的双倍字长</p>
+<img src="https://tva1.sinaimg.cn/large/006pkgSjgy1gw3gb8wuk0j30ts0e6ahb.jpg" alt="image.png" style="zoom:50%;" />
+</li>
+<li>
+<p>BCD码调整指令:</p>
+<p>6条，均为隐含寻址方式，隐含操作数为AL或AL、AH；</p>
+<p>不能单独使用，要紧跟在相应算术运算指令之后；</p>
+<p>执行结果为压缩BCD码和扩展BCD码表示的十进制数</p>
+<ul>
+<li>
+<p>压缩BCD码的加减法调整：</p>
+<ul>
+<li>DAA: 若AL的低4位&gt;9或AF=1，则进行AL&lt;-(AL)+06H修正，同时AF置1。若AL的高4位&gt;9或CF=1，则进行AL&lt;-(AL)+60H修正，同时CF置1。</li>
+<li>DAS: 若AL的低4位&gt;9或AF=1，则进行AL&lt;-(AL)-06H修正，同时AF置1。若AL的高4位&gt;9或CF=1，则进行AL-(AL)-60H修正，同时CF置1。</li>
+</ul>
+</li>
+<li>
+<p>非压缩BCD码的加减乘除调整：</p>
+<ul>
+<li>
+<p>AAA: 加法调整</p>
+<p>①若AL中低4位&lt;9且AF=0，则跳过②;</p>
+<p>②若AL中的低4位&gt;9或AF=1，则进行AL&lt;-(AL)+06H修正，同时，AH&lt;-(AH)+1，AF置1。</p>
+<p>③清除AL寄存器的高4位。</p>
+<p>④AF值送CF。</p>
+</li>
+<li>
+<p>AAS：减法调整</p>
+<p>①若AL中低4位&lt;9且AF=0，则跳过②;</p>
+<p>②若AL中的低4位&gt;9或AF=1，则减6，AF置1。</p>
+<p>③清除AL寄存器的高4位。AF值送CF。</p>
+</li>
+<li>
+<p>AAM：乘法调整，把AL寄存器的内容除以10，商放在AH寄存器中，余数保存在AL寄存器中，用于MUL之后，把AL中的乘积调整成非压缩BCD码，结果存于寄存器AX中。</p>
+</li>
+<li>
+<p>AAD：除法调整，将AH寄存器的内容乘以10后加上AL的内容，结果回送AL，同时将AH清0。</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="333-位运算指令">3.3.3 位运算指令</h3>
+<ol>
+<li>
+<p>逻辑运算：按位进行，NOT不影响标志位，其他指令：CF, OF为0，AF无意义，SF, ZF, PF被影响</p>
+<ul>
+<li>AND：按位与</li>
+<li>OR：按位或</li>
+<li>NOT：按位非，操作数不能是立即数</li>
+<li>XOR：按位异或</li>
+<li>TEST：执行与操作，影响标志位，但不保留结果</li>
+</ul>
+</li>
+<li>
+<p>位移指令：CF值由运算结果定；移动一位时由指令直接给出，此时OF的值根据符号位确定；两位及以上时移动次数由寄存器CL指定</p>
+<ul>
+<li>
+<p>SHL: 逻辑左移</p>
+</li>
+<li>
+<p>SAL: 算数左移</p>
+</li>
+<li>
+<p>SHR: 逻辑右移</p>
+</li>
+<li>
+<p>SAR: 算数右移</p>
+<img src="https://tva1.sinaimg.cn/large/006pkgSjgy1gwf2nyrvgej30m706075f.jpg" alt="image.png" style="zoom: 80%;" />
+</li>
+<li>
+<p>ROL: 循环左移</p>
+</li>
+<li>
+<p>ROR: 循环右移</p>
+</li>
+<li>
+<p>RCL: 带进位循环左移</p>
+</li>
+<li>
+<p>RCR: 带进位循环右移</p>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="334-串操作指令">3.3.4 串操作指令</h3>
+<p>串操作指令的特点:</p>
+<ul>
+<li>源串一般存放在数据段，偏移地址由SI指定,允许段重设。</li>
+<li>目标串必须在附加段，偏移地址由DI指定。</li>
+<li>指令自动修改地址指针，修改方向由DF决定。DF=0 增地址方向；DF=1 减地址方向。</li>
+<li>数据块长度值由CX指定。</li>
+<li>可增加自动重复前缀以实现自动修改CX内容</li>
+</ul>
+<ol>
+<li>
+<p>串传送指令：MOVSB/MOVSW</p>
+<ul>
+<li>
+<p>将源字节（字）串传送给目的字节串（或字串）</p>
+</li>
+<li>
+<p>源字节串（字串）的地址由DS:SI 提供，</p>
+<p>目的字节串（字串）的地址由ES:DI 提供。</p>
+</li>
+<li>
+<p>方向标志DF为0，则SI和DI做自动增量变化，即每传送1个字节，自动加1，而每传送1个字, 自动减2；如果DF为1，则SI和DI作自动减量变化，即每传送1个字节，自动减1，而每传送1个字，自动减2</p>
+</li>
+</ul>
+</li>
+<li>
+<p>串装入指令：LODSB/LODSW</p>
+<ul>
+<li>将源操作数提供的字节（字）取到AL（AX），所有标志位不受影响</li>
+<li>每次重复执行指令会把累加器的内容冲掉，因此，这两条指令只用于循环程序中，而不加重复前缀</li>
+</ul>
+</li>
+<li>
+<p>重复前缀：用于重复执行某些指令</p>
+<img src="C:\Users\framezhi\AppData\Roaming\Typora\typora-user-images\image-20211115165033876.png" alt="image-20211115165033876" style="zoom:80%;" />
+</li>
+<li>
+<p>串扫描指令：SCASB/SCASW</p>
+<ul>
+<li>
+<p>按照累加器中给出的字节或字对ES:DI所指的字节串或字串进行检索，每检索一次，便对DI作一次修改</p>
+</li>
+<li>
+<p>影响AF、CF、OF、PF、SF、ZF</p>
+</li>
+<li>
+<p>通过加重复前缀实现在字节串中或字串中检索和累加器内容相同的或不同的字节或字</p>
+</li>
+<li>
+<p>REPE SCASB 用来检索和AL内容不同的字节，</p>
+<p>REPNZ SCASW 用来检索和AX内容相同的字。</p>
+</li>
+</ul>
+</li>
+<li>
+<p>串送存指令：STOSB/STOSW</p>
+<ul>
+<li>将AL（AX）中的字节（或字）存入ES:DI 所指单元</li>
+<li>用于将输入的一串数据填入内存一个区域；STOSB和STOSW指令前加重复前缀时，可以使内存一个区域填满某个值。</li>
+</ul>
+</li>
+<li>
+<p>串比较指令：CMPSB/CMPSW</p>
+<ul>
+<li>功能：CMPSB/CMPSW指令对存储器内的2个字节/字串进行比较。</li>
+<li>AF、CF、OF、PF、SF、ZF受影响</li>
+<li>串比较指令常与条件重复前缀连用，指令的执行不改变操作数，仅影响标志位。</li>
+</ul>
+</li>
+</ol>
+<h3 id="335-程序控制指令">3.3.5 程序控制指令</h3>
+<ol>
+<li>
+<p>转移指令：修改指令的<u>偏移地址</u>或<u>段地址及偏移地址</u>实现程序的转移</p>
+<p>无条件转移指令：JMP。IP←(IP)+以标号或立即数给出的偏移量，(CS)不变。可以为段内直接转移、段内间接转移、段间直接转移、段间间接转移。</p>
+<ul>
+<li>
+<p>段内转移：转移的目标地址在当前代码段内</p>
+<ul>
+<li>
+<p>段内直接转移：指令中直接给出目标地址</p>
+<img src="https://tva1.sinaimg.cn/large/006pkgSjly1gwfyiomzuqj30mi028js5.jpg" alt="image.png" style="zoom:80%;" />
+</li>
+<li>
+<p>段内间接转移：由指令中的寄存器或存储器操作数指出目标地址</p>
+<img src="https://tva1.sinaimg.cn/large/006pkgSjgy1gwfyjjxd3tj30ba01mweh.jpg" alt="image.png" style="zoom:80%;" />
+</li>
+</ul>
+</li>
+<li>
+<p>段间转移：转移的目标地址不在当前代码段内</p>
+<ul>
+<li>
+<p>段间直接转移：指令中直接给出目标地址；IP&lt;-标号所在存储单元的偏移地址，CS&lt;-标号所在存储单元的段地址。格式: JMP FAR PTR 标号</p>
+<img src="https://tva1.sinaimg.cn/large/006pkgSjgy1gwfyn1e3bsj30k300z74e.jpg" alt="image.png" style="zoom:80%;" />
+</li>
+<li>
+<p>段间间接转移：由指令中的32位存储器操作数指出目标地址, IP&lt;-操作数指出的双字存储单元的低16位数值，CS&lt;-操作数指出的双字存储单元的高16位数值。格式: JMP DWORD PTR 存储单元</p>
+<img src="https://tva1.sinaimg.cn/large/006pkgSjgy1gwfyndlm0vj30hw00tjrd.jpg" alt="image.png" style="zoom:80%;" />
+</li>
+</ul>
+</li>
+</ul>
+<p>条件转移指令：</p>
+<ul>
+<li>
+<p>根据单个标志位状态判断的转移指令</p>
+<img src="https://tva1.sinaimg.cn/large/006pkgSjgy1gwfytl3iobj30i10dljvg.jpg" alt="image.png" style="zoom:80%;" />
+</li>
+<li>
+<p>根据两个无符号数的比较结果判断的转移指令</p>
+<img src="https://tva1.sinaimg.cn/large/006pkgSjgy1gwfyu32s9mj30jr0awad0.jpg" alt="image.png" style="zoom:80%;" />
+</li>
+</ul>
+</li>
+<li>
+<p>循环控制指令</p>
+<ul>
+<li>
+<p>控制程序在以当前IP为中心的-128~+127范围内循环</p>
+</li>
+<li>
+<p>循环次数由CX寄存器指定</p>
+<img src="https://tva1.sinaimg.cn/large/006pkgSjgy1gwgy7ae5y1j30hc03s404.jpg" alt="image.png" style="zoom:80%;" />
+</li>
+</ul>
+</li>
+<li>
+<p>过程调用和返回</p>
+<p>调用指令的执行过程</p>
+<ul>
+<li>将调用指令的下一条指令的地址（断点）压入堆栈</li>
+<li>获取子过程的入口地址（子过程第1条指令的偏移地址）</li>
+<li>（执行子过程，含相应参数的保存及恢复）</li>
+<li>将断点偏移地址由堆栈弹出，返回原程序</li>
+</ul>
+<p>段内调用：子过程与原调用程序在同一代码段，在调用之前只需保护断点的偏移地址(IP)。直接调用时，转移地址不能用变量，而只能用相对于IP的标号</p>
+<ul>
+<li>段内直接调用：格式：<code>CALL 过程名</code>；①SP&lt;-(SP)-2; ②SS:SP&lt;-(IP); ③IP&lt;-(IP)+16位偏移量。</li>
+<li>段内间接调用：格式：<code>CALL 寄存器</code>；①SP&lt;-(SP)-2; ②SS:SP&lt;-(IP); ③IP&lt;-寄存器的值</li>
+</ul>
+<p>段间调用：子过程与原调用程序不在同一代码段，在调用之前需保护断点的段基地址和偏移地址。先将断点的CS压栈，再压入IP</p>
+<ul>
+<li>
+<p>段间直接调用：格式：<code>CALL FAR PTR 过程名</code></p>
+<p>①SP&lt;-(SP)-2;②SS:SP&lt;-(CS); ③SP&lt;-(SP)-2;④SS:SP&lt;-(IP); ⑤IP&lt;-过程入口偏移地址; ⑥CS&lt;-过程入口段地址</p>
+</li>
+<li>
+<p>段间间接调用：格式：<code>CALL DWORD PTR 存储单元地址</code></p>
+<p>①SP&lt;-(SP)-2; ②SS:SP&lt;-(CS); ③SP&lt;-(SP)-2; ④SS:SP&lt;-(IP);</p>
+<p>⑤IP&lt;-双字存储单元低16位数据; ⑥CS&lt;-双字存储单元高16位数据</p>
+</li>
+</ul>
+<p>返回指令：从堆栈中弹出断点地址，返回原程序，RET指令一般位于子程序的最后。RET指令的类型和过程调用指令CALL的类型(段内返回类型/段间返回类型)要一致。</p>
+<ul>
+<li>无参数段内返回</li>
+<li>有参数段内返回</li>
+<li>无参数段间返回</li>
+<li>有参数段间返回</li>
+</ul>
+</li>
+<li>
+<p>中断指令</p>
+<ul>
+<li>中断指令：格式：<code>INT n</code>，产生一个中断类型号为n的软中断</li>
+<li>溢出中断指令：格式：<code>INTO</code>, 当OF=1，产生中断类型号为4的中断</li>
+<li>中断返回指令：格式：<code>IRET</code>, 从中断服务程序返回断点处，并将标志寄存器的值从堆栈弹出，继续执行原程序。</li>
+</ul>
+</li>
+</ol>
+<h3 id="336-处理器控制指令">3.3.6 处理器控制指令</h3>
+<ol>
+<li>
+<p>标志位操作指令</p>
+<img src="https://tva1.sinaimg.cn/large/006pkgSjly1gwh199jchej30mc0botc5.jpg" alt="image.png" style="zoom:80%;" />
+</li>
+<li>
+<p>外部同步指令</p>
+</li>
+</ol>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[三、数据链路层]]></title>
         <id>https://notes.yuyzzz.top/post/san-shu-ju-lian-lu-ceng/</id>

@@ -1,0 +1,794 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>3. 8086寻址方式和指令系统 | Yuyzzz&#39;notes</title>
+<link rel="shortcut icon" href="https://notes.yuyzzz.top/favicon.ico?v=1638781068538">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://notes.yuyzzz.top/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="3. 8086寻址方式和指令系统 | Yuyzzz&#39;notes - Atom Feed" href="https://notes.yuyzzz.top/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="本章主要介绍8086的7种寻址方式，和8086的指令系统（即各种指令的功能和用法）
+
+3.1 概述
+一条指令包括操作数和操作码
+指令的一般格式：
+
+没有操作数的指令：无操作数指令
+两个操作数的指令称为双操作数或二地址指令。
+
+3.2 808..." />
+    <meta name="keywords" content="微机" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://notes.yuyzzz.top">
+  <img class="avatar" src="https://notes.yuyzzz.top/images/avatar.png?v=1638781068538" alt="">
+  </a>
+  <h1 class="site-title">
+    Yuyzzz&#39;notes
+  </h1>
+  <p class="site-description">
+    遊生夢死
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              3. 8086寻址方式和指令系统
+            </h2>
+            <div class="post-info">
+              <span>
+                2021-12-06
+              </span>
+              <span>
+                18 min read
+              </span>
+              
+                <a href="https://notes.yuyzzz.top/tag/w8OgjPlVy/" class="post-tag">
+                  # 微机
+                </a>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>本章主要介绍8086的7种寻址方式，和8086的指令系统（即各种指令的功能和用法）</p>
+<!-- more -->
+<h2 id="31-概述"><strong>3.1</strong> 概述</h2>
+<p>一条指令包括操作数和操作码</p>
+<p>指令的一般格式：</p>
+<ul>
+<li>没有操作数的指令：无操作数指令</li>
+<li>两个操作数的指令称为双操作数或二地址指令。</li>
+</ul>
+<h2 id="32-8086寻址方式">3.2 8086寻址方式</h2>
+<h3 id="321-立即寻址">3.2.1 立即寻址</h3>
+<ul>
+<li>
+<p>操作数直接出现在指令中，此时操作数也叫立即数</p>
+</li>
+<li>
+<p>操作数存放在代码段中，操作数紧跟在操作码后面，例如：</p>
+</li>
+</ul>
+<pre><code>MOV AX, 2010H 
+</code></pre>
+<figure data-type="image" tabindex="1"><img src="https://tva1.sinaimg.cn/large/006pkgSjgy1gvymvhe7mej30al07fq33.jpg" alt="image.png" loading="lazy"></figure>
+<p>约束条件：</p>
+<ul>
+<li>立即数只能作源操作数，不能作目标操作数</li>
+<li>立即数应和目标操作数长度一致</li>
+<li>立即数默认十进制，十六进制加H，八进制加Q，若十六进制以字母开头需加0为前缀</li>
+<li>立即数可以用表示+、-、×、/表示的算术表达式，也可以用括号改变运算顺序</li>
+<li>立即数是整数</li>
+</ul>
+<h3 id="322-寄存器寻址">3.2.2 寄存器寻址</h3>
+<ul>
+<li>操作数在指定寄存器(CPU内部寄存器)中</li>
+<li>由于寄存器号较短，故采用寄存器寻址的指令的机器码长度较短</li>
+</ul>
+<p>约束条件：</p>
+<ul>
+<li>在一条指令中，寄存器寻址方式既可用于源操作数，也可用于目标操作数，还可以两者都用寄存器寻址方式。</li>
+<li>源操作数与目标操作数的长度应一致。</li>
+<li>两个操作数不能同时为段寄存器。</li>
+<li>目标操作数不能是代码段寄存器。</li>
+</ul>
+<p>接下来的五种寻址方式的操作数都在存储器中，因此称为存储器寻址，其操作数称为内存操作数</p>
+<h3 id="323-直接寻址">3.2.3 直接寻址</h3>
+<ul>
+<li>指令中<strong>给出操作数的有效地址</strong>，为了与立即数区别，该有效地址必须用<code>[]</code>括起</li>
+<li><strong>操作数在存储器中</strong></li>
+</ul>
+<pre><code>MOV AX, [2010H]
+</code></pre>
+<p>若:(DS)=2000H, 指令执行后(AX)=1225H</p>
+<figure data-type="image" tabindex="2"><img src="https://tva1.sinaimg.cn/large/006pkgSjgy1gw0tog3tr3j30ca0almxm.jpg" alt="image.png" loading="lazy"></figure>
+<p>约束条件：</p>
+<ul>
+<li>若没有前缀指明操作数在哪个段，则默认放在数据段</li>
+<li>允许操作数存放在代码段、堆栈段或附加段。此时就需要在指令中指明段超越,如：MOV ES:[1225H], AX</li>
+<li>在汇编语言指令中，可以用符号地址代替数值地址</li>
+</ul>
+<h3 id="324-寄存器间接寻址">3.2.4 寄存器间接寻址</h3>
+<ul>
+<li>操作数的有效地址放在基址寄存器BX, BP或变址寄存器SI, DI中，指令中指定的寄存器名要用<code>[]</code>括起来</li>
+<li>如果有效地址在SI、DI和BX中，则以DS段寄存器的内容为段值；如果有效地址在BP中，则以SS段寄存器的内容为段值</li>
+</ul>
+<pre><code>MOV AX, [SI]
+</code></pre>
+<p>若 (DS)=2000H, (SI) = 2010H, 则执行后(AX)=1225H</p>
+<figure data-type="image" tabindex="3"><img src="https://tva1.sinaimg.cn/large/006pkgSjgy1gw0u3c9nyhj30dv0bnjrx.jpg" alt="image.png" loading="lazy"></figure>
+<h3 id="325-寄存器相对寻址">3.2.5 寄存器相对寻址</h3>
+<ul>
+<li>
+<p>操作数在存储器中，有效地址是基址或变址寄存器与偏移量之和</p>
+</li>
+<li>
+<p>操作数的物理地址=(DS)x 10H+(SI)/(DI)/(BX)+8位或16位偏移量</p>
+<p>或：操作数的物理地址=(SS)x 10H+(BP)+8位或16位偏移量</p>
+</li>
+<li>
+<p>8位偏移量的取值范围为：00～0FFH(即+127D～-128D)</p>
+</li>
+<li>
+<p>16位位移量的取值范围为：0000～0FFFFH(即+32767D～-32768D)</p>
+</li>
+<li>
+<p>8086允许以下三种方式表示寄存器相对寻址，他们是等效的</p>
+<pre><code>MOV AX，[BX]+8 
+MOV AX，8[BX] 
+MOV AX，[BX+8]
+</code></pre>
+</li>
+</ul>
+<p>若(DS)=2000H, (BX)=2008H,则执行后(AX)=1225H</p>
+<figure data-type="image" tabindex="4"><img src="https://tva1.sinaimg.cn/large/006pkgSjgy1gw0uzukszzj30dv0b174t.jpg" alt="image.png" loading="lazy"></figure>
+<h3 id="326-基址变址寻址">3.2.6 基址变址寻址</h3>
+<ul>
+<li>
+<p>有效地址是指令中基址寄存器和变址寄存器的和</p>
+</li>
+<li>
+<p>操作数在内存，使用基址寄存器BX时，操作数默认存放在数据段中；使用基址寄存器BP时，操作数默认存放在堆栈段中，允许段超越</p>
+<p>操作数的物理地址=（DS）×10H+（SI）/（DI）+（BX）</p>
+<p>或 =（SS）×10H+（SI）/（DI）+（BP）</p>
+</li>
+</ul>
+<pre><code>MOV AX, [BX][SI]
+</code></pre>
+<p>若(DS)=2000H, (BX)=2008H, (SI)=8H, 则执行后(AX)=1225H</p>
+<h3 id="327-相对基址变址寻址">3.2.7 相对基址变址寻址</h3>
+<ul>
+<li>
+<p>有效地址是指令中基址寄存器值和变址寄存器值及8位或16位偏移量偏移量之和</p>
+</li>
+<li>
+<p>使用基址寄存器BX时，操作数默认存放在数据段中；使用基址寄存器BP时，操作数默认存放在堆栈段中，允许段超越</p>
+<p>操作数的物理地址=（DS）×10H+ (SI)/(DI) +（BX）+ 8位或16位偏移量</p>
+<p>或 =（SS）×10H+ (SI)/(DI) +（BP）+ 8位或16位偏移量</p>
+</li>
+</ul>
+<pre><code>MOV AX, 3[BX][SI]
+</code></pre>
+<p>若(DS)=2000H, (BX)=2008H, (SI)=5H, 则执行后(AX)=1225H</p>
+<img src="https://tva1.sinaimg.cn/large/006pkgSjgy1gw0vkfk4orj30re0mcgp9.jpg" alt="image.png" style="zoom:50%;" />
+<h2 id="33-8086指令系统">3.3 8086指令系统</h2>
+<p>六大指令类型：数据传送指令、算术运算指令、位运算指令、串操作指令、控制转移指令、处理器控制指令</p>
+<h3 id="331-数据传送指令">3.3.1 数据传送指令</h3>
+<p>指将数据或地址传送到寄存器，存储单元或I/O端口中</p>
+<p><strong>数据传送指令的特点：</strong></p>
+<ul>
+<li>除了POPF和SAHF指令外，其他的数据传送指令的执行结果都不影响标志位</li>
+<li>指令中如果列出两个操作数，则指令的执行过程是：目标操作数←源操作数。指令中如果仅列出一个操作数，则另一个操作数为隐含操作数</li>
+</ul>
+<ol>
+<li>
+<p>通用数据传送指令</p>
+<ul>
+<li>
+<p><strong>传送指令</strong></p>
+<pre><code>MOV 目标操作数, 源操作数
+</code></pre>
+<p>说明：</p>
+<ul>
+<li>源操作数可以是立即数、寄存器或内存操作数</li>
+<li>目的操作数可以是寄存器、内存操作数</li>
+<li>立即数和CS寄存器只能成为源操作数，不能成为目标操作数</li>
+<li>IP和FR都不允许成为源操作数和目标操作数</li>
+<li>立即数不允许传送到DS、ES或SS</li>
+<li>源操作数和目标操作数不能同时是内存操作数，也不能同时是段寄存器</li>
+<li>源操作数和目标操作数类型必须相同，为字节或字类型</li>
+</ul>
+</li>
+<li>
+<p><strong>数据交换指令</strong>：源操作数与目标操作数的内容互换</p>
+<pre><code>XCHG 目标操作数, 源操作数
+</code></pre>
+<p>说明：</p>
+<ul>
+<li>源操作数和目标操作数都可以是寄存器或内存操作数</li>
+<li>不能同时是内存操作数、不能同时是寄存器AX</li>
+<li>段寄存器、寄存器IP或立即数不能作为源操作数和目标操作数</li>
+</ul>
+</li>
+<li>
+<p><strong>堆栈操作指令</strong>：操作数的类型只能是<strong>字(两个字节)</strong>，而不是字节，并且不能是立即数</p>
+<ul>
+<li>
+<p><strong>进栈指令</strong>：源操作数入栈，且栈指针SP－2</p>
+<pre><code>PUSH 源操作数
+</code></pre>
+<p>SP = SP -1 操作低字节</p>
+<p>SP = SP -2 操作高字节</p>
+<p>说明：</p>
+<ul>
+<li>PUSH命令总是把两个字节一起推入堆栈</li>
+<li>源操作数可以是寄存器或内存操作数</li>
+</ul>
+<img src="https://tva1.sinaimg.cn/large/006pkgSjgy1gw238xakx3j31aw0sih0p.jpg" alt="image.png" style="zoom:43%;" />
+</li>
+<li>
+<p>出栈指令：弹出栈顶两个字节</p>
+<pre><code>POP 目标操作数
+</code></pre>
+<p>说明：</p>
+<ul>
+<li>执行后SS:SP指针指向目标操作数</li>
+<li>SP = SP + 2</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>累加器专用传送指令</p>
+<p>XLAT, 将内存表格中指定单元值送入寄存器AL, 把数据段中偏移地址为BX+AL的内存单元的内容送到AL中，即：AL← (BX + AL)</p>
+<pre><code>XLAT
+XLAT 表格首地址
+</code></pre>
+<p>约束：</p>
+<ul>
+<li>BX保存内存表格的首地址；寄存器AL保存表格中某单元在此表格中的偏移量</li>
+<li>该指令能访问的内存表格中的数据只能是字节类型的</li>
+<li>该指令能访问的内存表格的最大容量是256字节</li>
+</ul>
+</li>
+<li>
+<p>地址传送指令</p>
+<ul>
+<li>
+<p>取有效地址指令LEA: 取内存单元mem的<strong>有效地址</strong>，送入16位寄存器中</p>
+<pre><code>LEA r16, mem
+</code></pre>
+</li>
+<li>
+<p>地址指针装入DS指令LDS: 将内存中32位(逻辑地址)源操作数的低16位送入指定寄存器r16中，高16送入段寄存器DS中</p>
+<pre><code>LDS r16, m32
+</code></pre>
+<img src="https://tva1.sinaimg.cn/large/006pkgSjgy1gw32yzvn21j311y0swwwy.jpg" alt="image.png" style="zoom:40%;" />
+</li>
+<li>
+<p>地址指针装入ES指令LES: 将上述DS换成ES</p>
+</li>
+</ul>
+</li>
+<li>
+<p>标志传送指令</p>
+<ul>
+<li>取标志指令LAHF(Load AH from flags): 源操作数隐含为标志寄存器PSW的低8位，目标操作数隐含为寄存器AH</li>
+<li>置标志指令SAHF(Store AH onto flags): 将AH的内容写入标志寄存器的0-7位</li>
+<li>标志入栈指令PUSHF: 将标志寄存器入栈, ① SP ← SP–2; ② (SP + 1，SP) ← FLAG</li>
+<li>标志出栈指令POPF: 将数据出栈到标志寄存器，① FLAG ← (SP+1，SP); ② SP ← SP + 2</li>
+</ul>
+</li>
+<li>
+<p>数据类型转换指令</p>
+<ul>
+<li>
+<p>字节转换为字指令CBW：将寄存器AL中数据的符号位扩展到AH中，使字节转换为字</p>
+<p>当：(AL)&lt;80H, AH&lt;-00H, (AL)&gt;=80H, AH&lt;-FFH</p>
+</li>
+<li>
+<p>字转换为双字指令CWD: 将寄存器AX中数据的符号位扩展到DX，使字转换为双字</p>
+<p>当：(AX)&lt;8000H, DX&lt;-0000H; (AX)&gt;=8000H, DX&lt;-FFFFH</p>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="332-算术运算指令">3.3.2 算术运算指令</h3>
+<ul>
+<li>双操作数指令中，除了源操作数是立即数这种情况外， 其余情况下，必须有一个操作数在寄存器中</li>
+<li>单操作数指令中的操作数不允许是立即数</li>
+</ul>
+<ol>
+<li>
+<p>加法指令</p>
+<ul>
+<li>
+<p>不带进位的加法指令 ADD；AF、CF、OF、PF、SF、ZF受影响</p>
+<pre><code>ADD dest, src
+;即(dest)&lt;- (dest)+(src)
+</code></pre>
+</li>
+<li>
+<p>带进位的加法指令 ADC；AF、CF、OF、PF、SF、ZF受影响</p>
+<pre><code>ADC dest, arc
+;即(dest)&lt;- (dest)+(src)+CF
+</code></pre>
+</li>
+<li>
+<p>加1指令 INC；AF、OF、PF、SF、ZF受影响</p>
+<pre><code>INC dest
+;即(dest)&lt;-(dest)+1
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p>减法指令</p>
+<ul>
+<li>
+<p>不带借位的减法指令SUB，当减去一个立即数字节时，应先扩展为16位操作数</p>
+<pre><code>SUB dest, arc
+</code></pre>
+</li>
+<li>
+<p>带借位的减法SBB：进行减法时同时减去CF；AF、CF、OF、PF、SF、ZF受影响</p>
+<pre><code>SBB dest, arc
+</code></pre>
+</li>
+<li>
+<p>减1指令DEC, AF、OF、PF、SF、ZF受影响</p>
+<pre><code>DEC dest
+</code></pre>
+</li>
+<li>
+<p>比较指令CMP，从目的操作数（左边）中减去源操作数(右边)，但结果不送回，而只按减的结果影响标志</p>
+<p>AF、CF、OF、PF、SF、ZF受影响，源操作数和目标操作数类型要相同</p>
+<pre><code>CMP dest, src
+</code></pre>
+</li>
+<li>
+<p>求补指令NEG</p>
+<pre><code>NEG dest
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p>乘法指令：字节乘时，高8位存放在AH中，低8位存放在AL中；字乘时，被乘数隐含为AX，高16位存放于DX中，低16位存放于AX中</p>
+<ul>
+<li>
+<p>无符号数乘法指令</p>
+<pre><code>MUL src
+</code></pre>
+<p>CF、OF受影响, AF、PF、SF、ZF 不受影响，DX和AH中分别为乘积高位，如乘积高位不为0，CF和OF为1，表示结果为有效数；若运算结果OF=CF=0，表示其为无效数据。</p>
+</li>
+<li>
+<p>有符号数乘法指令</p>
+<pre><code>IMUL src
+</code></pre>
+<p>CF、OF 受影响，AF、PF、SF、ZF 无意义。如果乘积的高一半为低一半的符号扩展，则CF和OF置0，表示其为无效数据。当CF和OF为1 时，说明AH 或DX 中的内容是乘积的高位</p>
+</li>
+</ul>
+</li>
+<li>
+<p>除法指令：要求被除数是除数的双倍字长</p>
+<img src="https://tva1.sinaimg.cn/large/006pkgSjgy1gw3gb8wuk0j30ts0e6ahb.jpg" alt="image.png" style="zoom:50%;" />
+</li>
+<li>
+<p>BCD码调整指令:</p>
+<p>6条，均为隐含寻址方式，隐含操作数为AL或AL、AH；</p>
+<p>不能单独使用，要紧跟在相应算术运算指令之后；</p>
+<p>执行结果为压缩BCD码和扩展BCD码表示的十进制数</p>
+<ul>
+<li>
+<p>压缩BCD码的加减法调整：</p>
+<ul>
+<li>DAA: 若AL的低4位&gt;9或AF=1，则进行AL&lt;-(AL)+06H修正，同时AF置1。若AL的高4位&gt;9或CF=1，则进行AL&lt;-(AL)+60H修正，同时CF置1。</li>
+<li>DAS: 若AL的低4位&gt;9或AF=1，则进行AL&lt;-(AL)-06H修正，同时AF置1。若AL的高4位&gt;9或CF=1，则进行AL-(AL)-60H修正，同时CF置1。</li>
+</ul>
+</li>
+<li>
+<p>非压缩BCD码的加减乘除调整：</p>
+<ul>
+<li>
+<p>AAA: 加法调整</p>
+<p>①若AL中低4位&lt;9且AF=0，则跳过②;</p>
+<p>②若AL中的低4位&gt;9或AF=1，则进行AL&lt;-(AL)+06H修正，同时，AH&lt;-(AH)+1，AF置1。</p>
+<p>③清除AL寄存器的高4位。</p>
+<p>④AF值送CF。</p>
+</li>
+<li>
+<p>AAS：减法调整</p>
+<p>①若AL中低4位&lt;9且AF=0，则跳过②;</p>
+<p>②若AL中的低4位&gt;9或AF=1，则减6，AF置1。</p>
+<p>③清除AL寄存器的高4位。AF值送CF。</p>
+</li>
+<li>
+<p>AAM：乘法调整，把AL寄存器的内容除以10，商放在AH寄存器中，余数保存在AL寄存器中，用于MUL之后，把AL中的乘积调整成非压缩BCD码，结果存于寄存器AX中。</p>
+</li>
+<li>
+<p>AAD：除法调整，将AH寄存器的内容乘以10后加上AL的内容，结果回送AL，同时将AH清0。</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="333-位运算指令">3.3.3 位运算指令</h3>
+<ol>
+<li>
+<p>逻辑运算：按位进行，NOT不影响标志位，其他指令：CF, OF为0，AF无意义，SF, ZF, PF被影响</p>
+<ul>
+<li>AND：按位与</li>
+<li>OR：按位或</li>
+<li>NOT：按位非，操作数不能是立即数</li>
+<li>XOR：按位异或</li>
+<li>TEST：执行与操作，影响标志位，但不保留结果</li>
+</ul>
+</li>
+<li>
+<p>位移指令：CF值由运算结果定；移动一位时由指令直接给出，此时OF的值根据符号位确定；两位及以上时移动次数由寄存器CL指定</p>
+<ul>
+<li>
+<p>SHL: 逻辑左移</p>
+</li>
+<li>
+<p>SAL: 算数左移</p>
+</li>
+<li>
+<p>SHR: 逻辑右移</p>
+</li>
+<li>
+<p>SAR: 算数右移</p>
+<img src="https://tva1.sinaimg.cn/large/006pkgSjgy1gwf2nyrvgej30m706075f.jpg" alt="image.png" style="zoom: 80%;" />
+</li>
+<li>
+<p>ROL: 循环左移</p>
+</li>
+<li>
+<p>ROR: 循环右移</p>
+</li>
+<li>
+<p>RCL: 带进位循环左移</p>
+</li>
+<li>
+<p>RCR: 带进位循环右移</p>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="334-串操作指令">3.3.4 串操作指令</h3>
+<p>串操作指令的特点:</p>
+<ul>
+<li>源串一般存放在数据段，偏移地址由SI指定,允许段重设。</li>
+<li>目标串必须在附加段，偏移地址由DI指定。</li>
+<li>指令自动修改地址指针，修改方向由DF决定。DF=0 增地址方向；DF=1 减地址方向。</li>
+<li>数据块长度值由CX指定。</li>
+<li>可增加自动重复前缀以实现自动修改CX内容</li>
+</ul>
+<ol>
+<li>
+<p>串传送指令：MOVSB/MOVSW</p>
+<ul>
+<li>
+<p>将源字节（字）串传送给目的字节串（或字串）</p>
+</li>
+<li>
+<p>源字节串（字串）的地址由DS:SI 提供，</p>
+<p>目的字节串（字串）的地址由ES:DI 提供。</p>
+</li>
+<li>
+<p>方向标志DF为0，则SI和DI做自动增量变化，即每传送1个字节，自动加1，而每传送1个字, 自动减2；如果DF为1，则SI和DI作自动减量变化，即每传送1个字节，自动减1，而每传送1个字，自动减2</p>
+</li>
+</ul>
+</li>
+<li>
+<p>串装入指令：LODSB/LODSW</p>
+<ul>
+<li>将源操作数提供的字节（字）取到AL（AX），所有标志位不受影响</li>
+<li>每次重复执行指令会把累加器的内容冲掉，因此，这两条指令只用于循环程序中，而不加重复前缀</li>
+</ul>
+</li>
+<li>
+<p>重复前缀：用于重复执行某些指令</p>
+<img src="C:\Users\framezhi\AppData\Roaming\Typora\typora-user-images\image-20211115165033876.png" alt="image-20211115165033876" style="zoom:80%;" />
+</li>
+<li>
+<p>串扫描指令：SCASB/SCASW</p>
+<ul>
+<li>
+<p>按照累加器中给出的字节或字对ES:DI所指的字节串或字串进行检索，每检索一次，便对DI作一次修改</p>
+</li>
+<li>
+<p>影响AF、CF、OF、PF、SF、ZF</p>
+</li>
+<li>
+<p>通过加重复前缀实现在字节串中或字串中检索和累加器内容相同的或不同的字节或字</p>
+</li>
+<li>
+<p>REPE SCASB 用来检索和AL内容不同的字节，</p>
+<p>REPNZ SCASW 用来检索和AX内容相同的字。</p>
+</li>
+</ul>
+</li>
+<li>
+<p>串送存指令：STOSB/STOSW</p>
+<ul>
+<li>将AL（AX）中的字节（或字）存入ES:DI 所指单元</li>
+<li>用于将输入的一串数据填入内存一个区域；STOSB和STOSW指令前加重复前缀时，可以使内存一个区域填满某个值。</li>
+</ul>
+</li>
+<li>
+<p>串比较指令：CMPSB/CMPSW</p>
+<ul>
+<li>功能：CMPSB/CMPSW指令对存储器内的2个字节/字串进行比较。</li>
+<li>AF、CF、OF、PF、SF、ZF受影响</li>
+<li>串比较指令常与条件重复前缀连用，指令的执行不改变操作数，仅影响标志位。</li>
+</ul>
+</li>
+</ol>
+<h3 id="335-程序控制指令">3.3.5 程序控制指令</h3>
+<ol>
+<li>
+<p>转移指令：修改指令的<u>偏移地址</u>或<u>段地址及偏移地址</u>实现程序的转移</p>
+<p>无条件转移指令：JMP。IP←(IP)+以标号或立即数给出的偏移量，(CS)不变。可以为段内直接转移、段内间接转移、段间直接转移、段间间接转移。</p>
+<ul>
+<li>
+<p>段内转移：转移的目标地址在当前代码段内</p>
+<ul>
+<li>
+<p>段内直接转移：指令中直接给出目标地址</p>
+<img src="https://tva1.sinaimg.cn/large/006pkgSjly1gwfyiomzuqj30mi028js5.jpg" alt="image.png" style="zoom:80%;" />
+</li>
+<li>
+<p>段内间接转移：由指令中的寄存器或存储器操作数指出目标地址</p>
+<img src="https://tva1.sinaimg.cn/large/006pkgSjgy1gwfyjjxd3tj30ba01mweh.jpg" alt="image.png" style="zoom:80%;" />
+</li>
+</ul>
+</li>
+<li>
+<p>段间转移：转移的目标地址不在当前代码段内</p>
+<ul>
+<li>
+<p>段间直接转移：指令中直接给出目标地址；IP&lt;-标号所在存储单元的偏移地址，CS&lt;-标号所在存储单元的段地址。格式: JMP FAR PTR 标号</p>
+<img src="https://tva1.sinaimg.cn/large/006pkgSjgy1gwfyn1e3bsj30k300z74e.jpg" alt="image.png" style="zoom:80%;" />
+</li>
+<li>
+<p>段间间接转移：由指令中的32位存储器操作数指出目标地址, IP&lt;-操作数指出的双字存储单元的低16位数值，CS&lt;-操作数指出的双字存储单元的高16位数值。格式: JMP DWORD PTR 存储单元</p>
+<img src="https://tva1.sinaimg.cn/large/006pkgSjgy1gwfyndlm0vj30hw00tjrd.jpg" alt="image.png" style="zoom:80%;" />
+</li>
+</ul>
+</li>
+</ul>
+<p>条件转移指令：</p>
+<ul>
+<li>
+<p>根据单个标志位状态判断的转移指令</p>
+<img src="https://tva1.sinaimg.cn/large/006pkgSjgy1gwfytl3iobj30i10dljvg.jpg" alt="image.png" style="zoom:80%;" />
+</li>
+<li>
+<p>根据两个无符号数的比较结果判断的转移指令</p>
+<img src="https://tva1.sinaimg.cn/large/006pkgSjgy1gwfyu32s9mj30jr0awad0.jpg" alt="image.png" style="zoom:80%;" />
+</li>
+</ul>
+</li>
+<li>
+<p>循环控制指令</p>
+<ul>
+<li>
+<p>控制程序在以当前IP为中心的-128~+127范围内循环</p>
+</li>
+<li>
+<p>循环次数由CX寄存器指定</p>
+<img src="https://tva1.sinaimg.cn/large/006pkgSjgy1gwgy7ae5y1j30hc03s404.jpg" alt="image.png" style="zoom:80%;" />
+</li>
+</ul>
+</li>
+<li>
+<p>过程调用和返回</p>
+<p>调用指令的执行过程</p>
+<ul>
+<li>将调用指令的下一条指令的地址（断点）压入堆栈</li>
+<li>获取子过程的入口地址（子过程第1条指令的偏移地址）</li>
+<li>（执行子过程，含相应参数的保存及恢复）</li>
+<li>将断点偏移地址由堆栈弹出，返回原程序</li>
+</ul>
+<p>段内调用：子过程与原调用程序在同一代码段，在调用之前只需保护断点的偏移地址(IP)。直接调用时，转移地址不能用变量，而只能用相对于IP的标号</p>
+<ul>
+<li>段内直接调用：格式：<code>CALL 过程名</code>；①SP&lt;-(SP)-2; ②SS:SP&lt;-(IP); ③IP&lt;-(IP)+16位偏移量。</li>
+<li>段内间接调用：格式：<code>CALL 寄存器</code>；①SP&lt;-(SP)-2; ②SS:SP&lt;-(IP); ③IP&lt;-寄存器的值</li>
+</ul>
+<p>段间调用：子过程与原调用程序不在同一代码段，在调用之前需保护断点的段基地址和偏移地址。先将断点的CS压栈，再压入IP</p>
+<ul>
+<li>
+<p>段间直接调用：格式：<code>CALL FAR PTR 过程名</code></p>
+<p>①SP&lt;-(SP)-2;②SS:SP&lt;-(CS); ③SP&lt;-(SP)-2;④SS:SP&lt;-(IP); ⑤IP&lt;-过程入口偏移地址; ⑥CS&lt;-过程入口段地址</p>
+</li>
+<li>
+<p>段间间接调用：格式：<code>CALL DWORD PTR 存储单元地址</code></p>
+<p>①SP&lt;-(SP)-2; ②SS:SP&lt;-(CS); ③SP&lt;-(SP)-2; ④SS:SP&lt;-(IP);</p>
+<p>⑤IP&lt;-双字存储单元低16位数据; ⑥CS&lt;-双字存储单元高16位数据</p>
+</li>
+</ul>
+<p>返回指令：从堆栈中弹出断点地址，返回原程序，RET指令一般位于子程序的最后。RET指令的类型和过程调用指令CALL的类型(段内返回类型/段间返回类型)要一致。</p>
+<ul>
+<li>无参数段内返回</li>
+<li>有参数段内返回</li>
+<li>无参数段间返回</li>
+<li>有参数段间返回</li>
+</ul>
+</li>
+<li>
+<p>中断指令</p>
+<ul>
+<li>中断指令：格式：<code>INT n</code>，产生一个中断类型号为n的软中断</li>
+<li>溢出中断指令：格式：<code>INTO</code>, 当OF=1，产生中断类型号为4的中断</li>
+<li>中断返回指令：格式：<code>IRET</code>, 从中断服务程序返回断点处，并将标志寄存器的值从堆栈弹出，继续执行原程序。</li>
+</ul>
+</li>
+</ol>
+<h3 id="336-处理器控制指令">3.3.6 处理器控制指令</h3>
+<ol>
+<li>
+<p>标志位操作指令</p>
+<img src="https://tva1.sinaimg.cn/large/006pkgSjly1gwh199jchej30mc0botc5.jpg" alt="image.png" style="zoom:80%;" />
+</li>
+<li>
+<p>外部同步指令</p>
+</li>
+</ol>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#31-%E6%A6%82%E8%BF%B0"><strong>3.1</strong> 概述</a></li>
+<li><a href="#32-8086%E5%AF%BB%E5%9D%80%E6%96%B9%E5%BC%8F">3.2 8086寻址方式</a>
+<ul>
+<li><a href="#321-%E7%AB%8B%E5%8D%B3%E5%AF%BB%E5%9D%80">3.2.1 立即寻址</a></li>
+<li><a href="#322-%E5%AF%84%E5%AD%98%E5%99%A8%E5%AF%BB%E5%9D%80">3.2.2 寄存器寻址</a></li>
+<li><a href="#323-%E7%9B%B4%E6%8E%A5%E5%AF%BB%E5%9D%80">3.2.3 直接寻址</a></li>
+<li><a href="#324-%E5%AF%84%E5%AD%98%E5%99%A8%E9%97%B4%E6%8E%A5%E5%AF%BB%E5%9D%80">3.2.4 寄存器间接寻址</a></li>
+<li><a href="#325-%E5%AF%84%E5%AD%98%E5%99%A8%E7%9B%B8%E5%AF%B9%E5%AF%BB%E5%9D%80">3.2.5 寄存器相对寻址</a></li>
+<li><a href="#326-%E5%9F%BA%E5%9D%80%E5%8F%98%E5%9D%80%E5%AF%BB%E5%9D%80">3.2.6 基址变址寻址</a></li>
+<li><a href="#327-%E7%9B%B8%E5%AF%B9%E5%9F%BA%E5%9D%80%E5%8F%98%E5%9D%80%E5%AF%BB%E5%9D%80">3.2.7 相对基址变址寻址</a></li>
+</ul>
+</li>
+<li><a href="#33-8086%E6%8C%87%E4%BB%A4%E7%B3%BB%E7%BB%9F">3.3 8086指令系统</a>
+<ul>
+<li><a href="#331-%E6%95%B0%E6%8D%AE%E4%BC%A0%E9%80%81%E6%8C%87%E4%BB%A4">3.3.1 数据传送指令</a></li>
+<li><a href="#332-%E7%AE%97%E6%9C%AF%E8%BF%90%E7%AE%97%E6%8C%87%E4%BB%A4">3.3.2 算术运算指令</a></li>
+<li><a href="#333-%E4%BD%8D%E8%BF%90%E7%AE%97%E6%8C%87%E4%BB%A4">3.3.3 位运算指令</a></li>
+<li><a href="#334-%E4%B8%B2%E6%93%8D%E4%BD%9C%E6%8C%87%E4%BB%A4">3.3.4 串操作指令</a></li>
+<li><a href="#335-%E7%A8%8B%E5%BA%8F%E6%8E%A7%E5%88%B6%E6%8C%87%E4%BB%A4">3.3.5 程序控制指令</a></li>
+<li><a href="#336-%E5%A4%84%E7%90%86%E5%99%A8%E6%8E%A7%E5%88%B6%E6%8C%87%E4%BB%A4">3.3.6 处理器控制指令</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://notes.yuyzzz.top/post/san-shu-ju-lian-lu-ceng/">
+              <h3 class="post-title">
+                三、数据链路层
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://notes.yuyzzz.top/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

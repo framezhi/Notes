@@ -3,7 +3,7 @@
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>4. 8086汇编语言程序设计 | Yuyzzz&#39;notes</title>
-<link rel="shortcut icon" href="https://notes.yuyzzz.top/favicon.ico?v=1638784984046">
+<link rel="shortcut icon" href="https://notes.yuyzzz.top/favicon.ico?v=1638944087929">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://notes.yuyzzz.top/styles/main.css">
 <link rel="alternate" type="application/atom+xml" title="4. 8086汇编语言程序设计 | Yuyzzz&#39;notes - Atom Feed" href="https://notes.yuyzzz.top/atom.xml">
@@ -26,7 +26,7 @@
       <div class="main-content">
         <div class="site-header">
   <a href="https://notes.yuyzzz.top">
-  <img class="avatar" src="https://notes.yuyzzz.top/images/avatar.png?v=1638784984046" alt="">
+  <img class="avatar" src="https://notes.yuyzzz.top/images/avatar.png?v=1638944087929" alt="">
   </a>
   <h1 class="site-title">
     Yuyzzz&#39;notes
@@ -307,12 +307,13 @@ MOV CL,LOW CONST  ;(CL)=0CDH
 </li>
 <li>
 <p>功能：给表达式赋予一个名字。定义后，可用名字代替表达式。在同一源程序中，一个名字只能用EQU定义一次</p>
-<pre><code class="language-assembly">A    EQU  7
-
-B    EQU  A-2
-</code></pre>
+<pre><code class="language-assembly"></code></pre>
 </li>
 </ul>
+<p>A    EQU  7</p>
+<p>B    EQU  A-2</p>
+<pre><code>
+</code></pre>
 </li>
 <li>
 <p>&quot;=&quot;伪指令</p>
@@ -322,15 +323,15 @@ B    EQU  A-2
 </li>
 <li>
 <p>功能：与EQU基本相同，不同的是它可以对一个名字重新定义</p>
-<pre><code class="language-assembly">COUNT = 10
-
-MOV  AL,COUNT
-…
-
-COUNT = 5
-</code></pre>
+<pre><code class="language-assembly"></code></pre>
 </li>
 </ul>
+<p>COUNT = 10</p>
+<p>MOV  AL,COUNT</p>
+<p>…</p>
+<p>COUNT = 5</p>
+<pre><code>
+</code></pre>
 </li>
 <li>
 <p>LABEL伪指令</p>
@@ -345,21 +346,21 @@ COUNT = 5
 <li>
 <p>功能：定义变量或标号的属性类型，而变量或标号的段属性和偏移属性由该语句所处的位置确定<br>
 例: 用LABEL使同一个数据区有一个或一个以上的类型和相关属性</p>
-<pre><code class="language-assembly">AREAW  LABEL  WORD     ;AREAW与AREAB指向相同的数据区,        
-
-;AREAW类型为字,AREAB类型为字节
-
-AREAB  DB  100 DUP(?)
-…
-MOV  AX,2011H
-
-MOV  AREAW,AX  ;(AREAW)=2011H
-…
-
-MOV  BL,AREAB   ;BL=11H
-</code></pre>
+<pre><code class="language-assembly"></code></pre>
 </li>
 </ul>
+<p>AREAW  LABEL  WORD     ;AREAW与AREAB指向相同的数据区,</p>
+<p>;AREAW类型为字,AREAB类型为字节</p>
+<p>AREAB  DB  100 DUP(?)<br>
+…<br>
+MOV  AX,2011H</p>
+<p>MOV  AREAW,AX  ;(AREAW)=2011H<br>
+…</p>
+<p>MOV  BL,AREAB   ;BL=11H</p>
+<pre><code>
+
+
+</code></pre>
 </li>
 </ol>
 <h3 id="423-段定义伪指令">4.2.3 段定义伪指令</h3>

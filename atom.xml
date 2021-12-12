@@ -2,11 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://notes.yuyzzz.top</id>
     <title>Yuyzzz&apos;s Notes</title>
-    <updated>2021-12-12T05:15:00.583Z</updated>
+    <updated>2021-12-12T05:38:55.618Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://notes.yuyzzz.top"/>
     <link rel="self" href="https://notes.yuyzzz.top/atom.xml"/>
-    <subtitle>温故而知新</subtitle>
     <logo>https://notes.yuyzzz.top/images/avatar.png</logo>
     <icon>https://notes.yuyzzz.top/favicon.ico</icon>
     <rights>All rights reserved 2021, Yuyzzz&apos;s Notes</rights>

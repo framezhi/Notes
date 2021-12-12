@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://notes.yuyzzz.top</id>
-    <title>Yuyzzz&apos;notes</title>
-    <updated>2021-12-08T06:28:02.363Z</updated>
+    <title>Yuyzzz&apos;s Notes</title>
+    <updated>2021-12-12T04:35:57.477Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://notes.yuyzzz.top"/>
     <link rel="self" href="https://notes.yuyzzz.top/atom.xml"/>
-    <subtitle>遊生夢死</subtitle>
+    <subtitle>温故而知新</subtitle>
     <logo>https://notes.yuyzzz.top/images/avatar.png</logo>
     <icon>https://notes.yuyzzz.top/favicon.ico</icon>
-    <rights>All rights reserved 2021, Yuyzzz&apos;notes</rights>
+    <rights>All rights reserved 2021, Yuyzzz&apos;s Notes</rights>
     <entry>
         <title type="html"><![CDATA[6. 存储器]]></title>
         <id>https://notes.yuyzzz.top/post/6-cun-chu-qi/</id>
@@ -134,7 +134,7 @@
 <h2 id="41-汇编语言基础知识">4.1 汇编语言基础知识</h2>
 <h3 id="411-概述">4.1.1 概述</h3>
 <ul>
-<li>汇编语言（Assembly Language）是一种用符号表示的面向机器的程序设计语言,不同CPU的计算机有不同的汇编语言。</li>
+<li>汇编语言（ Language）是一种用符号表示的面向机器的程序设计语言,不同CPU的计算机有不同的汇编语言。</li>
 <li>比机器语言易于阅读、编写和修改，能充分利用计算机的硬件资源，占用内存空间少。</li>
 <li>常用于计算机控制系统的开发和高级语言编译程序的编制等应用场合。</li>
 </ul>
@@ -142,7 +142,7 @@
 <h3 id="412-汇编语言源程序结构">4.1.2 汇编语言源程序结构</h3>
 <img src="https://tva1.sinaimg.cn/large/006pkgSjgy1gwmuxmgrqtj30is087tbf.jpg" alt="image.png" style="zoom:67%;" />
 <p>例：编写汇编程序，计算2010H+2011H，并把和存入RESULT单元</p>
-<pre><code class="language-assembly">DATA  SEGMENT		;定义数据段
+<pre><code>DATA  SEGMENT		;定义数据段
     X  DW  2010H     	;定义被加数
     Y  DW  2011H	;定义加数
     RESULT  DW   ? 	;分配和数存放单元
@@ -237,7 +237,7 @@ CODE  ENDS
 <ul>
 <li>
 <p>重新指定变量类型：</p>
-<pre><code class="language-assembly">BUFW DW 1234H,5678H
+<pre><code>BUFW DW 1234H,5678H
 
 MOV AX, BUFW
 
@@ -246,14 +246,14 @@ MOV AL, BYTE PTR BUFW ;临时改变BUFW的字属性为字节属性
 </li>
 <li>
 <p>指定内存操作数的类型：</p>
-<pre><code class="language-assembly">INC BYTE PTR [BX] ;字节属性
+<pre><code>INC BYTE PTR [BX] ;字节属性
 
 INC WORD PTR [BX][SI] ;子属性
 </code></pre>
 </li>
 <li>
 <p>和EQU一起定义一个新类型变量: 新变量或新标号的段属性、偏移属性与前一个已定义的变量或标号段属性、偏移属性相同</p>
-<pre><code class="language-assembly">BUFW DW 1234H, 5678H
+<pre><code>BUFW DW 1234H, 5678H
 
 BUFB EQU BYTE PTR BUFW 
 </code></pre>
@@ -262,7 +262,7 @@ BUFB EQU BYTE PTR BUFW
 </li>
 <li>
 <p>THIS，格式：<code>THIS 类型</code>，可以像PTR一样建立一个指定类型的地址操作数，该操作数的段地址和偏移地址与下一个存储单元地址相同。</p>
-<pre><code class="language-assembly">BUFB EQU THIS BYTE
+<pre><code>BUFB EQU THIS BYTE
 
 BUFW DW 1234H,5678H
 </code></pre>
@@ -272,7 +272,7 @@ BUFW DW 1234H,5678H
 </li>
 <li>
 <p>字节分离字符 HIGH/LOW，返回表达式的高字节或低字节</p>
-<pre><code class="language-assembly">CONST EQU 0ABCDH
+<pre><code>CONST EQU 0ABCDH
 
 MOV AH,HIGH CONST ;(AH)=OABH
 
@@ -309,7 +309,7 @@ MOV CL,LOW CONST  ;(CL)=0CDH
 <li>DT    定义的变量为10字节型</li>
 </ul>
 <p>定义字符串必须用DB伪指令</p>
-<pre><code class="language-assembly">DATA1 DB 'ABCD', 66H
+<pre><code>DATA1 DB 'ABCD', 66H
 </code></pre>
 </li>
 <li>
@@ -319,7 +319,7 @@ MOV CL,LOW CONST  ;(CL)=0CDH
 </li>
 <li>
 <p>用&quot;?&quot;预留存储空间</p>
-<pre><code class="language-assembly">MEM1      DB  34H, ’A’, ?, ?, ?
+<pre><code>MEM1      DB  34H, ’A’, ?, ?, ?
 
           DW  20  DUP(?) ; 预留40个字节单元
 </code></pre>
@@ -339,7 +339,7 @@ MOV CL,LOW CONST  ;(CL)=0CDH
 </li>
 <li>
 <p>功能：给表达式赋予一个名字。定义后，可用名字代替表达式。在同一源程序中，一个名字只能用EQU定义一次</p>
-<pre><code class="language-assembly">A    EQU  7
+<pre><code>A    EQU  7
 
 B    EQU  A-2
 </code></pre>
@@ -354,7 +354,7 @@ B    EQU  A-2
 </li>
 <li>
 <p>功能：与EQU基本相同，不同的是它可以对一个名字重新定义</p>
-<pre><code class="language-assembly">COUNT = 10
+<pre><code>COUNT = 10
 
 MOV  AL,COUNT
 
@@ -378,7 +378,7 @@ COUNT = 5
 <li>
 <p>功能：定义变量或标号的属性类型，而变量或标号的段属性和偏移属性由该语句所处的位置确定<br>
 例: 用LABEL使同一个数据区有一个或一个以上的类型和相关属性</p>
-<pre><code class="language-assembly">AREAW  LABEL  WORD     ;AREAW与AREAB指向相同的数据区,        
+<pre><code>AREAW  LABEL  WORD     ;AREAW与AREAB指向相同的数据区,        
 
 ;AREAW类型为字,AREAB类型为字节
 
@@ -428,7 +428,7 @@ MOV  BL,AREAB   ;BL=11H
 <li>没有类别名的段，与其他无类别名的段一起连续装入内存。</li>
 <li>典型的类型名有：“STACK”，“CODE”，“DATA”</li>
 </ul>
-<pre><code class="language-assembly">DATA  SEGMENT  PUBLIC  'CODE'
+<pre><code>DATA  SEGMENT  PUBLIC  'CODE'
 
    MEM1  DB  11H，22H
 
@@ -454,7 +454,7 @@ DATA  ENDS
 </li>
 <li>
 <p>格式：</p>
-<pre><code class="language-assembly">过程名   PROC  [ NEAR / FAR ]                     
+<pre><code>过程名   PROC  [ NEAR / FAR ]                     
 ┇                    
 RET过程名   ENDP
 </code></pre>
@@ -470,7 +470,7 @@ RET过程名   ENDP
 <li>END: 表示汇编语言程序的结束, 格式: <code>END [标号]</code>，标号仅表示改程序的起始地址，多个模块连接时只有主程序要使用标号</li>
 </ul>
 <p>一个完整源程序实例：</p>
-<pre><code class="language-assembly">DSEG    SEGMENT
+<pre><code>DSEG    SEGMENT
 DATA1   DB  1，2，
 DATA2   DW  1234H
 DSEG    ENDS
@@ -512,7 +512,7 @@ SSEG    ENDS
 </li>
 <li>
 <p>功能调用格式：</p>
-<pre><code class="language-assembly">[置入口参数]
+<pre><code>[置入口参数]
 
 MOV AH, 功能号  ;功能调用号送入AH寄存器
 
@@ -531,7 +531,7 @@ INT 21H       ;执行软中断z
 <p>输入字符的ASCII码存入AL寄存器。若按下组合键Ctr+Break或CtrH+C，则程序返回DOS。</p>
 </li>
 </ul>
-<pre><code class="language-assembly">MOV AH, 01H
+<pre><code>MOV AH, 01H
 
 INT 21H
 </code></pre>
@@ -545,32 +545,31 @@ INT 21H
 <li>输入字符串以回车结束，回车符不计入字符数</li>
 </ul>
 <p>例: 如下代码允许输入的字符串长度不超过100</p>
-<pre><code class="language-assembly"></code></pre>
+<pre><code>DATA SEGMENT
+   BUF DB 100
+       DB ?
+       DB 100 DUP(?)
+DATA ENDS
+
+CODE SEGMENT
+    ...
+    MOV DX,OFFSET BUF
+    MOV AH,OAH
+    INT	21H
+CODE ENDS
+</code></pre>
 </li>
-</ol>
-<p>DATA SEGMENT<br>
-BUF DB 100<br>
-DB ?<br>
-DB 100 DUP(?)<br>
-DATA ENDS</p>
-<p>CODE SEGMENT<br>
-...<br>
-MOV DX,OFFSET BUF<br>
-MOV AH,OAH<br>
-INT	21H<br>
-CODE ENDS</p>
-<pre><code>
-3. **单字符输出**
-
-* 功能调用号：AH=02H
-* 将要显示的字符的ASCII码保存于寄存器DL
-
-```assembly
-MOV DL,'2'
+<li>
+<p><strong>单字符输出</strong></p>
+<ul>
+<li>功能调用号：AH=02H</li>
+<li>将要显示的字符的ASCII码保存于寄存器DL</li>
+</ul>
+<pre><code>MOV DL,'2'
 MOV AH,02H
 INT 21H
 </code></pre>
-<ol start="4">
+</li>
 <li>
 <p><strong>字符串输出显示</strong></p>
 <ul>
@@ -578,7 +577,7 @@ INT 21H
 <li>寄存器DS和DX，分别存入被输出字符串首地址的段基值和偏移量。</li>
 <li>要求字符串以“$”结束，该字符作为字符串结束符，不输出。</li>
 </ul>
-<pre><code class="language-assembly"> DATA	 SEGMENT
+<pre><code> DATA	 SEGMENT
  MESS1  DB  'Input String:' 0DH，0AH,'$'	
                                                  ;被显示的字符串必须以‘$’结束
  DATA  ENDS
@@ -597,7 +596,7 @@ INT 21H
 <li>功能调用号AH=4CH</li>
 <li>结束当前程序，返回DOS</li>
 </ul>
-<pre><code class="language-assembly">MOV AH,4CH
+<pre><code>MOV AH,4CH
 INT 21H
 </code></pre>
 </li>
@@ -624,7 +623,7 @@ INT 21H
 <img src="https://tva1.sinaimg.cn/large/006pkgSjgy1gwlv4oefd8j30k60bx0tx.jpg" alt="image.png" style="zoom:80%;" />
 <p>例：编程将内存数据段字节单元INDAT存放的一个数n (假设0≤ n ≤9)以十进制形式在屏幕上显示出来。</p>
 <img src="https://tva1.sinaimg.cn/large/006pkgSjgy1gwlvd4aro6j308f0nyaej.jpg" alt="image.png" style="zoom: 50%;" />
-<pre><code class="language-assembly">DATA SEGMENT
+<pre><code>DATA SEGMENT
 	INDAT DB 8
 DATA ENDS
 
@@ -649,7 +648,7 @@ CODE ENDS
 <img src="https://tva1.sinaimg.cn/large/006pkgSjgy1gwlw4js8iwj30ys0egwl2.jpg" alt="image.png" style="zoom:80%;" />
 <p>例：编程求分段函数Y的值。已知变量X为16位带符号数，分段函数的值要求保存到字单元Y中。函数定义如下<img src="https://tva1.sinaimg.cn/large/006pkgSjgy1gwlw7tryvsj3091044mxt.jpg" alt="image.png" style="zoom:80%;" /></p>
 <img src="https://tva1.sinaimg.cn/large/006pkgSjgy1gwmuyj5zfaj30b10fbq3n.jpg" alt="image.png" style="zoom:80%;" />
-<pre><code class="language-assembly">DATA SEGMENT
+<pre><code>DATA SEGMENT
 	X DW -128
 	Y DW ?
 DATA ENDS
@@ -686,7 +685,7 @@ CODE ENDS
 <img src="https://tva1.sinaimg.cn/large/006pkgSjgy1gwlx8gpfxrj30ys0kcn3r.jpg" alt="image.png" style="zoom: 50%;" />
 <p>例1：编程显示以&quot;!&quot;结尾的字符串, 如'Welcome to MASM!'</p>
 <img src="https://tva1.sinaimg.cn/large/006pkgSjly1gwlxdztk4ej30fw0qsq8c.jpg" alt="image.png" style="zoom: 50%;" />
-<pre><code class="language-assembly">DATA SEGMENT
+<pre><code>DATA SEGMENT
 	MYSTR DB 'Welcome to MASM!'
 DATA ENDS
 CODE SEGMENT
@@ -713,7 +712,7 @@ CODE ENDS
 	END START
 </code></pre>
 <p>例2：编程以二进制显示BX的值(假设为无符号数)，如果(BX)=20, 则显示: 0000000000010100B</p>
-<pre><code class="language-assembly">CODE SEGMENT
+<pre><code>CODE SEGMENT
 	ASSUME CS:CODE
 START:
 	MOV BX,20
@@ -766,7 +765,7 @@ CODE ENDS
 </li>
 </ul>
 <p>例1：利用寄存器传递参数。编写子程序，实现以二进制形式显示BX的值（假设为无符号数）</p>
-<pre><code class="language-assembly">;-------------------------
+<pre><code>;-------------------------
 ;子程序名:DISP_BINARY
 ;功能:以二进制形式显示BX的值(假设为无符号数)
 ;入口参数:BX
@@ -2452,6 +2451,9 @@ XLAT 表格首地址
 <p><a href="https://github.com/getgridea/gridea">Github</a><br>
 <a href="https://gridea.dev/">Gridea 主页</a><br>
 <a href="http://fehey.com/">示例网站</a></p>
+<pre><code class="language-python">import tenserflow as tf
+import re
+</code></pre>
 <p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>β</mi></mrow><annotation encoding="application/x-tex">\beta</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.05278em;">β</span></span></span></span></p>
 <h2 id="特性">特性👇</h2>
 <p>📝  你可以使用最酷的 <strong>Markdown</strong> 语法，进行快速创作</p>

@@ -2,13 +2,639 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://notes.yuyzzz.top</id>
     <title>Yuyzzz&apos;s Notes</title>
-    <updated>2021-12-12T05:38:55.618Z</updated>
+    <updated>2021-12-15T09:04:57.517Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://notes.yuyzzz.top"/>
     <link rel="self" href="https://notes.yuyzzz.top/atom.xml"/>
     <logo>https://notes.yuyzzz.top/images/avatar.png</logo>
     <icon>https://notes.yuyzzz.top/favicon.ico</icon>
     <rights>All rights reserved 2021, Yuyzzz&apos;s Notes</rights>
+    <entry>
+        <title type="html"><![CDATA[8. 可编程接口芯片]]></title>
+        <id>https://notes.yuyzzz.top/post/8-ke-bian-cheng-jie-kou-xin-pian/</id>
+        <link href="https://notes.yuyzzz.top/post/8-ke-bian-cheng-jie-kou-xin-pian/">
+        </link>
+        <updated>2021-12-15T08:53:41.000Z</updated>
+        <summary type="html"><![CDATA[<p>介绍了三种可编程接口芯片：并行接口8255A、计数/定时器8253、串行通信接口8251A的基本功能、结构、引脚功能、初始化编程等</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>介绍了三种可编程接口芯片：并行接口8255A、计数/定时器8253、串行通信接口8251A的基本功能、结构、引脚功能、初始化编程等</p>
+<!-- more -->
+<h2 id="81-可编程接口芯片概述">8.1 可编程接口芯片概述</h2>
+<p>可编程接口芯片：软件编程来设置芯片工作方式，提高芯片功能</p>
+<h2 id="82-可编程并行接口芯片8255a">8.2 可编程并行接口芯片8255A</h2>
+<h3 id="821-通用并行接口">8.2.1 通用并行接口</h3>
+<ol>
+<li>
+<p>主要作用：</p>
+<ul>
+<li>在输入/输出为<strong>并行数据</strong>方式的外设与CPU之间可靠地中转数据</li>
+<li>扩展微机挂接并口外设数量的能力</li>
+</ul>
+<img src="https://tva1.sinaimg.cn/large/006pkgSjgy1gwn3wzfbk0j30wn0jigth.jpg" alt="image.png" style="zoom: 50%;" />
+</li>
+<li>
+<p>并行接口一般结构</p>
+<ul>
+<li>多个可编程并行数据通道（并行端口）。每个端口内含一个<strong>并行数据输入缓冲器</strong>（暂存外设送给CPU 的数据）和一个并行数据输出缓冲器（暂存CPU送给外设的数据）</li>
+<li>控制寄存器（存放CPU命令字）</li>
+<li>状态寄存器（记录外设或并口本身的工作状态）</li>
+<li>内部地址译码电路</li>
+</ul>
+<img src="https://tva1.sinaimg.cn/large/006pkgSjly1gwn4jsdb6uj30vy0iwtke.jpg" alt="image.png" style="zoom:50%;" />
+</li>
+<li>
+<p>并行接口芯片的主要引脚</p>
+<img src="https://tva1.sinaimg.cn/large/006pkgSjly1gx5dcrdvv7j310q0gqn1q.jpg" alt="image.png" style="zoom:57%;" />
+<p>与外设相连一侧的引脚：</p>
+<ul>
+<li>与外设传送数据的数据线（通常为多组8位的双向I/O引脚线）</li>
+<li>用于<strong>协调</strong>并行端口与外设<strong>数据交换速度</strong>的联络线</li>
+</ul>
+<p>CPU一侧相连的引脚</p>
+<ul>
+<li>与CPU（数据总线）传送数据的数据线（通常为8位： D7~D0）</li>
+<li>并口工作状态引脚READY或中断请求引脚INTR</li>
+<li>CPU对并口的读/写信号引脚</li>
+<li>并口芯片的片选信号引脚（由CPU高位地址线经译码后给出）</li>
+<li>并口内部寄存器选择引脚线（通常由CPU低位地址线给出）</li>
+<li>使并口芯片复位的引脚</li>
+</ul>
+</li>
+</ol>
+<h3 id="822-8255a的内部结构及引脚功能">8.2.2 8255A的内部结构及引脚功能</h3>
+<ol>
+<li>
+<p>8255A的内部结构：共四部分</p>
+<img src="https://tva1.sinaimg.cn/large/006pkgSjly1gx5drvwle5j30nq0hytb9.jpg" alt="image.png" style="zoom:67%;" />
+<ul>
+<li>特点：
+<ul>
+<li>含3个独立的8位并行输入/输出端口，各端口均具有数据的输出和输入能力</li>
+<li>可通过编程，设置各端口工作在某一确定状态下</li>
+</ul>
+</li>
+<li>结构：
+<ul>
+<li>A组：端口A，端口C的高四位</li>
+<li>B组：端口B，端口C的低四位</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>8255A的引脚功能：</p>
+<img src="https://tva1.sinaimg.cn/large/006pkgSjly1gx5dvxk12ij30ei0jw76v.jpg" alt="image.png" style="zoom: 67%;" />
+</li>
+<li>
+<p>8255内部端口寻址：</p>
+<img src="https://tva1.sinaimg.cn/large/006pkgSjly1gx5dy04hi4j30m80c2mzx.jpg" alt="image.png" style="zoom:60%;" />
+</li>
+<li>
+<img src="https://i0.hdslb.com/bfs/album/b65f75adc0785ae8e965996ac5022344393f8bcf.png" alt="image-20211207182847796" style="zoom:50%;" />
+</li>
+</ol>
+<h3 id="823-8255a的工作方式">8.2.3 8255A的工作方式</h3>
+<ol>
+<li>
+<p>方式0：基本输入/输出方式</p>
+<ul>
+<li>相当于三个独立的8位简单接口</li>
+<li>各端口既可设置为输入口，也可设置为输出口，但<strong>不能同时实现输入及输出</strong></li>
+<li>C端口可以是一个8位的简单接口，也可以分为两个独立的4位端口</li>
+<li>常用于连接简单外设（适于无条件或查询方式）</li>
+<li>**应用：**常使A端口和B端口作为8位数据的输入或输出口，使C口的某些位作状态输入</li>
+</ul>
+</li>
+<li>
+<p>方式1：单向选通输入/输出方式</p>
+<ul>
+<li>
+<p>三个数据端口分为A、B两组，分别称为A组控制和B组控制。</p>
+</li>
+<li>
+<p>端口A、端口B作数据输入或输出口，端口C作为联络控制信号，被分成两部分，一部分作为端口A和端口B的联络信号，另一部分仍可作为基本的输入输出口。</p>
+</li>
+<li>
+<p>A口、B口在作为输入和输出时的选通控制信号不同。</p>
+</li>
+<li>
+<p>输入：</p>
+<p><img src="https://i0.hdslb.com/bfs/album/5f6cf1a526ba1a08cfbc317a596c5a582655c4ea.png" alt="image-20211207184609205" style="zoom: 67%;" /><img src="https://i0.hdslb.com/bfs/album/377c1dcb09ddd66dc4821f29fde4961d3867aa03.png" alt="image-20211207184627073" style="zoom:67%;" /></p>
+<ul>
+<li><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mover accent="true"><mrow><mi>S</mi><mi>T</mi><mi>B</mi></mrow><mo stretchy="true">‾</mo></mover></mrow><annotation encoding="application/x-tex">\overline{STB}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8833300000000001em;vertical-align:0em;"></span><span class="mord overline"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8833300000000001em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="mord mathdefault" style="margin-right:0.05017em;">B</span></span></span><span style="top:-3.80333em;"><span class="pstrut" style="height:3em;"></span><span class="overline-line" style="border-bottom-width:0.04em;"></span></span></span></span></span></span></span></span></span>：低电平有效，有效时表示将数据输入8255A的输入缓冲器</li>
+<li><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>I</mi><mi>B</mi><mi>F</mi></mrow><annotation encoding="application/x-tex">IBF</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.07847em;">I</span><span class="mord mathdefault" style="margin-right:0.05017em;">B</span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span></span></span></span>：高电平有效，表示输入缓冲器满，可供CPU读取数据</li>
+<li><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>I</mi><mi>N</mi><mi>T</mi><mi>R</mi></mrow><annotation encoding="application/x-tex">INTR</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.07847em;">I</span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="mord mathdefault" style="margin-right:0.00773em;">R</span></span></span></span>：中断请求信号，高电平有效</li>
+<li><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>I</mi><mi>N</mi><mi>T</mi><mi>E</mi></mrow><annotation encoding="application/x-tex">INTE</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.07847em;">I</span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="mord mathdefault" style="margin-right:0.05764em;">E</span></span></span></span>：中断允许信号</li>
+</ul>
+</li>
+<li>
+<p>输出：</p>
+<p><img src="https://i0.hdslb.com/bfs/album/eef8324f47b0efe1ab16d224b43d5d6ee69ec984.png" alt="image-20211207185605179" style="zoom: 50%;" />  <img src="https://i0.hdslb.com/bfs/album/f97d26006d806df9976fa199324f2a494b82f67f.png" alt="image-20211207185624064" style="zoom:50%;" /></p>
+<ul>
+<li><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mover accent="true"><mrow><mi>O</mi><mi>B</mi><mi>F</mi></mrow><mo stretchy="true">‾</mo></mover></mrow><annotation encoding="application/x-tex">\overline{OBF}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8833300000000001em;vertical-align:0em;"></span><span class="mord overline"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8833300000000001em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mord mathdefault" style="margin-right:0.05017em;">B</span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span></span></span><span style="top:-3.80333em;"><span class="pstrut" style="height:3em;"></span><span class="overline-line" style="border-bottom-width:0.04em;"></span></span></span></span></span></span></span></span></span>：输出缓冲器满，低电平有效</li>
+<li><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mover accent="true"><mrow><mi>A</mi><mi>C</mi><mi>K</mi></mrow><mo stretchy="true">‾</mo></mover></mrow><annotation encoding="application/x-tex">\overline{ACK}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8833300000000001em;vertical-align:0em;"></span><span class="mord overline"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8833300000000001em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault">A</span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="mord mathdefault" style="margin-right:0.07153em;">K</span></span></span><span style="top:-3.80333em;"><span class="pstrut" style="height:3em;"></span><span class="overline-line" style="border-bottom-width:0.04em;"></span></span></span></span></span></span></span></span></span>: 响应信号，低电平有效，有效时表示外设已取走8255A的数据</li>
+<li><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>I</mi><mi>N</mi><mi>T</mi><mi>R</mi></mrow><annotation encoding="application/x-tex">INTR</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.07847em;">I</span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="mord mathdefault" style="margin-right:0.00773em;">R</span></span></span></span>：中断请求信号，高电平有效</li>
+<li><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>I</mi><mi>N</mi><mi>T</mi><mi>E</mi></mrow><annotation encoding="application/x-tex">INTE</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.07847em;">I</span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="mord mathdefault" style="margin-right:0.05764em;">E</span></span></span></span>：中断允许信号</li>
+</ul>
+</li>
+<li>
+<p>**应用：**主要用于中断控制方式下的输入输出；C口的8位除用作选通信号外，其余位可工作于方式0下，作为输入或输出口</p>
+</li>
+</ul>
+</li>
+<li>
+<p>方式2：双向传送</p>
+<ul>
+<li>双向输入输出方式——可以既作为输入口，又作为输出口</li>
+<li>只有A端口可工作在方式2下</li>
+<li>应用：用于可采用查询方式或中断控制方式，当A口工作于方式2时，B口可工作于方式1（此时C口的所有位都用作选通控制信号的输入输出），也可工作于方式0（此时C口的剩余位也可工作于方式0）</li>
+</ul>
+</li>
+</ol>
+<p>其中：</p>
+<ul>
+<li>A口可以工作于方式0，1，2</li>
+<li>B口可以工作于方式0，1</li>
+<li>C口只能工作于方式0</li>
+</ul>
+<h3 id="824-8255a的编程">8.2.4 8255A的编程</h3>
+<ul>
+<li>方式控制字：设置A口和B口的工作方式，指定它们作为输入口还是输出口。</li>
+<li>端口C的状态控制字：设置C口指定位置“1”或“0”。</li>
+<li>通过八位命令字的最高位来区分写入的是哪个控制字：
+<ul>
+<li>D7=1：对控制寄存器设置；</li>
+<li>D7=0：用于对C端口状态进行设定。</li>
+</ul>
+</li>
+</ul>
+<ol>
+<li>
+<p>8255A的控制字：</p>
+<ul>
+<li>
+<p>方式选择控制字：</p>
+<img src="https://i0.hdslb.com/bfs/album/5d2cf85360e0212c5060ea7970c255505740068c.png" alt="image-20211208001805846" style="zoom:67%;" />
+</li>
+<li>
+<p>端口C置位/复位控制字</p>
+<img src="https://i0.hdslb.com/bfs/album/57eb5161f1bbaa1ac233802838301bb4509dc97d.png" alt="image-20211208002109137" style="zoom:67%;" />
+</li>
+</ul>
+</li>
+<li>
+<p>8255A的初始化编程：</p>
+<p>例：在8086系统中，设8255A的A口输出，B口输入，PC1置位，PC2复位。已知：8255端口地址为60H～63H，试编程对8255A进行初始化。</p>
+<p>8255工作方式控制字为：<img src="https://i0.hdslb.com/bfs/album/7b207d7d4a6a9552b63d62260a65cb05f33fd270.png" alt="image-20211208141213380" style="zoom:67%;" /></p>
+<pre><code>MOV AL,82H      ;方式控制字10000010B=82H
+
+OUT 63H,AL	    ;将控制字送入8255A控制端口，即控制寄存器中
+
+MOV AL,03H	    ;C口置位控制字00000011B=03H，设置PC1=1
+
+OUT 63H,AL	    ;将控制字送入8255A控制端口，即控制寄存器中
+
+MOV AL,04H	    ;C口置位控制字00000100B=04H，设置PC2=0
+
+OUT 63H,AL	    ;将控制字送入8255A控制端口，即控制寄存器中
+</code></pre>
+</li>
+</ol>
+<h3 id="825-8255a的应用">8.2.5 8255A的应用</h3>
+<p>例1：设8255A的A口和B口工作在方式0，A口作为输入端口，接有2个开关；B口为输出端口，接有8个发光二极管。系统硬件电路如图所示，不断扫描开关Ki，当开关K0闭合时，点亮LED0、LED2、LED4、LED6，其它LED暗；当开关K1闭合时，点亮LED1、LED3、LED5、LED7，其它LED暗；当开关K0和K1同时闭合时退出。设8255A端口A、端口B、端口C及控制端口的地址分别为200H～203H。试编写程序</p>
+<img src="https://i0.hdslb.com/bfs/album/641f6b4af28a953a7c3e4c1c05894894d8ab4158.png" style="zoom:50%;" />
+<p>解：8255A的控制字为：</p>
+<img src="https://i0.hdslb.com/bfs/album/feadbff24b1e3df6f7afb5663f82da1abff31090.png" alt="image-20211208141923429" style="zoom:67%;" />
+<pre><code>CODE  SEGMENT
+          ASSUME CS:CODE
+START:MOV	AL,90H	    ; 8255初始化
+	    MOV	DX,203H
+AGAIN:MOV	DX,200H     ;将A口地址送入DX
+       IN AL,DX       ;从DX读数据到AX
+       TEST AL,03H    ; 检测K0 K1
+       JZ EXIT
+       TEST AL,01H    ;检测K0      
+       JZ DISP_0
+       TEST AL,02H    ;检测K1      
+       JZ DISP_1
+       JMP AGAIN
+DIAP_0:	MOV AL,55H     ;偶位上LED亮，奇位上LED暗     
+       MOV DX,201H		;B口端口地址送入DX
+       OUT DX,AL
+       JMP AGAIN
+DIAP_1:	MOV AL,0AAH    ;奇位上LED亮，偶位上LED暗       
+       MOV DX,201H
+       OUT DX,AL
+       JMP AGAIN
+EXIT: MOV AH,4CH
+       INT 21H
+CODE	ENDS
+       END START
+</code></pre>
+<h2 id="83-可编程定时器计数器8253">8.3 可编程定时器/计数器8253</h2>
+<h3 id="831-定时器计数器基本概念">8.3.1 定时器/计数器基本概念</h3>
+<ul>
+<li>定时器：能通过对等周期输入时钟脉冲分频值的编程设定，来产生不同频率值输出脉冲的功能部件（可编程分频器）。</li>
+<li>计数器：可对输入脉冲个数进行计数的功能部件。</li>
+</ul>
+<ol>
+<li>
+<p>内部结构：</p>
+<img src="https://i0.hdslb.com/bfs/album/bbbbdb0d4217885c430c41f55d7972c15a66f2ad.png" alt="image-20211208153543515" style="zoom:50%;" />
+<ul>
+<li>控制寄存器：通过程序写入工作方式。</li>
+<li>计数初值寄存器：接收和存放程序设置的计数初始值。</li>
+<li>减一计数器：其初值是在程序<strong>将计数初值写入计数初值寄存器时自动复制到其内</strong>的。减一计数器的值会在<strong>每个有效的输入脉冲</strong>CLK作用下自动减一，当其值减到零后会引起输出电平变化。</li>
+<li>当前计数值锁存器：当前计数输出寄存器值跟随减1计数寄存器内容变化。收到锁存命令后，当前计数输出寄存器将锁定当前计数值，直到其值被CPU读走之后，才又随减1计数寄存器内容的变化而变化。</li>
+</ul>
+</li>
+<li>
+<p>外部有关信号</p>
+<ul>
+<li>CLK：时钟输入。作为定时器应用和计数器应用时，输入周期或非周期性脉冲信号。</li>
+<li>GATE：门控信号,其作用如下：<br>
+1）控制CLK端的输入，<br>
+2）启动计数器工作。</li>
+<li>OUT：输出信号，表征计数器的工作状态。当减1计数器减为0时产生变化。</li>
+</ul>
+</li>
+<li>
+<p>定时器和计数器的作用和区别：</p>
+<ul>
+<li>定时器和计数器的相同之处：都需通过对一个减一计数器初始值的设定来实现定时（分频）或计数。</li>
+<li>定时器和计数器的不同之处：
+<ul>
+<li>定时器方式下:周期重复</li>
+<li>计数器方式下:一次计数完成,再次计数需重新触发</li>
+<li>定时器方式下:输入时钟必须是等周期</li>
+<li>计数器方式下:输入时钟不一定等周期</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="832-8253的内部结构与引脚功能">8.3.2 8253的内部结构与引脚功能</h3>
+<ol>
+<li>
+<p>8253的内部结构：每片8253有3个独立的16位计数通道，每个计数通道最高计数速率可达2.6MHZ。每个计数器可编程设定6种工作方式，使用时可以根据需要选择其中的一种工作方式。每个计数通道可按二进制或十进制来计数</p>
+<img src="https://i0.hdslb.com/bfs/album/11f5baea399d6ed006d20249fc601cb0d6e7c341.png" alt="image-20211209232315199" style="zoom:57%;" />
+<img src="https://i0.hdslb.com/bfs/album/fdacfad611d734451439497e80248249a4781af2.png" alt="image-20211209232522640" style="zoom:50%;" />
+</li>
+<li>
+<p>8253的引脚功能</p>
+<img src="https://i0.hdslb.com/bfs/album/884f145852eac1d7d38527c97e785db03fa1f3aa.png" alt="image-20211209232618680" style="zoom:50%;" />
+<img src="https://i0.hdslb.com/bfs/album/af0760924cce16691f0e1e06e0acf2186eed60ba.png" alt="image-20211209232714293" style="zoom:50%;" />
+</li>
+</ol>
+<h3 id="833-8253的工作方式">8.3.3 8253的工作方式</h3>
+<p>共6种：</p>
+<ol>
+<li>
+<p>方式0：计数功能</p>
+<ul>
+<li><strong>软件触发计数</strong>，且计数器只计一遍。控制字写入后，输出端OUT变为低电平。计数初值写入后，下一个CLK脉冲的下降沿，计数初值寄存器内容装入减1计数寄存器，开始计数，输出端OUT维持低电平。</li>
+<li>当计数值减到0时，OUT输出端变为高电平，此信号可作为中断请求信号，并可保持到重新写入新的控制字或新的计数值为止。</li>
+<li>计数过程中，若GATE信号变为低电平，暂停计数，减1计数寄存器值保持不变；若GATE信号重新变高，则计数器<strong>从暂停值开始继续计数</strong>；若重新写入新的计数初值，则在下一个CLK脉冲的下降沿，减1计数寄存器以新的计数初值重新开始计数。</li>
+</ul>
+<img src="https://i0.hdslb.com/bfs/album/d0e3cfe8074652c3affe2e1463726485a198a1e4.png" alt="image-20211209234554706" style="zoom:50%;" />
+</li>
+<li>
+<p>方式1：低电平输出</p>
+<ul>
+<li><strong>硬件触发单稳态方式</strong>，<strong>输出单个负脉冲信号，脉冲的宽度可通过编程来设定</strong>。</li>
+<li>写入控制字后，输出端OUT变为高电平，并保持。写入计数初值后，在GATE信号的上升沿之后的下一个CLK脉冲的下降沿，计数初值装入减1计数寄存器，同时OUT端变为低电平，开始计数，当计数值减到0时，输出端OUT变为高电平。</li>
+<li>计数过程中，如果CPU又送来新的计数初值，不影响当前计数过程。等到计数器计数到0，OUT端输出高电平且<strong>出现新的一次GATE信号的触发时</strong>，才会将新的计数初值装入，并计数。</li>
+<li>如果在输出端OUT输出低电平期间，又来一个GATE信号上升沿触发，则在下一个CLK脉冲的下降沿，将计数初值寄存器内容重新装入减1计数寄存器，并计数。</li>
+</ul>
+<img src="https://i0.hdslb.com/bfs/album/02aebd5b43d47c85ae0644a4ff1ba4ef86d5c38c.png" alt="image-20211211164354933" style="zoom:50%;" />
+</li>
+<li>
+<p>方式2：周期性负脉冲输出</p>
+<ul>
+<li>方式2可产生连续的负脉冲信号，可用作频率发生器。负脉冲的宽度为一个时钟周期。</li>
+<li>写入控制字后，输出端OUT变为高电平。若GATE为高电平，那么写入计数初值后，在下一个CLK的下降沿计数初值寄存器内容装入减1计数寄存器，开始减1计数。当减1计数寄存器的值为1时，OUT端输出低电平，经过一个CLK时钟周期，OUT端输出高电平，并自动开始一个新的计数过程。</li>
+<li>在计数过程中，如果减1计数寄存器未减到1时GATE信号由高变低，则停止计数。<strong>但当GATE由低变高时</strong>，则<strong>重新将计数初值寄存器内容装入减1计数寄存器</strong>，并重新开始计数。（<strong>硬件可重触发</strong>）</li>
+<li>如果GATE信号保持高电平时，在计数过程中重新写入计数初值候，要等正在计数的一轮结束并输出一个CLK周期的负脉冲后，才以新的初值进行计数。</li>
+</ul>
+<img src="https://i0.hdslb.com/bfs/album/07e954151e32b4e58302f420867464052bb65a83.png" alt="image-20211212205954611" style="zoom:50%;" />
+</li>
+<li>
+<p>方式3：周期性方波输出</p>
+<ul>
+<li>写入控制字后，输出端OUT在计数过程开始前为高电平。</li>
+<li>写入计数初值后，在下一个CLK的下降沿将计数初值寄存器的值N装入减1计数器，开始计数：
+<ul>
+<li>N为偶数，输出端保持N/2的高电平,N/2低电平,</li>
+<li>N为奇数，输出端保持 (N+1)/2高电平, (N-1)/2低电平，即不对称方波</li>
+</ul>
+</li>
+<li>减一计数器减至0时如果GATE信号无变化则自动按计数初值进行新一轮的计数过程，并循环往复。</li>
+<li>计数过程中向计数初值寄存器重新写入初值，只有当OUT的高电平期或低电平期结束时才开始按新计数初值开始新的计数过程。但是如果在<strong>写入计数初值后，又受到GATE信号上升沿的触发</strong>，那么，就会结束当前输出周期，而在下一个时钟脉冲的下降沿，减1计数寄存器重新得到计数初值，开始新的减1计数过程。</li>
+</ul>
+<img src="https://i0.hdslb.com/bfs/album/ebe864f0a81ff1d80f0db176826786b009ccd0fa.png" alt="image-20211212210611213" style="zoom:50%;" />
+</li>
+<li>
+<p>方式4：软件触发的单次负脉冲输出</p>
+<ul>
+<li>方式4是<strong>软件触发</strong>的选通方式。采用方式4可产生单个负脉冲信号，负脉冲宽度为一个时钟周期。</li>
+<li>写入控制字后，输出端OUT变为高电平，若GATE为高电平，则在写入计数初值后下一个CLK的下降沿计数初值寄存器内容装入减1计数寄存器，开始减1计数。当减1计数寄存器的值为0时，输出端OUT变为低电平，经过一个CLK时钟周期，输出端OUT变为高电平。</li>
+<li>如果在计数时，又写入新的计数值，则在下一个CLK的下降沿此计数初值被写入减1计数寄存器，并以新的计数值作减1计数。</li>
+</ul>
+<img src="https://i0.hdslb.com/bfs/album/e7e0c398ef8639b36d6596e53977f54c5d7839a3.png" alt="image-20211212224801804" style="zoom:60%;" />
+</li>
+<li>
+<p>方式5：硬件触发的单次负脉冲输出</p>
+<ul>
+<li>方式5的计数过程<strong>由GATE的上升沿触发</strong>。当控制字写入后，输出端OUT输出高电平，并保持。写入计数初值后，只有在GATE信号的上升沿之后的下一个CLK脉冲的下降沿，计数初值装入减1计数寄存器，开始计数。当计数到0时，输出端OUT变为低电平，并持续一个CLK周期，然后<strong>自动变为高电平</strong>。</li>
+<li>计数过程中，若GATE端又来一个上升沿触发，则在下一个CLK脉冲的下降沿，减1计数寄存器将重新获得计数初值，并计数。</li>
+<li>计数过程中，若写入新的计数值，但GATE端没有触发脉冲，则当前输出周期不受影响，当前周期结束后，在再次触发的情况下，才将按新的计数初值开始计数；若写入新的计数值，并在当前周期结束前又受到触发，则在下一个CLK脉冲的下降沿，减1计数寄存器将获得新的计数初值，并计数。</li>
+</ul>
+<img src="https://i0.hdslb.com/bfs/album/7efef9bdb87cdff5db2560447189d4a814d71178.png" alt="image-20211212225124445" style="zoom:60%;" />
+</li>
+</ol>
+<h3 id="834-8253的初始化">8.3.4 8253的初始化</h3>
+<ol>
+<li>
+<p>8253方式控制字</p>
+<img src="https://i0.hdslb.com/bfs/album/b6fc6bd957ff9ffa3fd98b865167710dba428eb7.png" alt="image-20211212225322166" style="zoom:60%;" />
+</li>
+<li>
+<p>8253初始化编程</p>
+<ul>
+<li>8253初始化编程原则
+<ul>
+<li>在对某个计数器设置初值之前，必须先写入控制字。</li>
+<li>在设置计数初始值时，要符合控制字的规定，即只写低位字节，还是只写高位字节，还是高、低位字节都写（分两次写，先低字节后高字节）</li>
+</ul>
+</li>
+<li>8253编程命令
+<ul>
+<li>一类是写入命令，包括设置控制字、设置计数器的初始值命令和锁存命令。</li>
+<li>另一类是读出命令，用来读取计数器的当前值。</li>
+</ul>
+</li>
+<li>8253初始化编程步骤
+<ul>
+<li>先写控制字到8253的控制端口。</li>
+<li>再写计数器初值到相应的计数器端口。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<p>例：在8086系统中，设8253的计数器0工作在方式2，二进制计数，计数初值为2000，8253的计数器1工作在方式3，BCD码计数，计数初值为10，8253端口地址为40H～43H。试编写初始化程序。</p>
+<pre><code>;计数器0初始化程序
+MOV AL,34H	;方式控制字00110100B=34H
+OUT 43H,AL	;将控制字送入8253A控制端口43H
+MOV AX,2000	;初值送AX寄存器
+OUT 40H,AL	;将初值的低8位输出计数通道0端口40H
+MOV AL,AH		;初值的高8位送AL寄存器
+OUT 40H,AL	;将将初值的高8位输出计数通道0端口40H
+
+;计数器1初始化程序
+MOV AL,57H	;方式控制字01010111B=57H
+OUT 43H,AL	;将控制字送入8253A控制端口43H
+MOV AL,10H	;初值10H送AL寄存器,因为BCD码计数,要送10H
+OUT 41H,AL	;将初值的低8位输出计数通道1端口41H
+</code></pre>
+<h3 id="835-8253应用举例">8.3.5 8253应用举例</h3>
+<p>例：设有一输入频率为2MHz信号，利用8253做一个秒信号发生器，其输出接一发光二极管，以0.5秒点亮，0.5秒熄灭的方式闪烁指示。设8253的通道地址为400H～403H。</p>
+<p>输出信号周期为1s，则频率为1Hz；分频数N=<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>2</mn><mo>∗</mo><mn>1</mn><msup><mn>0</mn><mn>6</mn></msup><mi mathvariant="normal">/</mi><mn>1</mn></mrow><annotation encoding="application/x-tex">2*10^6/1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mord"><span class="mord">0</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">6</span></span></span></span></span></span></span></span><span class="mord">/</span><span class="mord">1</span></span></span></span> = 2000000; 因为8253中的计数器是16位，最大计数为65536，故需采用两个计数器级联的方式实现。可以找到两个数N1和N2，使N=N1*N2，此处让计数器0初值为2000，计数器1初值为1000</p>
+<img src="https://i0.hdslb.com/bfs/album/9fc755f9d685dc794443f101b3321cc31f890f66.png" alt="image-20211213102901744" style="zoom:67%;" />
+<pre><code>MOV AL,34H		;或36H;34H=00110100B,计数器0、16位、方式2、二进制计数
+MOV DX,403H
+OUT DX,AL		;写计数器0方式控制字
+MOV DX,400H
+MOV AX,2000
+OUT DX,AL		;写计数器0计数初值低8位
+MOV AH,AL			
+OUT DX,AL		;写计数器0计数初值高8位
+MOV AL,56H  ;56H=01010110B，计数器1、低8位、方式3、二进制计数
+MOV DX,403H
+OUT DX,AL		;写计数器1方式控制字
+MOV DX,401H
+MOV AL,1000
+OUT DX,AL  		;写计数器1计数初值低8位
+</code></pre>
+<h2 id="84-串行通信与串行通信接口芯片8251a">8.4 串行通信与串行通信接口芯片8251A</h2>
+<img src="https://i0.hdslb.com/bfs/album/b271309c2094e1a547d0f24a6d065f7796faadcf.png" alt="image-20211213104330552" style="zoom:67%;" />
+<ul>
+<li>并行通信一般是8位以上的数据一起传送，一般用在短距离的数据量大场合。</li>
+<li>串行通信是指利用一条传输线将数据一位一位地按顺序分时传输。一般用于长距离的数据偏传送</li>
+</ul>
+<h3 id="841-串行通信基本概念">8.4.1 串行通信基本概念</h3>
+<ol>
+<li>
+<p>串行数据传输方式</p>
+<img src="https://i0.hdslb.com/bfs/album/736ab0f4293f0649a8ed1de9aee047021bdf6f8d.png" alt="image-20211213105130703" style="zoom:50%;" />
+</li>
+<li>
+<p>串行通信数据格式</p>
+<ul>
+<li>
+<p>异步串行通信格式：以字符为单位的传送方式，有效数据的位数由编程员指定。有效数据的<strong>最低位在前，最高位在后</strong>。线路空闲时为高电平，起始位为低电平(0)。而停止位是可编程指定的1、1.5或2个周期的“1”电平,以区别下一个数据帧的起始位，还可包含奇偶校验位</p>
+<img src="https://i0.hdslb.com/bfs/album/fd94d6b0a1becd8d57adf502f7935f9b17204239.png" alt="image-20211213105454176" style="zoom:60%;" />
+</li>
+<li>
+<p>同步串行通信格式：用于成块数据的传送。根据启动接收方开始接收有效数据的方式，有外同步检测和内同步检测两种方式：</p>
+<ul>
+<li>
+<p>外同步检测方式：在外电路上增加一根同步信号线，发送方开始发送数据帧时<strong>先发同步信号</strong>，接收方在发方同步信号作用下开始接收数据帧。此种方式数据帧结构简单，但需要外加一根同步信号线。其数据帧格式如下：</p>
+<img src="https://i0.hdslb.com/bfs/album/65f24eb31ec907b612a81136c0a7bf175004a08b.png" alt="image-20211213184122137" style="zoom:67%;" />
+</li>
+<li>
+<p>内同步检测方式：通过<strong>在数据帧内部设置的同步字符</strong>来告知接收方开始接收有效数据的方式。不需要外加同步信号线</p>
+<ul>
+<li>
+<p>单同步字符格式：同步字符=1字节，内容由双方决定</p>
+<img src="https://i0.hdslb.com/bfs/album/2420a492d80da7402f4da51b234030d163d5ebf6.png" alt="image-20211213184355990" style="zoom:60%;" />
+</li>
+<li>
+<p>双同步字符格式：同步字符=2字节，内容由收发双方决定</p>
+<img src="https://i0.hdslb.com/bfs/album/d15b6e018fb0d684b921f956a49bbb550b0d11f3.png" alt="image-20211213184543541" style="zoom:67%;" />
+</li>
+<li>
+<p>SDLC/HDLC格式:</p>
+<img src="https://i0.hdslb.com/bfs/album/bb2eaeb80d6961ff88ae22d575fc0754dc41a49f.png" alt="image-20211213184957451" style="zoom:60%;" />
+</li>
+</ul>
+<p>以上帧格式中的CRC检错字符都是1字节的循环冗余校验码，SDLC/HDLC格式中的地址码用于区分同一链路上的不同接收设备。</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>传输速率</p>
+<ul>
+<li>在并行通信中，传输速率用每秒传输的字节数表示</li>
+<li>在串行通信中，传输速率用波特率来表示。波特率是指单位时间内传送的二进制数据的位数，是衡量串行数据传送速度的重要指标。波特率的单位是：波特，1波特=1位/秒（bps）。</li>
+</ul>
+</li>
+<li>
+<p>发送/接收时钟</p>
+<ul>
+<li>在发送数据时，发送器在发送时钟的有效沿作用下将移位寄存器的数据按位移位串行输出；</li>
+<li>在接收数据时，接收器在接收时钟的有效沿作用下对接收数据按位采样，并按位串行移入移位寄存器。</li>
+<li>发送/接收时钟是对数据信号进行同步的，其频率将直接影响设备发送/接收数据的速度。发送/接收时钟频率一般是发送/接收波特率的n倍，n称为波特率因子，一般取1、16、32或64。</li>
+</ul>
+<img src="https://i0.hdslb.com/bfs/album/a89097dd84c75fc96ce72bc30592489cd20b58c9.png" alt="image-20211213185847496" style="zoom:67%;" />
+</li>
+</ol>
+<h3 id="842-远程串行传输数据考虑的问题">8.4.2 远程串行传输数据考虑的问题</h3>
+<ol>
+<li>
+<p>电平损耗问题；通常将计算机内部的TTL电平在送上通信线之前变换成“0”、“1”值差别较大的电平或电流，通常有以下电流、电平标准</p>
+<ul>
+<li>
+<p>RS-232C标准：其“0”电平为+3V ~ +15V的电平范围；而“1”电平则为-3V~ -15V的电平范围。</p>
+<img src="https://i0.hdslb.com/bfs/album/50f48632e0becefa41ee2c210f75717c9e0ec0ef.png" alt="image-20211213190514886" style="zoom:60%;" />
+</li>
+<li>
+<p>RS-422和RS-423标准： “0”= -4V ~ -6V； “1”= +4V~+6V</p>
+</li>
+<li>
+<p>20 mA电流环标准：“0”= 通信回路内无电流（0 mA）；“1”= 通  信回路内有20mA电流。</p>
+</li>
+</ul>
+</li>
+<li>
+<p>解决普通电话线传送数字信号频带过窄的问题：直接传输数字信号,衰减很大（特别是脉冲信号中的高频分量）。为此一种解决方法是将脉冲信号调制成正弦波来传送。</p>
+<img src="https://i0.hdslb.com/bfs/album/acdb27edb12f2ac46a66481f713822713f5cd29e.png" alt="image-20211213191345819" style="zoom:47%;" />
+</li>
+</ol>
+<h3 id="843-rs-232c引脚与信号定义">8.4.3 RS-232C引脚与信号定义</h3>
+<p>RS-232C引脚信号的作用</p>
+<ul>
+<li>在微机中通过RS-232C串口可以实现<strong>两台微机之间的数字信号的直接通信</strong></li>
+<li>通过增加调制/解调器达到串行数据的远距离传输</li>
+</ul>
+<img src="https://i0.hdslb.com/bfs/album/5eaca79fc751e6bdebde4dacab05076ce937adc8.png" alt="image-20211213235356226" style="zoom:50%;" />
+<h3 id="844-可编程串行通信接口芯片8251a">8.4.4 可编程串行通信接口芯片8251A</h3>
+<ol>
+<li>
+<p>8251A的内部结构：由5个功能模块组成，包括数据总线缓冲器、接收器、发送器、读/写控制逻辑和调制解调器控制电路。</p>
+<img src="https://i0.hdslb.com/bfs/album/ec44364c2a956db3f2486f6918699650b8c4e224.png" alt="image-20211213235736970" style="zoom:70%;" />
+</li>
+<li>
+<p>8251A的基本功能</p>
+<ul>
+<li>能以同步和异步方式工作</li>
+<li>工作于同步方式时，每个字符可定义为5~8位，可以选择进行奇校验、偶校验或不校验。内部能自动检测同步字符实现内同步或通过外部电路获得外同步，波特率为0～64K。</li>
+<li>工作于异步方式时，每个字符可定义为5~8位，用1位作为奇偶校验(可选择)。时钟速率可用软件定义为通信波特率的1、16或64倍。能自动为每个被输出的数据增加1个起始位，并能根据软件编程为每个输出数据增加1个、1.5个或2个停止位。异步方式下，波特率为0～19200bps。</li>
+<li>8251A能进行出错检测，具有奇偶、溢出和帧错误等检测电路。</li>
+<li>具有独立的接收器和发送器，因此，能够以单工、半双工或全双工的方式进行通信。并且提供一些基本控制信号，可以方便地与调制解调器连接。</li>
+</ul>
+</li>
+<li>
+<p>8251A的引脚功能</p>
+<img src="https://i0.hdslb.com/bfs/album/a58843e2234f8f44f3f01bc1224277285bf03c0d.png" alt="image-20211215104609679" style="zoom:67%;" />
+<ul>
+<li>
+<p>8251A的端口：两个端口地址，数据输入端口和数据输出端口合用一端口地址，状态端口与控制端口合用一端口地址。</p>
+<img src="https://i0.hdslb.com/bfs/album/f42dbd0101ff6755374e8daa503edc5358104e3c.png" alt="image-20211215105022056" style="zoom:50%;" />
+</li>
+<li>
+<p>8251A的读写功能：</p>
+<img src="https://i0.hdslb.com/bfs/album/bb207cf3da141f373fdb511306cfa9694c49dfaa.png" alt="image-20211215105050807" style="zoom:50%;" />
+</li>
+</ul>
+</li>
+<li>
+<p>8521A的命令字和状态字</p>
+<ul>
+<li>
+<p>方式选择命令字：</p>
+<img src="https://i0.hdslb.com/bfs/album/0478890366f71834466a7613438ef5f05bdf2582.png" alt="image-20211215105308856" style="zoom:60%;" />
+</li>
+<li>
+<p>工作命令字</p>
+<img src="https://i0.hdslb.com/bfs/album/a47a56dcb448e1ee32a24682c48a30ed1f51f24f.png" alt="image-20211215105854291" style="zoom:70%;" />
+</li>
+<li>
+<p>状态字</p>
+<img src="https://i0.hdslb.com/bfs/album/7578f73f833c66e7e6e96d89c25eaf48158d5012.png" alt="image-20211215110013261" style="zoom:67%;" />
+</li>
+</ul>
+</li>
+<li>
+<p>8251A的初始化编程</p>
+<ul>
+<li>
+<p>初始化编程步骤</p>
+<ul>
+<li>第一步：芯片复位后，第一个写入奇地址端口的是方式选择命令字。约定双方的通信方式，数据格式及传输速率等参数。</li>
+<li>第二步：如果方式选择命令字规定了8251A工作在同步方式，那么，接下来必须向奇地址端口写入规定的1个或2个同步字符。</li>
+<li>第三步：只要不是复位命令，不论同步方式还是异步方式，接下来还需向奇地址端口写入工作命令字。</li>
+</ul>
+</li>
+<li>
+<p>复位命令：8251A有两种复位方式：硬件复位和软件复位。软件复位是编程中常采用的方法。软件复位的步骤是：</p>
+<ul>
+<li>向控制/状态端口连续写入3个0；</li>
+<li>写入控制字40H。</li>
+</ul>
+</li>
+<li>
+<p>初始化编程举例</p>
+<ul>
+<li>
+<p>异步：</p>
+<p>【例】8251A工作在异步方式，波特率系数为16，数据长度为7位，偶校验，2个停止位，则方式选择命令字为：11111010B＝0FAH。现要求使8251A复位出错标志、使请求发送信号有效、使数据终端准备好信号有效、发送允许TxEN有效、接收允许RxE有效，工作命令字应为：00110111B=37H。假设8251A的两个端口地址分别为80H和81H，初始化编程如下：</p>
+<pre><code>MOV  AL,  0FAH
+OUT  81H,  AL         ;设置方式选择命令字
+MOV  AL,  37H
+OUT  81H,  AL         ;设置命令字
+</code></pre>
+</li>
+<li>
+<p>同步：</p>
+<p>【例】8251A工作在同步方式，使用两个同步字符(内同步)、奇校验、每个字符8位，则方式选择命令字应为：00011100=1CH。现要求使8251A复位错标志、允许发送和接收、使CPU已准备好且请求发送，启动搜索同步字符，则工作命令字应该是：10110111=0B7H。又设第一个同步字符为0AAH，第二个同步字符为55H。还使用上例的8251A芯片，这样要先用内部复位命令40H，使8251A复位后，再写入方式选择控制字。具体程序段如下：</p>
+<pre><code>MOV  AL, 40H
+OUT  81H,  AL		;复位8251A
+MOV  AL,  1CH
+OUT  81H,  AL		;设置方式选择字 
+MOV  AL,  0AAH
+OUT  81H,  AL		;写入第一个同步字符 
+MOV  AL,  55H
+OUT  81H,  AL		;写入第二个同步字符 
+MOV  AL,  0B7H
+OUT  81H,  AL		;设置命令字
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>8251A应用举例：</p>
+<p>【例】试编写程序段，用异步串行通信方式输出STRING开始字符串‘Receiver ready $’，$为字符串的结束标记。设8251A数据端口地址为90H，方式命令状态端口地址为91H</p>
+<pre><code>MOV  AL，0 
+OUT  91H, AL 
+OUT  91H, AL
+OUT  91H, AL
+MOV  AL，40H 	
+OUT  91H, AL       ;写入复位命令
+MOV  AL，7EH       ;一个停止位，偶校验，8个数据位
+									 ;波特率因子16
+OUT  91H, AL       ;写入方式选择命令字
+MOV  BX, OFFSET STRING    ;BX指向缓冲区首址
+
+WAIT：IN   AL, 81H               ;读状态字
+      TEST  AL, 1                ;测试TxRDY位
+      JZ   WAIT                  ;为0，未准备好 等待
+      MOV  AL, [BX]             ;取一个字符 
+      CMP  AL,	’$’            ;判断是否是结束标志
+      JE  EXIT
+      OUT  90H,AL                ;输出字符
+      INC  BX		
+      JMP  WAIT       
+EXIT: ……                       ;结束 
+</code></pre>
+</li>
+</ol>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[6. 存储器]]></title>
         <id>https://notes.yuyzzz.top/post/6-cun-chu-qi/</id>
@@ -2433,42 +3059,6 @@ XLAT 表格首地址
 <p>在协议的控制下，两个对等实体间的通信使得本层能够向上一层提供服务。要实现本层协议，还需要使用下面一层所提供的服务。</p>
 <h3 id="155-tcpip的体系结构">1.5.5 TCP/IP的体系结构</h3>
 <figure data-type="image" tabindex="2"><img src="https://tva1.sinaimg.cn/large/006pkgSjgy1gvpc0yln7jj60t20g678f02.jpg" alt="image-20211004173604031.png" loading="lazy"></figure>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Hello Gridea]]></title>
-        <id>https://notes.yuyzzz.top/post/hello-gridea/</id>
-        <link href="https://notes.yuyzzz.top/post/hello-gridea/">
-        </link>
-        <updated>2018-12-11T16:00:00.000Z</updated>
-        <summary type="html"><![CDATA[<p>👏  欢迎使用 <strong>Gridea</strong> ！<br>
-✍️  <strong>Gridea</strong> 一个静态博客写作客户端。你可以用它来记录你的生活、心情、知识、笔记、创意... ...</p>
-]]></summary>
-        <content type="html"><![CDATA[<p>👏  欢迎使用 <strong>Gridea</strong> ！<br>
-✍️  <strong>Gridea</strong> 一个静态博客写作客户端。你可以用它来记录你的生活、心情、知识、笔记、创意... ...</p>
-<!-- more -->
-<p><a href="https://github.com/getgridea/gridea">Github</a><br>
-<a href="https://gridea.dev/">Gridea 主页</a><br>
-<a href="http://fehey.com/">示例网站</a></p>
-<pre><code class="language-python">import tenserflow as tf
-import re
-</code></pre>
-<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>β</mi></mrow><annotation encoding="application/x-tex">\beta</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.05278em;">β</span></span></span></span></p>
-<h2 id="特性">特性👇</h2>
-<p>📝  你可以使用最酷的 <strong>Markdown</strong> 语法，进行快速创作</p>
-<p>🌉  你可以给文章配上精美的封面图和在文章任意位置插入图片</p>
-<p>🏷️  你可以对文章进行标签分组</p>
-<p>📋  你可以自定义菜单，甚至可以创建外部链接菜单</p>
-<p>💻  你可以在 <strong>Windows</strong>，<strong>MacOS</strong> 或 <strong>Linux</strong> 设备上使用此客户端</p>
-<p>🌎  你可以使用 <strong>𝖦𝗂𝗍𝗁𝗎𝖻 𝖯𝖺𝗀𝖾𝗌</strong> 或 <strong>Coding Pages</strong> 向世界展示，未来将支持更多平台</p>
-<p>💬  你可以进行简单的配置，接入 <a href="https://github.com/gitalk/gitalk">Gitalk</a> 或 <a href="https://github.com/SukkaW/DisqusJS">DisqusJS</a> 评论系统</p>
-<p>🇬🇧  你可以使用<strong>中文简体</strong>或<strong>英语</strong></p>
-<p>🌁  你可以任意使用应用内默认主题或任意第三方主题，强大的主题自定义能力</p>
-<p>🖥  你可以自定义源文件夹，利用 OneDrive、百度网盘、iCloud、Dropbox 等进行多设备同步</p>
-<p>🌱 当然 <strong>Gridea</strong> 还很年轻，有很多不足，但请相信，它会不停向前 🏃</p>
-<p>未来，它一定会成为你离不开的伙伴</p>
-<p>尽情发挥你的才华吧！</p>
-<p>😘 Enjoy~</p>
 ]]></content>
     </entry>
 </feed>

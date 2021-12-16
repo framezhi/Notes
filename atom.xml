@@ -2,13 +2,206 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://notes.yuyzzz.top</id>
     <title>Yuyzzz&apos;s Notes</title>
-    <updated>2021-12-15T09:29:46.073Z</updated>
+    <updated>2021-12-16T08:51:51.456Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://notes.yuyzzz.top"/>
     <link rel="self" href="https://notes.yuyzzz.top/atom.xml"/>
     <logo>https://notes.yuyzzz.top/images/avatar.png</logo>
     <icon>https://notes.yuyzzz.top/favicon.ico</icon>
     <rights>All rights reserved 2021, Yuyzzz&apos;s Notes</rights>
+    <entry>
+        <title type="html"><![CDATA[四、信道共享技术]]></title>
+        <id>https://notes.yuyzzz.top/post/si-xin-dao-gong-xiang-ji-zhu/</id>
+        <link href="https://notes.yuyzzz.top/post/si-xin-dao-gong-xiang-ji-zhu/">
+        </link>
+        <updated>2021-12-16T08:48:17.000Z</updated>
+        <summary type="html"><![CDATA[<p>本章主要介绍了信道复用技术和几种接入方式</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>本章主要介绍了信道复用技术和几种接入方式</p>
+<!-- more -->
+<ul>
+<li>目的:传输介质共享，提高介质利用率</li>
+<li>传输介质的带宽通常远大于单用户需求。</li>
+<li>因此需要共用传输介质(信道)→介质访问控制(MAC)</li>
+</ul>
+<p>信道共享方式：</p>
+<img src="https://tva1.sinaimg.cn/large/006pkgSjgy1gwrtkzwp76j30hc0at761.jpg" alt="image.png" style="zoom: 80%;" />
+<p>本章主要介绍两大类信道共享技术</p>
+<ul>
+<li>物理信道划分复用：FDM/TDM/WDM/CDM</li>
+<li>多点接入共享:
+<ul>
+<li>随机接入(ALOHA; CSMA/CD)：用户根据自己的意愿，随机使用信道</li>
+<li>受控接入，用户接入信道必须遵守一定的规则，如**集中控制(轮询);**分散控制(令牌环)。</li>
+</ul>
+</li>
+</ul>
+<h2 id="41-物理层信道复用">4.1 物理层信道复用</h2>
+<h3 id="411-多路复用">4.1.1 多路复用</h3>
+<p>把多个低速信道组合成一个高速信道的技术，使得一条高速的主干信道同时为多条低速的接入链路提供服务</p>
+<ol>
+<li>
+<p>频分复用FDM: 频分复用的所有用户在同样时间占用不同的带宽资源。</p>
+<p>特点：信号被划分成若干通道(频道、波段)，每个通道互不重叠，独立进行数据传递。每个载波信号形成一个不重叠、相互隔离(不连续)的频带。接收端通过<strong>带通滤波器</strong>来分离信号。</p>
+</li>
+<li>
+<p>时分复用TDM：为多个信道分配互不重叠的时间片段，每个用户分得一个时间片</p>
+<ul>
+<li>STDM: 同步时分多路复用，将时间片预先分配，大小固定</li>
+<li>ATDM: 异步时分多路复用，用ATDM帧传输数据，可动态分配时间片</li>
+</ul>
+<img src="https://tva1.sinaimg.cn/large/006pkgSjly1gx1u4r55zaj30if0cbgqp.jpg" alt="image.png" style="zoom:70%;" />
+</li>
+<li>
+<p>波分复用WDM：即光的频分复用。多束不同频率的光通过棱柱或光栅，合成到一根共享的光纤上。波长间隔几十nm</p>
+</li>
+<li>
+<p>码分复用CDM：所有用户在同一时间，同一频段，根据不同编码获得信道。</p>
+<ul>
+<li>
+<p>每比特时间被分成m个短的时间段称码片(chip)。通常m=64或m=128(系统中至多容纳m个站)。码分复用需要发送的数据量为原先的 m 倍</p>
+</li>
+<li>
+<p>每个站被指定唯一的m位的码片序列(chip sequence)。所有码片序列都是两两正交（内积运算时把0转化为-1进行计算）</p>
+</li>
+<li>
+<p>发送1时，为码片序列;发送0时，为码片序列的反码。若分配给某站的码片序列为11010111，则该站要发送1时，发11010111，而要发0时，发00101000。</p>
+</li>
+<li>
+<figure data-type="image" tabindex="1"><img src="https://tva1.sinaimg.cn/large/006pkgSjly1gx1utmgmz7j30n50aeahd.jpg" alt="image.png" loading="lazy"></figure>
+</li>
+<li>
+<figure data-type="image" tabindex="2"><img src="https://tva1.sinaimg.cn/large/006pkgSjly1gx1uxfqsmzj30l107843j.jpg" alt="image.png" loading="lazy"></figure>
+<p>因为任意两个码片正交</p>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="412-多址方式multiple-access">4.1.2 多址方式(Multiple Access)</h3>
+<p>通过<strong>不同的移动信道</strong>分隔来进行通话，防止相互干扰</p>
+<ol>
+<li>频分多址(FDMA)----以频率来区分信道</li>
+<li>时分多址(TDMA)----以时隙来区分信道</li>
+<li>码分多址(CDMA)----以码片序列来区分信道</li>
+</ol>
+<h2 id="42-随机接入aloha">4.2 随机接入：ALOHA</h2>
+<h3 id="421-纯aloha">4.2.1 纯ALOHA</h3>
+<p>原理: 每个站自由的发送数据帧，若冲突，则等待一段随机时间后，重发。<img src="https://tva1.sinaimg.cn/large/006pkgSjly1gx1vgp8xsbj30h708j76m.jpg" alt="image.png" style="zoom:80%;" /></p>
+<ul>
+<li>吞吐量S(0&lt;=S&lt;=1)：在吞吐量S(0≤S≤1):在帧的发送时间()内成功发送的平均帧数</li>
+<li>网络负载G: 在帧发送时间(T0)内总共发送的平均帧数。显然G&gt;=S,若不发生冲突，G=S，G可大于1。</li>
+<li><img src="https://tva1.sinaimg.cn/large/006pkgSjly1gx1wenfp8yj30ky07dad4.jpg" alt="image.png" loading="lazy"></li>
+</ul>
+<h3 id="422-时隙aloha">4.2.2 时隙ALOHA</h3>
+<p>将时间分为一段段时隙，每个站只能在时隙开始时自由的发送数据帧，若冲突，则等待一段随机时间后，重发。</p>
+<figure data-type="image" tabindex="4"><img src="https://tva1.sinaimg.cn/large/006pkgSjly1gx1wgvjw54j30h0064myi.jpg" alt="image.png" loading="lazy"></figure>
+<img src="C:\Users\framezhi\AppData\Roaming\Typora\typora-user-images\image-20211204165248967.png" alt="image-20211204165248967" style="zoom:80%;" />
+<h2 id="43-随机接入csma和csmacd">4.3 随机接入：CSMA和CSMA/CD</h2>
+<p>多站共用同一通信介质</p>
+<p><strong>载波监听多路访问CSMA</strong> (Carrier Sense Multiple Access)：采用附加硬件装置，使每个站在发送数据前监听信道上是否有其它站在发送数据:</p>
+<ul>
+<li>如果信道忙，则暂不发送。</li>
+<li>如果信道空闲，发送; 同时启动2t定时器;</li>
+</ul>
+<h3 id="431-csma">4.3.1 CSMA</h3>
+<ol>
+<li>
+<p>0-坚持(no-persistent) CSMA</p>
+<ul>
+<li>
+<p>若信道空闲，发送;</p>
+</li>
+<li>
+<p>一旦监听到信道忙，就不再监听，而是推迟一个随机时间后重新再监听。</p>
+</li>
+<li>
+<p><strong>不能充分利用信道</strong></p>
+</li>
+</ul>
+</li>
+<li>
+<p>1-坚持(1-persistent) CSMA</p>
+<ul>
+<li>若信道空闲，发送;</li>
+<li>若信道忙，仍坚持听下去，一直听到信道空闲为止;然后立即发送数据。</li>
+<li><strong>容易冲突</strong></li>
+</ul>
+</li>
+<li>
+<p>P-坚持(P-persistent) CSMA</p>
+<ul>
+<li>若信道空闲，发送;</li>
+<li>监听到信道忙，仍坚持听下去，一直听到信道空闲为止;然后以概率P发送数据，而以概率(1一P)延迟一段时间，重新监听信道。</li>
+<li>上述2者折衷，但P值不好选。</li>
+</ul>
+</li>
+</ol>
+<p>ALOHA与CSMA随机访问过程流程图：</p>
+<img src="https://tva1.sinaimg.cn/large/006pkgSjly1gx1ws138g8j307k0cf3zp.jpg" alt="image.png" style="zoom:80%;" />
+<p>帧发送流程图</p>
+<img src="https://tva1.sinaimg.cn/large/006pkgSjly1gx1wxnq0s9j30830c80tx.jpg" alt="image.png" style="zoom:80%;" />
+<h3 id="432-csmacd">4.3.2 CSMA/CD</h3>
+<p>带冲突检测的载波监听多路访问协议Carrier SenseMultiple Access with Collision Detection</p>
+<ul>
+<li>监听到信道空闲就发送数据，并继续监听下去</li>
+<li>如果听到发生冲突，立即放弃此数据帧的传送。同时发送Jam信号(通常采用32 bit长的1和0交替的比特块)，使网上所有用户知道发生了冲突。</li>
+<li>可分成时隙/非时隙，分成非坚持/p坚持/1坚持等。</li>
+<li>监听方法:电信号叠加幅度(考虑信号衰减);曼彻斯特编码过零点偏移。</li>
+</ul>
+<p>CSMA/CD流程图：</p>
+<img src="https://tva1.sinaimg.cn/large/006pkgSjly1gx1x20k4k3j30a40art9u.jpg" alt="image.png" style="zoom:87%;" />
+<p>先听后发，边发边听，冲突停止，随机重发</p>
+<p>争用期(碰撞窗口2<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>τ</mi></mrow><annotation encoding="application/x-tex">\tau</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.1132em;">τ</span></span></span></span>)</p>
+<ul>
+<li>假设信号在两个相距最远的站点间传输时间为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>τ</mi></mrow><annotation encoding="application/x-tex">\tau</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.1132em;">τ</span></span></span></span> 。</li>
+<li>最坏情况，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>τ</mi></mrow><annotation encoding="application/x-tex">\tau</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.1132em;">τ</span></span></span></span>时间后传到对方，发生冲突，又需t时间传回来。</li>
+<li>即站点在2<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>τ</mi></mrow><annotation encoding="application/x-tex">\tau</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.1132em;">τ</span></span></span></span>时间后都没有听到冲突，才可确信抓住了信道。</li>
+</ul>
+<p>重要特性</p>
+<ul>
+<li>使用CSMA/CD协议的以太网不能进行全双工通信而只能进行双向交替通信(半双工通信)。</li>
+<li>每个站在发送数据之后的一小段时间内，存在着遭遇碰撞的可能性。</li>
+<li>这种发送的不确定性使整个以太网的平均通信量远小于以太网的最高数据率。</li>
+</ul>
+<p>总结：</p>
+<ul>
+<li>ALOHA及CSMA都存在信道冲突问题，原因是由于各站点发送是随机的。网络负载越大，冲突概率越大，冲突的存在导致报文重传，因此当网络负载太大时吞吐率会下降，进一步增大负载，网络会失去稳定性，造成死锁。</li>
+<li>为解决冲突，可采用受控介质访问方式，即各站点访问通道按预先设计好的规则有控制地进行。为了不发生冲突而又能获得较高通道利用率，可对通道采用“按需分配”原则，轮训/令牌属于这一类。</li>
+<li>TDM及FDM方式，即预先给每个站点分配所用的通道时间片或频带，就不会有信道冲突。但这两种方式对<strong>突发性很高</strong>的计算机网络数据传输通道利用率不高。</li>
+</ul>
+<h2 id="44-受控接入">4.4 受控接入</h2>
+<p>集中式控制</p>
+<ul>
+<li>轮询(Polling)(监控网络中用的多些)
+<ul>
+<li>轮叫轮询</li>
+<li>传递轮询</li>
+</ul>
+</li>
+</ul>
+<p>分散式控制</p>
+<ul>
+<li>令牌环网(Token Ring)</li>
+</ul>
+<ol>
+<li>轮叫轮询
+<ul>
+<li>主机按顺序从站1开始逐个询问，直到站N;一轮完成再从站1重新开始新一轮。</li>
+<li>被询问站若有数据发送即可发给主机;若无发一控制帧给主机，表示无数据可发;然后主机询问下一站。</li>
+</ul>
+</li>
+<li>传递轮询
+<ul>
+<li>主机向站N发出轮询帧。</li>
+<li>站N在发送完数据或告诉主机没有数据发送时，将相邻站N-1的地址附上。</li>
+<li>N-1检测到自己的地址，知道站N把发送权转移到本站;以此类推，直到站1。站1完成后将主机地址附上，把发送权交回主机。</li>
+<li>下一轮循环开始。</li>
+</ul>
+</li>
+<li>令牌环：按一定顺序在各站点间传递令牌(Token:一组规定的数据帧)的介质访问控制方法。得到令牌的站点获得在信道上发送的权利，如果该站点有报文待发，就将令牌置为“忙”，表示通道已被占用，然后发报，发完之后，就将令牌置为“空”，随即将令牌传递给下一站点;如果该站点无报文发送，则随即将刚收到的令牌转发给下一站点。</li>
+</ol>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[8. 可编程接口芯片]]></title>
         <id>https://notes.yuyzzz.top/post/8-ke-bian-cheng-jie-kou-xin-pian/</id>
@@ -2892,173 +3085,5 @@ XLAT 表格首地址
 </ul>
 <h3 id="243-数字传输系统">2.4.3 数字传输系统</h3>
 <img src="https://tva1.sinaimg.cn/large/006pkgSjgy1gvpf5kmz4oj61380nc47502.jpg" alt="image-20211023182605550.png" style="zoom: 67%;" />]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[一、计网概述]]></title>
-        <id>https://notes.yuyzzz.top/post/ji-wang-bi-ji-1/</id>
-        <link href="https://notes.yuyzzz.top/post/ji-wang-bi-ji-1/">
-        </link>
-        <updated>2021-10-23T08:40:06.000Z</updated>
-        <summary type="html"><![CDATA[<p>本章主要介绍计算机网络的定义和发展阶段，计算机网络的组成、<strong>分组交换、体系结构</strong>，以及<strong>计算机网络的性能指标</strong></p>
-]]></summary>
-        <content type="html"><![CDATA[<p>本章主要介绍计算机网络的定义和发展阶段，计算机网络的组成、<strong>分组交换、体系结构</strong>，以及<strong>计算机网络的性能指标</strong></p>
-<!-- more-->
-<h2 id="11-互联网概述">1.1 互联网概述</h2>
-<h3 id="111-网络的网络">1.1.1 网络的网络</h3>
-<p>互联网(Internet):全球最大的计算机网络，采用TCP/IP协议族</p>
-<p>计算机网络(网络):由若干结点(node)和连接这些结点的链路(link)组成</p>
-<p>互连网(internet)：泛指多个计算机网络互连而成的计算机网络，对网络间的协议没有要求。</p>
-<h3 id="112-互联网基础结构发展的三个阶段">1.1.2 互联网基础结构发展的三个阶段</h3>
-<ul>
-<li>第一阶段：从单个网络ARPANET向互联网发展</li>
-<li>第二阶段：建成了三级结构的互联网：主干网，地区网和校园网（或企业网）</li>
-<li>第三阶段：形成了多层次ISP结构的互联网</li>
-</ul>
-<h3 id="113-互联网的标准化工作">1.1.3 互联网的标准化工作</h3>
-<p>互联网标准以RFC的形式发表，成为标准需要三个阶段</p>
-<ul>
-<li>互联网草案：有效期6个月，此时不是RFC</li>
-<li>建议标准：成为RFC文档</li>
-<li>互联网标准：每个标准分配一个编号，一个标准可以对应多个RFC文档</li>
-</ul>
-<h2 id="12-互联网的组成">1.2 互联网的组成</h2>
-<p>边缘：用户使用，资源共享（资源子网）</p>
-<p>核心：由路由器组成，提供连通性和交换（通信子网）</p>
-<h3 id="121-互联网的边缘部分">1.2.1 互联网的边缘部分</h3>
-<p>主机又称为端系统（end system）</p>
-<p>端系统之间的通信方式：</p>
-<ul>
-<li>客户/服务器（C/S）
-<ul>
-<li>客户主动向服务器发送请求</li>
-<li>服务器被动等待请求</li>
-</ul>
-</li>
-<li>对等方式（P2P）: Peer to Peer
-<ul>
-<li>平等、对等通信</li>
-<li>每个主机既是客户机又是服务器</li>
-</ul>
-</li>
-</ul>
-<h3 id="121-互联网的核心部分">1.2.1 互联网的核心部分</h3>
-<p>起特殊作用的是路由器（router），实现了分组交换</p>
-<h4 id="电路交换circuit-switching">电路交换(circuit switching)</h4>
-<ul>
-<li>使用交换机</li>
-<li>必定是<strong>面向连接</strong></li>
-</ul>
-<p>分为三个阶段：</p>
-<ul>
-<li>建立连接（专用物理线路）</li>
-<li>通信（始终占用端到端资源）</li>
-<li>释放连接</li>
-</ul>
-<p>缺点：</p>
-<ul>
-<li>建立连接时间长</li>
-<li>信道利用率低</li>
-</ul>
-<h4 id="报文交换message-switching">报文交换(message switching)</h4>
-<h4 id="分组交换packet-switching">分组交换(packet switching)</h4>
-<p>存储转发，把报文分为较短、定长的数据段，在数据段前添加首部构成分组（packet），以分组作为数据传输单元</p>
-<p>路由器：</p>
-<ul>
-<li>将收到分组放入缓存</li>
-<li>查找转发表</li>
-<li>将分组送到适当端口转发</li>
-</ul>
-<p>优点：</p>
-<ul>
-<li>动态分配资源</li>
-<li>迅速、可靠</li>
-</ul>
-<p>带来的问题：</p>
-<ul>
-<li>存储转发需要排队，因此有时延</li>
-<li>首部造成开销</li>
-</ul>
-<h2 id="13-计算机网络的类别">1.3 计算机网络的类别</h2>
-<h3 id="131-计算机网络的定义">1.3.1 计算机网络的定义</h3>
-<p>计算机网络主要是由一些通用的、可编程的硬件互连而成的，而这些硬件并非专门用来实现某一特定目的，这些可编程的硬件能够用来传送多种不同类型的数据，并能支持广泛的和日益增长的应用。</p>
-<h3 id="132-计算机网络的分类">1.3.2 计算机网络的分类</h3>
-<p>从网络的作用范围分类：</p>
-<ul>
-<li>广域网(LAN)</li>
-<li>城域网(MAN)</li>
-<li>局域网(LAN)</li>
-<li>个人区域网(PAN)</li>
-</ul>
-<p>从网络的使用者进行分类：</p>
-<ul>
-<li>公用网</li>
-<li>专用网</li>
-</ul>
-<p>用来把用户接入互联网的网络</p>
-<ul>
-<li>接入网AN(Access Network):用于将用户接入互联网，既不属于核心部分也不属于边缘部分</li>
-</ul>
-<h2 id="14-计算机网络的性能">1.4 计算机网络的性能</h2>
-<h3 id="141-计算机网络的性能指标">1.4.1 计算机网络的性能指标</h3>
-<ol>
-<li>速率：也被称为<strong>数据率</strong>或比特率，单位：bit/s</li>
-<li>带宽：在计算机网络中，表示某信道能通过的“<strong>最大数据率</strong>”，单位：bit/s</li>
-<li>吞吐量：表示单位时间能通过某个网络（或者信道，接口）的数据量</li>
-<li>时延(delay)：数据从网络的一端到另一端所需的时间，包括：发送试验，传播时延，处理时延，排队时延</li>
-<li>时延带宽积：传播时延<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>×</mo></mrow><annotation encoding="application/x-tex">\times</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord">×</span></span></span></span>带宽</li>
-<li>往返时间RTT</li>
-<li>利用率
-<ul>
-<li>信道利用率U，当增大时，该信道引起的时延迅速增加 ：$ D = \frac{D_0}{1-U}$，</li>
-<li>网络利用率</li>
-</ul>
-</li>
-</ol>
-<h3 id="141-计算机网络的非性能特征">1.4.1 计算机网络的非性能特征</h3>
-<p>费用，质量，标准化，可靠性，可扩展性和可升级性，易于管理和维护</p>
-<h2 id="15-计算机网络的体系结构">1.5 计算机网络的体系结构</h2>
-<p>计算机网络的各层及协议的集合就是网络的体系结构</p>
-<h3 id="151-计算机体系机构的形成">1.5.1 计算机体系机构的形成</h3>
-<p>OSI参考模型</p>
-<h3 id="152-协议与划分层次">1.5.2 协议与划分层次</h3>
-<p>协议：数据交换必须遵师事先约定的规则，这些规则明确了交换数据的格式和有关同步的问题</p>
-<ul>
-<li>语法：数据和控制信息的结构和格式</li>
-<li>语义：控制信息的种类，作出响应与反应的类型</li>
-<li>同步：事件实现顺序的说明</li>
-</ul>
-<p>协议的两种形式：</p>
-<ul>
-<li>文字描述</li>
-<li>程序代码</li>
-</ul>
-<p>分层的好处：</p>
-<ul>
-<li>各层独立</li>
-<li>灵活性好</li>
-<li>结构上可分割开</li>
-<li>易于实现和维护</li>
-<li>促进标准化工作</li>
-</ul>
-<p>分层的缺点：</p>
-<ul>
-<li>降低效率</li>
-<li>功能可能重复，产生额外开销</li>
-</ul>
-<p><strong>各层完成的主要功能</strong>：</p>
-<p>①差错控制：使相应层次对等方的通信更加可靠。</p>
-<p>②流量控制：发送端的发送速率必须使接收端来得及接收，不要太快。</p>
-<p>③分段和重装：发送端将要发送的数据块划分为更小的单位，在接收端将其还原。</p>
-<p>④复用和分用：发送端几个高层会话复用一条低层的连接，在接收端再进行分用。</p>
-<p>⑤连接建立和释放：交换数据前先建立一条逻辑连接，数据传送结束后释放连接。</p>
-<h3 id="153-具有五层协议的体系结构">1.5.3 具有五层协议的体系结构</h3>
-<figure data-type="image" tabindex="1"><img src="https://tva1.sinaimg.cn/large/006pkgSjgy1gvpc1lcr4qj60xa0k6grt02.jpg" alt="image-20211004171033999.png" loading="lazy"></figure>
-<h3 id="154-实体-协议-服务和服务访问点">1.5.4 实体、协议、服务和服务访问点</h3>
-<p>实体(entity)：表示任何可发送或接收信息的硬件或软件进程。</p>
-<p>协议：控制两个对等实体(或多个实体)进行通信的规则的集合。</p>
-<p>在协议的控制下，两个对等实体间的通信使得本层能够向上一层提供服务。要实现本层协议，还需要使用下面一层所提供的服务。</p>
-<h3 id="155-tcpip的体系结构">1.5.5 TCP/IP的体系结构</h3>
-<figure data-type="image" tabindex="2"><img src="https://tva1.sinaimg.cn/large/006pkgSjgy1gvpc0yln7jj60t20g678f02.jpg" alt="image-20211004173604031.png" loading="lazy"></figure>
-]]></content>
     </entry>
 </feed>

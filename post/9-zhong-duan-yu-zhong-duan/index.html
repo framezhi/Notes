@@ -9,7 +9,7 @@
 <meta name="keywords" content="Gridea静态个人博客">
 <meta name="description" content="">
 <meta name="theme-color" content="#000">
-<title>Yuyzzz&#39;s Notes</title>
+<title>9. 中断与中断管理 | Yuyzzz&#39;s Notes</title>
 <link rel="shortcut icon" href="/favicon.ico?v=1640697868201">
 <link rel="stylesheet" href="/styles/main.css">
 <link rel="stylesheet" href="/media/css/mist.css">
@@ -30,6 +30,8 @@
 
 
 
+  <meta name="description" content="9. 中断与中断管理" />
+  <meta name="keywords" content="微机" />
 </head>
 
 <body>
@@ -159,10 +161,26 @@
   <div class="main-continer">
     
     <div
-      class="section-layout bg-color mist">
+      class="section-layout mist bg-color">
       <div class="section-layout-wrapper">
-        <div id="sidebarMeta" class="sidebar">
-    
+        
+
+<div class="sidebar">
+  
+    <div class="sidebar-box box-shadow-wrapper  right-motion" id="sidebar">
+      
+        <div class="post-list-sidebar">
+          <div class="sidebar-title">
+            <span id="tocSideBar" class="sidebar-title-item sidebar-title-active">文章目录</span>
+            <span id="metaSideBar" class="sidebar-title-item">站点概览</span>
+          </div>
+        </div>
+      
+      <div class="sidebar-body mist" id="sidebar_body">
+        
+          
+            <div class="post-side-meta" id="post_side_meta">
+              
 <div class="sidebar-wrapper box-shadow-wrapper ">
   <div class="sidebar-item">
     <img class="site-author-image right-motion" src="/images/avatar.png"/>
@@ -195,133 +213,895 @@
 
 
 </div>
+            </div>
+            <div class="post-toc sidebar-body-active" id="post_toc" style="opacity: 1;">
+              <div class="toc-box right-motion">
+  <div class="toc-wrapper auto-number auto"
+    id="toc_wrapper">
+    <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#91-%E4%B8%AD%E6%96%AD%E6%A6%82%E5%BF%B5">9.1 中断概念</a>
+<ul>
+<li><a href="#911-%E4%B8%AD%E6%96%AD%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5">9.1.1 中断基本概念</a></li>
+<li><a href="#912-%E4%B8%AD%E6%96%AD%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%8A%9F%E8%83%BD">9.1.2 中断系统的功能</a></li>
+</ul>
+</li>
+<li><a href="#92-8086%E7%9A%84%E4%B8%AD%E6%96%AD%E7%B3%BB%E7%BB%9F">9.2 8086的中断系统</a>
+<ul>
+<li><a href="#921-8086%E7%9A%84%E4%B8%AD%E6%96%AD%E7%B1%BB%E5%9E%8B">9.2.1 8086的中断类型</a></li>
+<li><a href="#922-%E4%B8%AD%E6%96%AD%E5%90%91%E9%87%8F%E5%92%8C%E4%B8%AD%E6%96%AD%E5%90%91%E9%87%8F%E8%A1%A8">9.2.2 中断向量和中断向量表</a></li>
+<li><a href="#923-8086%E7%9A%84%E4%B8%AD%E6%96%AD%E5%93%8D%E5%BA%94%E5%92%8C%E5%A4%84%E7%90%86%E8%BF%87%E7%A8%8B">9.2.3 8086的中断响应和处理过程</a></li>
+</ul>
+</li>
+<li><a href="#93-8259%E4%B8%AD%E6%96%AD%E6%8E%A7%E5%88%B6%E5%99%A8">9.3 8259中断控制器</a>
+<ul>
+<li><a href="#931-8259a%E7%9A%84%E7%BB%93%E6%9E%84">9.3.1 8259A的结构</a></li>
+<li><a href="#932-8259a%E7%9A%84%E5%BC%95%E8%84%9A">9.3.2 8259A的引脚</a></li>
+<li><a href="#933-9259a%E4%B8%AD%E6%96%AD%E5%A4%84%E7%90%86%E8%BF%87%E7%A8%8B">9.3.3 9259A中断处理过程</a></li>
+<li><a href="#934-8259%E7%9A%84%E7%BA%A7%E8%81%94%E6%96%B9%E5%BC%8F">9.3.4 8259的级联方式</a></li>
+<li><a href="#935-8259%E7%9A%84%E5%B7%A5%E4%BD%9C%E6%96%B9%E5%BC%8F">9.3.5 8259的工作方式</a></li>
+<li><a href="#936-8259a%E7%9A%84%E7%BC%96%E7%A8%8B%E4%B8%8E%E5%BA%94%E7%94%A8">9.3.6 8259A的编程与应用</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
 </div>
+
 <script>
-  let sidebarMeta = document.querySelector('#sidebarMeta');
-  let scheme = 'mist';
-  let sidebarWrapper = document.querySelector('.sidebar-wrapper');
-  if (sidebarMeta && (scheme === 'pisces' || scheme === 'gemini')) {
-    document.addEventListener('scroll', function(e) {
-      if (document.scrollingElement.scrollTop > parseInt(sidebarMeta.style.marginTop) + 10) {
-        sidebarWrapper.classList.add('home-sidebar-fixed')
-      } else {
-        sidebarWrapper.classList.remove('home-sidebar-fixed')
+
+  let lastTop = 0, lList = [], hList = [], postBody, lastIndex = -1;
+  let active = 'active-show', activeClass = 'active-current';
+  let tocWrapper = document.querySelector('#toc_wrapper');
+  let tocContent = tocWrapper.children[0];
+  let autoNumber = tocWrapper && tocWrapper.classList.contains('auto-number');
+
+  function addTocNumber(elem, deep) {
+    if (!elem) {
+      return;
+    }
+    let prop = elem.__proto__;
+
+    if (prop === HTMLUListElement.prototype) {
+      for (let i = 0; i < elem.children.length; i++) {
+        addTocNumber(elem.children[i], deep + (i + 1) + '.');
       }
+    } else if (prop === HTMLLIElement.prototype) {
+      // 保存li元素
+      if (elem.children[0].__proto__ === HTMLAnchorElement.prototype) {
+        lList.push(elem);
+      }
+      for (let i = 0; i < elem.children.length; i++) {
+        let cur = elem.children[i];
+        if (cur.__proto__ === HTMLAnchorElement.prototype) {
+          if (autoNumber) {
+            cur.text = deep + ' ' + cur.text;
+          }
+        } else if (cur.__proto__ === HTMLUListElement.prototype) {
+          addTocNumber(cur, deep);
+        }
+      }
+    }
+  }
+
+  function removeParentActiveClass() {
+    let parents = tocContent.querySelectorAll('.' + active)
+    parents.forEach(function (elem) {
+      elem.classList.remove(active);
     });
   }
-  </script>
-        <div class="section-box tag-line box-shadow-wrapper">
-          <section class="section tags-section posts-expand bg-color">
-            <div class="padding-wrapper">
-  <div class="tag-timeline-box">
-    <div class="tag-timeline-wrapper">
-      <div class="tag-timeline-title">
-        <h2>
-          计网
-          <small>标签</small>
-        </h2>
+
+  function addActiveClass(index) {
+    if (index >= 0 && index < hList.length) {
+      lList[index].classList.add(activeClass);
+    }
+  }
+
+  function removeActiveClass(index) {
+    if (index >= 0 && index < hList.length) {
+      lList[index].classList.remove(activeClass);
+    }
+  }
+
+  function addActiveLiElemment(elem, parent) {
+    if (!elem || elem === parent) {
+      return;
+    } else {
+      if (elem.__proto__ === HTMLLIElement.prototype) {
+        elem.classList.add(active);
+      }
+      addActiveLiElemment(elem.parentElement, parent);
+    }
+  }
+
+  function showToc() {
+    if (tocWrapper) {
+      postBody = document.querySelector('#post_body');
+      for (let i = 0; i < postBody.children.length; i++) {
+        if (postBody.children[i].__proto__ === HTMLHeadingElement.prototype) {
+          hList.push(postBody.children[i]);
+        }
+      }
+      if (tocWrapper.classList.contains('compress')) {
+        tocContent.classList.add('closed');
+      } else if (tocWrapper.classList.contains('no_compress')) {
+        tocContent.classList.add('expanded');
+      } else {
+        if (hList.length > 10) {
+          active = 'active-hidden'
+          tocContent.classList.add('closed');
+        } else {
+          tocContent.classList.add('expanded');
+        }
+      }
+    }
+  }
+
+  (function () {
+    // 处理不是从#一级标题开始目录
+    if (tocContent.children.length === 1 && tocContent.children[0].__proto__ === HTMLLIElement.prototype) {
+      let con = tocContent.children[0].children[0];
+      tocContent.innerHTML = con.innerHTML;
+    }
+    let markdownItTOC = document.querySelector('.markdownIt-TOC');
+    let innerHeight = window.innerHeight;
+    markdownItTOC.style = `max-height: ${innerHeight - 80 > 0 ? innerHeight - 80 : innerHeight}px`
+    addTocNumber(tocContent, '');
+  })();
+
+  document.addEventListener('scroll', function (e) {
+    if (lList.length <= 0) {
+      return;
+    }
+    let scrollTop = document.scrollingElement.scrollTop + 10;
+    let dir;
+
+    if (lastTop - scrollTop > 0) {
+      dir = 'up';
+    } else {
+      dir = 'down';
+    }
+
+    lastTop = scrollTop;
+    if (scrollTop <= 0) {
+      if (lastIndex >= 0 && lastIndex < hList.length) {
+        lList[lastIndex].classList.remove(activeClass);
+      }
+      return;
+    }
+
+    let current = 0, hasFind = false;
+    for (let i = 0; i < hList.length; i++) {
+      if (hList[i].offsetTop > scrollTop) {
+        current = i;
+        hasFind = true;
+        break;
+      }
+    }
+    if (!hasFind && scrollTop > lList[lList.length - 1].offsetTop) {
+      current = hList.length - 1;
+    } else {
+      current--;
+    }
+    if (dir === 'down') {
+      if (current > lastIndex) {
+        addActiveClass(current);
+        removeActiveClass(lastIndex)
+        lastIndex = current;
+        removeParentActiveClass();
+        lList[current] && addActiveLiElemment(lList[current].parentElement, tocContent);
+      }
+    } else {
+      if (current < lastIndex) {
+        addActiveClass(current);
+        removeActiveClass(lastIndex);
+        lastIndex = current;
+        removeParentActiveClass();
+        lList[current] && addActiveLiElemment(lList[current].parentElement, tocContent);
+      }
+    }
+  });
+
+
+  window.addEventListener('load', function () {
+    showToc();
+    document.querySelector('#sidebar').style = 'display: block;';
+    tocWrapper.classList.add('toc-active');
+    setTimeout(function () {
+      if ("createEvent" in document) {
+        let evt = document.createEvent("HTMLEvents");
+        evt.initEvent("scroll", false, true);
+        document.dispatchEvent(evt);
+      }
+      else {
+        document.fireEvent("scroll");
+      }
+    }, 500)
+  })
+
+</script>
+            </div>
+          
+        
       </div>
+    </div>
+  
+</div>
+<script>
+  const SIDEBAR_TITLE_ACTIVE = 'sidebar-title-active';
+  const SIDEBAR_BODY_ACTIVE = 'sidebar-body-active';
+  const SLIDE_UP_IN = 'slide-up-in';
+
+  let sidebar = document.querySelector('#sidebar'),
+  tocSideBar = document.querySelector('#tocSideBar'),
+  metaSideBar = document.querySelector('#metaSideBar'),
+  postToc = document.querySelector('#post_toc'),
+  postSiteMeta = document.querySelector('#post_side_meta'),
+  sidebarTitle = document.querySelector('.sidebar-title'),
+  sidebarBody = document.querySelector('#sidebar_body');
+
+  tocSideBar && tocSideBar.addEventListener('click', (e) => {
+    toggleSidebar(e);
+  });
+
+  metaSideBar && metaSideBar.addEventListener('click', (e) => {
+    toggleSidebar(e);
+  });
+
+  function toggleSidebar(e) {
+    let currentTitle = document.querySelector("."+SIDEBAR_TITLE_ACTIVE);
+    if (currentTitle == e.srcElement) {
+      return ;
+    }
+    let current, showElement, hideElement;
+    if (e.srcElement == metaSideBar) {
+      showElement = postSiteMeta;
+      hideElement = postToc;
+    } else if (e.srcElement == tocSideBar){
+      showElement = postToc;
+      hideElement = postSiteMeta;
+    }
+    currentTitle.classList.remove(SIDEBAR_TITLE_ACTIVE);
+    e.srcElement.classList.add(SIDEBAR_TITLE_ACTIVE);
+
+    window.Velocity(hideElement, 'stop');
+    window.Velocity(hideElement, 'transition.slideUpOut', {
+      display: 'none',
+      duration: 200,
+      complete: function () {
+        window.Velocity(showElement, 'transition.slideDownIn', {
+          duration: 200
+        });
+      }
+    })
+    hideElement.classList.remove(SIDEBAR_BODY_ACTIVE);
+    showElement.classList.add(SIDEBAR_BODY_ACTIVE);
+  }
+
+  postToc && postToc.addEventListener('transitionend', function() {
+    this.classList.remove(SLIDE_UP_IN);
+  });
+
+  if (sidebarBody) {
+    if (sidebarBody.classList.contains('pisces') || sidebarBody.classList.contains('gemini')) {
+      let hasFix = false;
+      let scrollEl = document.querySelector('.main-continer');
+      let limitTop = document.querySelector('#nav_ul').children.length * 42 + 162;
+      window.addEventListener('scroll', function(e) {
+        if (document.scrollingElement.scrollTop >= limitTop) {
+          if (!hasFix) {
+            sidebar.classList.add('sidebar-fixed');
+            hasFix = true;
+          }
+        } else {
+          if (hasFix) {
+            sidebar.classList.remove('sidebar-fixed');
+            hasFix = false;
+          }
+        }
+      });
+    }
+  }
+  
+</script>
+        <div class="section-box box-shadow-wrapper">
+          <div class="section bg-color post post-page">
+            <header class="post-header">
+  <h1 class="post-title">
+    <a class="post-title-link" href="https://notes.yuyzzz.top/post/9-zhong-duan-yu-zhong-duan/">
+      9. 中断与中断管理
+    </a>
+  </h1>
+  <div class="post-meta">
+    
+    <span class="meta-item pc-show">
+      <i class="fa fa-calendar-o"></i>
+      <span>发布于</span>
+      <span>2021-12-28</span>
+      <span class="post-meta-divider pc-show">|</span>
+    </span>
+    
+    <span class="meta-item">
+      <i class="fa fa-folder-o"></i>
+      <span class="pc-show">分类于</span>
       
       
-      
-      
-      
-      
-      
-      <a href="https://notes.yuyzzz.top/post/si-xin-dao-gong-xiang-ji-zhu/">
-        <div class="motion-warpper">
-          <div class="tag-post-node">
-            <h1>
-              12-16
-              <small>四、信道共享技术</small>
-            </h1>
-          </div>
-        </div>
+      <a href="https://notes.yuyzzz.top/tag/aG-o5eP94/">
+        <span>微机</span>
       </a>
       
       
+    </span>
+    <span class="post-meta-divider">|</span>
+    
+    <span class="meta-item">
+      <i class="fa fa-clock-o"></i>
+      <span>19分钟</span>
+    </span>
+    <span class="meta-item">
+      <span class="post-meta-divider">|</span>
+      <i class="fa fa-file-word-o"></i>
+      <span>5009<span class="pc-show">字数</span></span>
+    </span>
+    
+  </div>
+</header>
+            <div class="post-body next-md-body" id="post_body">
+              <p>本章主要介绍了中断的概念、8086的中断系统以及中断控制器8259A的结构、功能、初始化编程等。</p>
+<!-- more -->
+<h2 id="91-中断概念">9.1 中断概念</h2>
+<h3 id="911-中断基本概念">9.1.1 中断基本概念</h3>
+<p>由于发生某种随机事件导致CPU暂时中断正在运行的程序，转而去执行一段特殊的服务程序（中断服务程序），事件处理完后又返回被中断的程序继续执行，这一过程称为中断。</p>
+<p>CPU与外设交换信息的方式，处理随机事件和外部请求</p>
+<p><strong>中断源</strong>:  引起CPU中断的事件，发出中断请求的来源</p>
+<img src="https://i0.hdslb.com/bfs/album/73e1175cdfc7d75db2fb7f3bef21c26049e22f89.png" alt="image-20211225221220522" style="zoom:80%;" />
+<h3 id="912-中断系统的功能">9.1.2 中断系统的功能</h3>
+<p><strong>中断请求</strong>：中断请求信号应保持到中断被处理为止，CPU响应中断后，中断请求信号应及时撤销</p>
+<ul>
+<li>非屏蔽中断NMI: 在当前指令执行结束之后，不受标志位IF的影响，无条件响应中断，中断类型号为2</li>
+<li>可屏蔽中断INTR: 在当前指令执行结束之后，检查标志位IF，若为1，则进行响应，否则不予响应。IF标志位可以通过执行STI 指令和CLI指令设置。STI指令称为开中断命令，执行STI指令，IF标志位置1。CLI指令称为关中断命令,执行CLI指令，IF标志位清0。</li>
+</ul>
+<p><strong>中断源识别</strong>：CPU需确定是哪一个中断源提出了中断请求；找到该中断服务程序的入口地址。</p>
+<ul>
+<li>
+<p>软件查询法：</p>
+<ul>
+<li>
+<p>各中断源的中断请求信号相&quot;或&quot;作为INTR信号</p>
+</li>
+<li>
+<p>各中断源的中断请求信号接到缓冲器的一位</p>
+<img src="https://i0.hdslb.com/bfs/album/7ebfd16bafeb16ece0ad0e5fdeb8850394760ff7.png" alt="image-20211225225459204" style="zoom:80%;" />
+</li>
+<li>
+<p>优点：硬件电路简单，无需硬件优先级排队电路，可随时修改优先级</p>
+</li>
+<li>
+<p>缺点：中断源较多时，查询时间长，影响实时性</p>
+</li>
+</ul>
+</li>
+<li>
+<p>中断向量法：要求中断源提供一个中断类型号，中断控制电路完成中断源识别后，将该中断源对应的中断类型号传送给CPU。CPU根据中断类型号可生成该中断源的中断向量，根据中断向量从中断向量表中取出相应的中断服务程序的入口地址</p>
+<img src="https://i0.hdslb.com/bfs/album/c519cc0b72497e50a24789767d38b6fb97816966.png" alt="image-20211226135356971" style="zoom:67%;" />
+<ul>
+<li>优点：CPU可直接通过中断向量表转向相应的中断服务程序，大大加快了中断响应的速度。</li>
+</ul>
+</li>
+</ul>
+<p><strong>中断判优</strong>：根据优先级来执行中断</p>
+<p>对非同时产生的中断，低优先级的中断程序允许被高优先级的中断源所中断，称为<strong>中断嵌套</strong></p>
+<ul>
+<li>
+<p>软件判优</p>
+<ul>
+<li>
+<p>当CPU接收到中断请求信号后，执行优先级判优的查询程序，逐个检测外设中断请求标志位的状态</p>
+</li>
+<li>
+<p>最先检测到的中断源具有最高的优先级；最后检测到的中断源具有最低的优先级。</p>
+<img src="https://i0.hdslb.com/bfs/album/b7b9ed03e4f93a584d8206106a2249b712896db7.png" alt="image-20211226141334227" style="zoom:50%;" />
+</li>
+</ul>
+</li>
+<li>
+<p>硬件判优：菊花链逻辑电路</p>
+</li>
+</ul>
+<p><strong>中断响应</strong>: 向中断源发出INTA中断响应信号；保护断点：包括FLAGS、 CS和IP；获得中断服务程序入口地址</p>
+<p><strong>中断处理、中断返回</strong></p>
+<ol>
+<li>保护现场</li>
+<li>开中断（STI）</li>
+<li>中断处理</li>
+<li>关中断（CLI）</li>
+<li>恢复现场</li>
+<li>中断返回：执行IRET指令，使IP、CS和FLAGS从堆栈弹出</li>
+</ol>
+<h2 id="92-8086的中断系统">9.2 8086的中断系统</h2>
+<h3 id="921-8086的中断类型">9.2.1 8086的中断类型</h3>
+<img src="https://i0.hdslb.com/bfs/album/d850e0cd0aa250078c189a9d8205eb2b789aadf1.png" alt="image-20211226145127697" style="zoom:57%;" />
+<img src="https://i0.hdslb.com/bfs/album/5eecc2e4c571116b3c5b6ac8804bfe0371df3249.png" alt="image-20211226145202638" style="zoom:50%;" />
+<ol>
+<li>
+<p>外部中断：硬件请求产生的中断（也称硬件中断）</p>
+<ul>
+<li>非屏蔽中断NMI: NMI引脚引入，上升沿触发；在当前指令执行结束之后，不受标志位IF的影响，无条件响应中断，中断类型号为2</li>
+<li>可屏蔽中断INTR: INTR引脚引入，电平触发，高电平有效；在当前指令执行结束之后，检查标志位IF，若为1，则进行响应，否则不予响应。IF标志位可以通过执行STI 指令和CLI指令设置。STI指令称为开中断命令，执行STI指令，IF标志位置1。CLI指令称为关中断命令,执行CLI指令，IF标志位清0。</li>
+</ul>
+</li>
+<li>
+<p>内部中断：程序异常或执行内部程序调用引起（软中断），有以下几种</p>
+<ul>
+<li>除法错中断：执行除法指令时，若除数为0或商超过寄存器所能表达的范围，则CPU立即产生类型0中断。</li>
+<li>溢出中断——如果上一条指令使溢出标志位OF为1，则执行INTO指令产生类型4中断。</li>
+<li>INT n指令中断——8086的指令系统中有一条INT n指令，执行这条指令就会立即产生中断。</li>
+<li>单步中断——当单步标志（陷阱标志）TF置“1”时，8086处于单步工作方式。在单步工作时，每执行完一条指令，CPU自动产生中断类型1的中断。可以用于调试</li>
+<li>断点中断——断点中断是8086提供的一种调试程序的手段。用于设置程序中的断点，中断类型号为3。</li>
+</ul>
+</li>
+<li>
+<p>中断优先级</p>
+<img src="https://i0.hdslb.com/bfs/album/64e8725515cf4fcb80a276fee55709575d5b6510.png" alt="image-20211226152335221" style="zoom:50%;" />
+</li>
+</ol>
+<h3 id="922-中断向量和中断向量表">9.2.2 中断向量和中断向量表</h3>
+<p><strong>概念</strong></p>
+<ol>
+<li>
+<p>中断向量：</p>
+<ul>
+<li>中断服务程序在内存中的入口地址叫中断向量。</li>
+<li>每个中断类型对应一个中断向量。</li>
+<li>8086中断向量的字长是4个字节：2个字节的段地址，2个字节的偏移地址</li>
+</ul>
+</li>
+<li>
+<p>中断向量表：</p>
+<ul>
+<li>
+<p>存放中断向量的存储区就叫中断向量表或中断服务程序入口地址表。</p>
+</li>
+<li>
+<p>8086系统把中断向量表安排在内存地址00000H～003FFH区域（1KB）。</p>
+</li>
+<li>
+<p>每四个连续字节存放一个中断向量：高地址2个字节单元放段地址（CS），低地址2个字节单元中放偏移地址(IP)。</p>
+<img src="https://i0.hdslb.com/bfs/album/519f6a90739af49958ce68b1be0d8e42c6dd690e.png" alt="image-20211228210939129" style="zoom:80%;" />
+</li>
+</ul>
+</li>
+<li>
+<p>中断向量表地址指针：存放中断向量的4个存储单元的最低地址称为向量表地址指针,计算方法：中断类型号×4</p>
+<img src="https://i0.hdslb.com/bfs/album/bdb2687fea4719a6fb344dcf2a1ca56942f2557d.png" alt="image-20211226160949845" style="zoom:50%;" />
+</li>
+<li>
+<p>8086中断向量表</p>
+<img src="https://i0.hdslb.com/bfs/album/4e91b107d31b8a1842e94ca3e5a6efc418c44fcc.png" alt="image-20211227105252324" style="zoom: 67%;" />
+</li>
+</ol>
+<p><strong>中断向量的设置</strong></p>
+<ul>
+<li>中断向量并非常驻内存，而是开机上电时，由程序装入指定的存储区内。</li>
+<li>BIOS程序只负责中断类型号00H～1FH共32种中断的中断向量的装入。</li>
+<li>用户使用中断时，需要在初始化程序中将中断服务子程序的入口地址装入中断向量表指定的存储单元中，以便在CPU响应中断请求后，由中断向量自动引导到中断服务子程序。</li>
+</ul>
+<p>(1) 用传输指令直接送入：</p>
+<p>【例】：将中断向量码为48H的服务程序入口地址放入向量表</p>
+<p>计算中断服务程序的入口地址: 48H*4=72*4=288=120H</p>
+<pre><code>MOV  AX,0000H
+MOV  DS,AX
+MOV  SI,0120H
+MOV  BX，OFFSET INT1
+MOV  [SI],BX
+MOV  BX,SEG INT1
+MOV  [SI+2],BX
+</code></pre>
+<p>(2) 用DOS系统功能调用：在系统功能调用INT 21H中，25H调用可以设置中断向量</p>
+<p>入口参数：</p>
+<ul>
+<li>AH= 25H;</li>
+<li>AL=中断类型号;</li>
+<li>DS =中断服务程序入口地址的段地址;</li>
+<li>DX=中断服务程序入口地址的偏移地址</li>
+</ul>
+<p>【例】：将中断类型号为40H的服务程序入口地址放入向量表，中断服务程序入口地址为INT_P，调用25H功能如下:</p>
+<pre><code>CLI
+MOV AL,40H
+MOV DX,SEG INT_P
+MOV DS,DX
+MOV DX,OFFSET INT_P
+MOV AH,25H
+INT 21H
+STI
+</code></pre>
+<h3 id="923-8086的中断响应和处理过程">9.2.3 8086的中断响应和处理过程</h3>
+<ol>
+<li>中断源识别：通过中断向量识别</li>
+<li>8086的中断优先级：按内部中断（除法出错、INT n、断点中断、溢出中断）、NMI、INTR、单步中断的顺序来逐个查询</li>
+<li>由中断源提供中断类型号</li>
+</ol>
+<img src="https://i0.hdslb.com/bfs/album/5a32eefea6f375501b0d0b2aadf8f8bece55f8fd.png" alt="image-20211227112354164" style="zoom:57%;" />
+<ol start="4">
+<li>
+<p>中断响应过程</p>
+<p>内部中断特点：</p>
+<ul>
+<li>无INTA周期(?)</li>
+<li>中断类型号固定或已给出</li>
+</ul>
+<p>内部中断响应过程：</p>
+<ol>
+<li>PUSH  FLAG</li>
+<li>LET  TEMP = TF</li>
+<li>CLEAR  IF，TF</li>
+<li>PUSH  CS</li>
+<li>PUSH  IP</li>
+<li>(IP)=(TYPE*4+1):(TYPE*4+0)</li>
+<li>(CS)=(TYPE*4+3):(TYPE*4+2)</li>
+</ol>
+<p>可屏蔽中断的响应过程:</p>
+<ol>
+<li>第1个INTA，中断控制器进行优先级排队判优处理</li>
+<li>第1个INTA，中断控制器把中断类型码放到DB上，由CPU读入</li>
+<li>PUSH  FLAG</li>
+<li>LET  TEMP = TF</li>
+<li>CLEAR  IF，TF</li>
+<li>PUSH  CS</li>
+<li>PUSH  IP</li>
+<li>（IP）=（TYPE*4+1）:（TYPE*4+0）</li>
+<li>（CS）=（TYPE*4+3）:（TYPE*4+2）<br>
+NMI中断响应过程与内部中断类似</li>
+</ol>
+</li>
+</ol>
+<img src="https://i0.hdslb.com/bfs/album/3114d9020f4fe606e95fd8395143796aa9d7700b.png" alt="image-20211227162456544" style="zoom:57%;" />
+<h2 id="93-8259中断控制器">9.3 8259中断控制器</h2>
+<h3 id="931-8259a的结构">9.3.1 8259A的结构</h3>
+<img src="https://i0.hdslb.com/bfs/album/3b79cc224f4658363fa7480e4c47c4ab04232c6f.png" alt="image-20211227163744043" style="zoom:57%;" />
+<ol>
+<li>中断请求寄存器(IRR):
+<ul>
+<li>8位，接受并锁存来自IR0～IR7的中断请求信号</li>
+<li>第i位=1：IRi有请求；第i位=0：IRi没有请求</li>
+<li>当中断请求响应后，IRR相应位复位</li>
+</ul>
+</li>
+<li>中断屏蔽寄存器(IMR)(OCW1):
+<ul>
+<li>8位，存放CPU送来的屏蔽信号</li>
+<li>第i位=1：屏蔽IRi的中断请求</li>
+<li>第i位=0：开放IRi的中断请求</li>
+</ul>
+</li>
+<li>中断服务寄存器(ISR):
+<ul>
+<li>8位，记录正在处理中的所有中断请求</li>
+<li>第i位=1：IRi正在处理</li>
+<li>在多重中断时，ISR中可能有多位同时被置“1”</li>
+</ul>
+</li>
+<li>优先级判别器(PR): 8位, 管理和识别IRR中各个中断源的优先级别</li>
+<li>数据总线缓冲器
+<ul>
+<li>8位，双向，三态</li>
+<li>8259A和系统数据总线的接口，传输信号：
+<ul>
+<li>CPU对8259A的控制字</li>
+<li>8259A送给CPU的状态信息</li>
+<li>8259A送给CPU的中断向量</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>命令寄存器:编程角度看，8259A有7个8位的寄存器：
+<ul>
+<li>4个初始化命令字寄存器（ICW1～ICW4）, 系统初启时设定</li>
+<li>3个操作命令字寄存器（OCW1～OCW3）, 系统运行时，由应用程序设定</li>
+</ul>
+</li>
+</ol>
+<h3 id="932-8259a的引脚">9.3.2 8259A的引脚</h3>
+<img src="https://i0.hdslb.com/bfs/album/e3381f8464206ff49609a7db0c0e7e1212bca165.png" alt="image-20211227165049948" style="zoom:57%;" />
+<ul>
+<li>
+<p>INT</p>
+<ul>
+<li>中断请求信号, 输出</li>
+<li>单片时由8259A输出给CPU</li>
+<li>级联时，主片INT连接CPU的INTR，从片INT连接主片的IRi</li>
+</ul>
+</li>
+<li>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mover accent="true"><mtext>INTA</mtext><mo stretchy="true">‾</mo></mover></mrow><annotation encoding="application/x-tex">\overline{\text{INTA}}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8833300000000001em;vertical-align:0em;"></span><span class="mord overline"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8833300000000001em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord text"><span class="mord">INTA</span></span></span></span><span style="top:-3.80333em;"><span class="pstrut" style="height:3em;"></span><span class="overline-line" style="border-bottom-width:0.04em;"></span></span></span></span></span></span></span></span></span></p>
+<ul>
+<li>中断响应信号, 输入</li>
+<li>CPU的中断应答信号输出给8259A</li>
+</ul>
+</li>
+<li>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>C</mi><mi>A</mi><msub><mi>S</mi><mn>2</mn></msub><mo>∼</mo><mi>C</mi><mi>S</mi><msub><mi>A</mi><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">CAS_2 \sim CSA_0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="mord mathdefault">A</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.05764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">∼</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="mord"><span class="mord mathdefault">A</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></p>
+<ul>
+<li>级联信号, 主、从片的连接线</li>
+<li>主片：输出; 从片：输入</li>
+</ul>
+</li>
+<li>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mover accent="true"><mrow><mi>S</mi><mi>P</mi></mrow><mo stretchy="true">‾</mo></mover><mi mathvariant="normal">/</mi><mover accent="true"><mrow><mi>E</mi><mi>N</mi></mrow><mo stretchy="true">‾</mo></mover></mrow><annotation encoding="application/x-tex">\overline{SP}/\overline{EN}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.13333em;vertical-align:-0.25em;"></span><span class="mord overline"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8833300000000001em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span></span></span><span style="top:-3.80333em;"><span class="pstrut" style="height:3em;"></span><span class="overline-line" style="border-bottom-width:0.04em;"></span></span></span></span></span></span><span class="mord">/</span><span class="mord overline"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8833300000000001em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.05764em;">E</span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span></span></span><span style="top:-3.80333em;"><span class="pstrut" style="height:3em;"></span><span class="overline-line" style="border-bottom-width:0.04em;"></span></span></span></span></span></span></span></span></span>:</p>
+<ul>
+<li>从片/缓冲器允许信号，双向双功能信号</li>
+<li>缓冲方式：输出，控制收发器的接收或发送；</li>
+<li>非缓冲方式：输入,主片该引脚=1 ，从片该引脚=0</li>
+</ul>
+</li>
+</ul>
+<h3 id="933-9259a中断处理过程">9.3.3 9259A中断处理过程</h3>
+<ol>
+<li>当有一条或若干条中断请求线（IR7～IR0）变为高电平，则中断请求寄存器IRR的相应位置位。</li>
+<li>若中断请求线中至少有一条是中断允许的（中断屏蔽寄存器相应位开放，且请求中断的级别高于当前正在服务的中断或未处于中断服务程序中），则8259A通过INT引脚向CPU的INTR引脚发出中断请求信号。</li>
+<li>CPU在当前指令执行完后，若检测到中断请求信号，且处于开中断状态（IF=1）则会暂停执行下一条指令，进入中断响应总线周期，发送两个<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mover accent="true"><mrow><mi>I</mi><mi>N</mi><mi>T</mi><mi>A</mi></mrow><mo stretchy="true">‾</mo></mover></mrow><annotation encoding="application/x-tex">\overline{INTA}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8833300000000001em;vertical-align:0em;"></span><span class="mord overline"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8833300000000001em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.07847em;">I</span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="mord mathdefault">A</span></span></span><span style="top:-3.80333em;"><span class="pstrut" style="height:3em;"></span><span class="overline-line" style="border-bottom-width:0.04em;"></span></span></span></span></span></span></span></span></span>信号给8259A作为响应。</li>
+<li>8259A在接受到来自CPU的第一个<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mover accent="true"><mrow><mi>I</mi><mi>N</mi><mi>T</mi><mi>A</mi></mrow><mo stretchy="true">‾</mo></mover></mrow><annotation encoding="application/x-tex">\overline{INTA}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8833300000000001em;vertical-align:0em;"></span><span class="mord overline"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8833300000000001em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.07847em;">I</span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="mord mathdefault">A</span></span></span><span style="top:-3.80333em;"><span class="pstrut" style="height:3em;"></span><span class="overline-line" style="border-bottom-width:0.04em;"></span></span></span></span></span></span></span></span></span>信号后，使中断源中优先级最高的ISR位置位，而相应的IRR位被复位,在该周期中，<strong>8259A不向数据总线送任何内容</strong>。</li>
+<li>在第二个<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mover accent="true"><mrow><mi>I</mi><mi>N</mi><mi>T</mi><mi>A</mi></mrow><mo stretchy="true">‾</mo></mover></mrow><annotation encoding="application/x-tex">\overline{INTA}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8833300000000001em;vertical-align:0em;"></span><span class="mord overline"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8833300000000001em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.07847em;">I</span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="mord mathdefault">A</span></span></span><span style="top:-3.80333em;"><span class="pstrut" style="height:3em;"></span><span class="overline-line" style="border-bottom-width:0.04em;"></span></span></span></span></span></span></span></span></span>脉冲期间，8259A向CPU发出中断类型号（8位的二进制数，其中高位T7～T3是8259A初始化时设置的，而低3位是8259A自动插入的）, CPU获得后，将此向量乘以4，在中断向量表中找到相应的中断服务程序入口地址。</li>
+<li>中断响应周期结束后，CPU就转而执行中断服务程序。采用AEOI方式时，在第二个脉冲<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mover accent="true"><mrow><mi>I</mi><mi>N</mi><mi>T</mi><mi>A</mi></mrow><mo stretchy="true">‾</mo></mover></mrow><annotation encoding="application/x-tex">\overline{INTA}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8833300000000001em;vertical-align:0em;"></span><span class="mord overline"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8833300000000001em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.07847em;">I</span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="mord mathdefault">A</span></span></span><span style="top:-3.80333em;"><span class="pstrut" style="height:3em;"></span><span class="overline-line" style="border-bottom-width:0.04em;"></span></span></span></span></span></span></span></span></span>结束时，ISR位被复位。否则，在中断服务程序中，应在IRET指令加入相应的EOI指令，使ISR的相应位复位</li>
+</ol>
+<p>两个<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mover accent="true"><mrow><mi>I</mi><mi>N</mi><mi>T</mi><mi>A</mi></mrow><mo stretchy="true">‾</mo></mover></mrow><annotation encoding="application/x-tex">\overline{INTA}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8833300000000001em;vertical-align:0em;"></span><span class="mord overline"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8833300000000001em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.07847em;">I</span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="mord mathdefault">A</span></span></span><span style="top:-3.80333em;"><span class="pstrut" style="height:3em;"></span><span class="overline-line" style="border-bottom-width:0.04em;"></span></span></span></span></span></span></span></span></span>信号的作用：</p>
+<p>第一个：</p>
+<ul>
+<li>在第二个INTA负脉冲到达之前，禁止中断请求寄存器IRR锁存新的中断请求。</li>
+<li>使中断服务寄存器ISR的对应位置“1”，同时将IRR中的当前响应位清零。</li>
+<li>把当前响应中断的编号（000B <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>∼</mo></mrow><annotation encoding="application/x-tex">\sim</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">∼</span></span></span></span> 111B，对应IR0 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>∼</mo></mrow><annotation encoding="application/x-tex">\sim</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">∼</span></span></span></span> IR7。）送入中断类型寄存器（ICW2）的低三位</li>
+</ul>
+<p>第二个：</p>
+<ul>
+<li>将 <strong>中断类型寄存器(ICW2)</strong> 的8位中断类型号送上数据总线，供CPU读取。</li>
+<li>如果 <strong>命令寄存器(ICW4)</strong> 中的中断自动结束位为“1”（中断自动结束方式），则将第一个负脉冲到达时在中断服务寄存器ISR中设置的“1”清零。</li>
+</ul>
+<h3 id="934-8259的级联方式">9.3.4 8259的级联方式</h3>
+<ol>
+<li>
+<p>8259级联结构</p>
+<figure data-type="image" tabindex="1"><img src="https://i0.hdslb.com/bfs/album/cf589053412bb85459d24aead6d927454c70ff4e.png" alt="image-20211227184413485" loading="lazy"></figure>
+</li>
+<li>
+<p>工作原理</p>
+<ul>
+<li>在级联方式下，当主片收到并选中某个中断请求时，
+<ul>
+<li>先要判别是否是级联端口（在ICW3中设置）</li>
+<li>若不是级联端口，则由主8259提供中断类型号；</li>
+<li>若是级联端口，则主8259启动CAS2~CAS0送出该级联从片的编号，编号相同的从8259将负责送出对应的中断类型号。</li>
+</ul>
+</li>
+<li>从8259的编号按从片INT输出所接的主8259的输入端编号</li>
+</ul>
+</li>
+</ol>
+<h3 id="935-8259的工作方式">9.3.5 8259的工作方式</h3>
+<ol>
+<li>
+<p>8259的优先级方式</p>
+<img src="https://i0.hdslb.com/bfs/album/ad67021a203b626e10951d1d766b8dbc22c741e6.png" alt="image-20211227185841678" style="zoom:87%;" />
+<ul>
+<li>普通全嵌套方式
+<ul>
+<li>按固定优先级别高低来管理中断：IR0的优先级别最高，IR7最低。</li>
+<li>允许优先级更高的中断请求进入，但不允许同级、或低级的中断请求进入.</li>
+<li>此种方式用于单片8259或级联方式下的从片8259中。</li>
+</ul>
+</li>
+<li>特殊全嵌套方式
+<ul>
+<li>按固定优先级别高低来管理中断：IR0的优先级别最高，IR7最低。</li>
+<li>在处理某一级中断时，不但允许优先级更高的中断请求进入，也允许同级的中断请求进入。</li>
+<li>主从结构的8259系统中，主片设置为特殊全嵌套方式。从主片看来，每个从片是同一优先级的</li>
+<li><img src="https://i0.hdslb.com/bfs/album/b6b5164fee03d8ba5852c1b9bc4e45d271b8568b.png" alt="image-20211227190843307" loading="lazy"></li>
+</ul>
+</li>
+<li>自动循环方式
+<ul>
+<li>初始状态下IR0优先级最高,IR1次之，IR7优先级最低。</li>
+<li>一个设备的中断服务完成后，其优先级自动降为最低，而将最高优先级赋给原来比它低一级的中断请求。</li>
+</ul>
+</li>
+<li>特殊循环方式
+<ul>
+<li>与优先级“自动循环方式”相比，只有一点不同：可以设置初始的最低优先级。</li>
+<li>【例】设定IR4为最低优先级，那么IR5就是最高优先级，其余各级按循环方法类推。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>8259屏蔽中断的方式：</p>
+<img src="https://i0.hdslb.com/bfs/album/a2d23a8c86b667863f61514f4a2a74ab83cba7dc.png" alt="image-20211227191214278" style="zoom:80%;" />
+<ul>
+<li>普通中断屏蔽方式： 通过对中断屏蔽寄存器IMR中对应位置“1”来阻止中断请求寄存器IRR中记录的中断请求进入判优寄存器。</li>
+<li>特殊中断屏蔽方式： 是用OCW1(IMR)屏蔽掉当前中断请求对应位后，再清零ISR中当前响应位来开放对低优先级的请求。（ 这是一种在当前中断处理程序中只屏蔽等优先级中断请求而允许其它高优先级和低优先级中断请求进行嵌套的方法）</li>
+</ul>
+</li>
+<li>
+<p>8259的中断结束方式</p>
+<figure data-type="image" tabindex="3"><img src="https://i0.hdslb.com/bfs/album/5ce168e35b3cf4e35704ab61c33bde5d2ab3365a.png" alt="image-20211227191553641" loading="lazy"></figure>
+<ul>
+<li>自动中断结束(AEOI)方式
+<ul>
+<li>在第二个<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mover accent="true"><mrow><mi>I</mi><mi>N</mi><mi>T</mi><mi>A</mi></mrow><mo stretchy="true">‾</mo></mover></mrow><annotation encoding="application/x-tex">\overline{INTA}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8833300000000001em;vertical-align:0em;"></span><span class="mord overline"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8833300000000001em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.07847em;">I</span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="mord mathdefault">A</span></span></span><span style="top:-3.80333em;"><span class="pstrut" style="height:3em;"></span><span class="overline-line" style="border-bottom-width:0.04em;"></span></span></span></span></span></span></span></span></span>后沿，即完成对应的ISR位复位。<br>
+注意：AEOI方式是<strong>在中断响应后，而不是在中断处理程序结束后将ISR位清0</strong>。这样，在中断处理过程中，8259A中就没有“正在处理”的标识。此时，若有中断请求出现，且IF＝1，则无论其优先级如何(比本级高、低或相同)，都将得到响应。尤其是当某一中断请求信号被CPU响应后，如不及时撤销，就会再次被响应－“二次中断”</li>
+<li>AEOI方式只适合于中断请求信号的持续时间有一定限制以及<strong>不出现中断嵌套</strong>的场合。</li>
+</ul>
+</li>
+<li>非自动中断结束(EOI)方式
+<ul>
+<li>EOI方式是指在中断服务程序末尾向8259A发出中断结束命令，清除ISR中的相应位，表示该级的中断服务程序已经结束。</li>
+<li>EOI命令分为：普通EOI命令，特殊EOI命令
+<ul>
+<li>普通EOI命令：在全嵌套方式下，ISR中最高优先级的置“1”位，正对应于当前正在处理的中断，将其清“0”，就完成了当前正在处理中断的结束操作。</li>
+<li>特殊EOI命令：在非全嵌套方式下，无固定的优先级序列(使用设置优先权命令或特殊屏蔽方式)，此时，根据ISR的内容就无法确定刚刚所响应(处理)的中断。这种情况下，就不能用上述的EOI方式进行中断结束处理，而必须用特殊的中断结束命令</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>8259A的中断触发方式</p>
+<ul>
+<li>电平触发方式：以IRi引脚上出现的高电平作为中断请求信号；请求一旦被响应，该高电平信号应及时撤除。</li>
+<li>边沿触发方式：以IRi引脚上出现的由低电平向高电平的跳变作为中断请求信号，跳变后高电平一直保持，直到中断被响应。</li>
+</ul>
+</li>
+<li>
+<p>8259A的连接系统总线方式</p>
+<ul>
+<li>缓冲方式：主要用于多片8259A级联的大系统中；
+<ul>
+<li>8259A的<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mover accent="true"><mrow><mi>S</mi><mi>P</mi></mrow><mo stretchy="true">‾</mo></mover><mi mathvariant="normal">/</mi><mover accent="true"><mrow><mi>E</mi><mi>N</mi></mrow><mo stretchy="true">‾</mo></mover></mrow><annotation encoding="application/x-tex">\overline{SP}/\overline{EN}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.13333em;vertical-align:-0.25em;"></span><span class="mord overline"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8833300000000001em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span></span></span><span style="top:-3.80333em;"><span class="pstrut" style="height:3em;"></span><span class="overline-line" style="border-bottom-width:0.04em;"></span></span></span></span></span></span><span class="mord">/</span><span class="mord overline"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8833300000000001em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.05764em;">E</span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span></span></span><span style="top:-3.80333em;"><span class="pstrut" style="height:3em;"></span><span class="overline-line" style="border-bottom-width:0.04em;"></span></span></span></span></span></span></span></span></span>作为输出(<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mover accent="true"><mrow><mi>E</mi><mi>N</mi></mrow><mo stretchy="true">‾</mo></mover></mrow><annotation encoding="application/x-tex">\overline{EN}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8833300000000001em;vertical-align:0em;"></span><span class="mord overline"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8833300000000001em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.05764em;">E</span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span></span></span><span style="top:-3.80333em;"><span class="pstrut" style="height:3em;"></span><span class="overline-line" style="border-bottom-width:0.04em;"></span></span></span></span></span></span></span></span></span>有效，用此信号作为总线驱动器的启动信号)，此时，由ICW4的M/S位来定义(标识)本8259A是主片还是从片。</li>
+<li>8259A通过总线收发器（如8286）和数据总线相连。</li>
+</ul>
+</li>
+<li>非缓冲方式：主要用于单片8259A或片数不多的8259A级联的系统中。
+<ul>
+<li>8259A直接与数据总线相连。</li>
+<li>8259A的<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mover accent="true"><mrow><mi>S</mi><mi>P</mi></mrow><mo stretchy="true">‾</mo></mover><mi mathvariant="normal">/</mi><mover accent="true"><mrow><mi>E</mi><mi>N</mi></mrow><mo stretchy="true">‾</mo></mover></mrow><annotation encoding="application/x-tex">\overline{SP}/\overline{EN}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.13333em;vertical-align:-0.25em;"></span><span class="mord overline"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8833300000000001em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span></span></span><span style="top:-3.80333em;"><span class="pstrut" style="height:3em;"></span><span class="overline-line" style="border-bottom-width:0.04em;"></span></span></span></span></span></span><span class="mord">/</span><span class="mord overline"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8833300000000001em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.05764em;">E</span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span></span></span><span style="top:-3.80333em;"><span class="pstrut" style="height:3em;"></span><span class="overline-line" style="border-bottom-width:0.04em;"></span></span></span></span></span></span></span></span></span>作为输出(<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mover accent="true"><mrow><mi>S</mi><mi>P</mi></mrow><mo stretchy="true">‾</mo></mover></mrow><annotation encoding="application/x-tex">\overline{SP}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8833300000000001em;vertical-align:0em;"></span><span class="mord overline"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8833300000000001em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span></span></span><span style="top:-3.80333em;"><span class="pstrut" style="height:3em;"></span><span class="overline-line" style="border-bottom-width:0.04em;"></span></span></span></span></span></span></span></span></span>有效)。</li>
+<li>M/S位无意义。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>8259A的中断查询方式：当出现如下两种情况时可以工作在查询方式</p>
+<ul>
+<li>8259A的INT引脚没连接到CPU的INTR引脚</li>
+<li>CPU正处于关中断（IF=0），所以CPU不能响应从8259A来的中断请求</li>
+</ul>
+</li>
+</ol>
+<img src="https://i0.hdslb.com/bfs/album/ec3109d2c652d2dc86f726e34f395fcf15204307.png" alt="image-20211228114251971" style="zoom:67%;" />
+<h3 id="936-8259a的编程与应用">9.3.6 8259A的编程与应用</h3>
+<ul>
+<li>初始化编程：在中断系统进入正常运行之前，通过设置初始化命令字（ICWl～ICW4）来预置工作方式；</li>
+<li>工作方式编程：通过对设置操作命令字（OCW1～OCW3）来实现8259A运行中的操作控制，可在8259A被初始化之后的任何时候使用，可单独使用。</li>
+</ul>
+<ol>
+<li>
+<p>8259A初始化命令字ICW：按顺序ICW1-ICW4</p>
+<ul>
+<li>
+<p>初始化命令字ICW1</p>
+<img src="https://i0.hdslb.com/bfs/album/5a0f9dd3165c5ed0d785521cf8b37a168d5e85ea.png" alt="image-20211228140236702" style="zoom:77%;" />
+</li>
+<li>
+<p>ICW2：设置中断类型（向量）号的高五位</p>
+<img src="https://i0.hdslb.com/bfs/album/1ff81a62c51855b3f1c6add41984aa9b29bf0f17.png" alt="image-20211228160936221" style="zoom:80%;" />
+<p>其中D2~D0为任意值，一般为000</p>
+<img src="https://i0.hdslb.com/bfs/album/fceb187fa91303141b9b7eea8b8d69dd567772a9.png" alt="image-20211228161027116" style="zoom:80%;" />
+</li>
+<li>
+<p>ICW3：只有在8259级联时才使用</p>
+<ul>
+<li>
+<p>8259作为主片时的格式</p>
+<img src="https://i0.hdslb.com/bfs/album/784dad059bed0aca9f42941ff0c0ddd85d78cc04.png" alt="image-20211228161358489" style="zoom:1000%;" />
+</li>
+<li>
+<p>8259A作为从片时的格式：</p>
+<p>D2～D0为IR0～IR7三位编码值；表示从片的INT输出与主片8259A中的哪一个IRi相连接。</p>
+<figure data-type="image" tabindex="4"><img src="https://i0.hdslb.com/bfs/album/b81002e8735344645c7f936a0258756606c5993d.png" alt="" loading="lazy"></figure>
+</li>
+</ul>
+</li>
+<li>
+<p>初始化命令字ICW4：</p>
+<img src="https://i0.hdslb.com/bfs/album/643fceb9bed842e32b5a8c514f8a4dbf6a41333d.png" alt="image-20211228161829966" style="zoom:90%;" />
+</li>
+</ul>
+</li>
+<li>
+<p>8259A的操作命令字</p>
+<ul>
+<li>
+<p>OCW1(屏蔽操作命令字)：进行屏蔽操作，直接对IMR相应位置位或复位</p>
+<figure data-type="image" tabindex="5"><img src="https://i0.hdslb.com/bfs/album/1b9e352732efb72db5fdab1d198b60adbfeeb9a1.png" alt="image-20211228163434151" loading="lazy"></figure>
+</li>
+<li>
+<p>OCW2：设置中断结束方式和优先级循环方式</p>
+<img src="https://i0.hdslb.com/bfs/album/b3d916e9840f1682cfeae19cd84063b5b7d587fd.png" alt="image-20211228163531836" style="zoom:80%;" />
+</li>
+<li>
+<p>OCW3: 设定特殊屏蔽方式及中断查询方式；指定读8259内部寄存器。</p>
+<img src="https://i0.hdslb.com/bfs/album/e2d3fa2a1e70872ed451c66bab65e59489998ba4.png" alt="image-20211228164056853" style="zoom:80%;" />
+</li>
+</ul>
+</li>
+<li>
+<p>8259A应用举例：</p>
+<img src="https://i0.hdslb.com/bfs/album/adeb48cfa0fe6ac099599ebdc36cffbf4befd7be.png" alt="image-20211228202940794" style="zoom:80%;" />
+</li>
+</ol>
+<p>【例】如图所示，在PC/AT系统中，使用2片8259A构成级联中断系统。系统分配给主片端口地址为：20H和21H，中断类型号是：08H～0FH；从片端口地址为：A0H和A1H，中断类型号是：70H～77H。编程完成对8259A的初始化。</p>
+<img src="https://i0.hdslb.com/bfs/album/da36aa7c6ba271d2933d38a52213df62ccde335e.png" alt="image-20211228204539889" style="zoom:80%;" />
+<pre><code>;主片8259A初始化程序
+MOV AL,11H  ;设置ICW1，边沿触发，需ICW4
+OUT 20H,AL
+MOV AL,08H  ;设置ICW2，中断类型号的高5位为00001
+OUT 21H,AL
+MOV AL,04H  ;设置ICW3，从片连到主片的IR2上
+OUT 21H,AL
+MOV AL,15H  ;设置ICW4，非缓冲，非AEOI，特殊全嵌套方式
+OUT 21H,AL
+
+;从片8259A初始化程序
+MOV AL,11H   ;设置ICW1，边沿触发，需ICW4
+OUT 0A0H,AL
+MOV AL,70H   ;设置ICW2，中断类型号的高5位为01110
+OUT 0A1H,AL
+MOV AL,02H   ;设置ICW3，设定从片级联于主片的IR2
+OUT 0A1H,AL
+MOV AL,01H   ;设置ICW4，非缓冲，非AEOI，全嵌套方式
+OUT 0A1H,AL 
+</code></pre>
+
+            </div>
+            <div class="post-footer">
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>本文作者：</strong>
+      yukino0x
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://notes.yuyzzz.top/post/9-zhong-duan-yu-zhong-duan/" title="9. 中断与中断管理">https://notes.yuyzzz.top/post/9-zhong-duan-yu-zhong-duan/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong>
+      本博客所有文章除特别声明外，均采用<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i> BY-NC-SA</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+  <div class="tags">
+    
+      <a href="https://notes.yuyzzz.top/tag/aG-o5eP94/"># 微机</a>
+    
+  </div>
+  <div class="nav">
+    <div class="nav-prev">
       
+    </div>
+    <div class="nav-next">
       
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      <a href="https://notes.yuyzzz.top/post/san-shu-ju-lian-lu-ceng/">
-        <div class="motion-warpper">
-          <div class="tag-post-node">
-            <h1>
-              11-10
-              <small>三、数据链路层</small>
-            </h1>
-          </div>
-        </div>
-      </a>
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      <a href="https://notes.yuyzzz.top/post/er-wu-li-ceng/">
-        <div class="motion-warpper">
-          <div class="tag-post-node">
-            <h1>
-              10-27
-              <small>二、物理层</small>
-            </h1>
-          </div>
-        </div>
-      </a>
-      
-      
-      
-      
-      
-      
-      
-      <a href="https://notes.yuyzzz.top/post/ji-wang-bi-ji-1/">
-        <div class="motion-warpper">
-          <div class="tag-post-node">
-            <h1>
-              10-23
-              <small>一、计网概述</small>
-            </h1>
-          </div>
-        </div>
-      </a>
-      
-      
-      
-      
-      
-      
+        <a class="nav-pc-next" title="四、信道共享技术" href="https://notes.yuyzzz.top/post/si-xin-dao-gong-xiang-ji-zhu/">四、信道共享技术</a>
+        <a class="nav-mobile-next" title="四、信道共享技术" href="https://notes.yuyzzz.top/post/si-xin-dao-gong-xiang-ji-zhu/">下一篇</a>
+        <i class="fa fa-chevron-right"></i>
       
     </div>
   </div>
 </div>
-          </section>
+            
+  
+
+          </div>
         </div>
       </div>
     </div>
@@ -493,6 +1273,36 @@
   // 代码高亮
   hljs.initHighlightingOnLoad();
 
+</script>
+    <div class="light-box" id="light_box"></div>
+<script>
+  let imgs = document.querySelectorAll('.post-body img');
+  let lightBox = document.querySelector('#light_box');
+  lightBox.addEventListener('mousedown', (e) => {
+    e.preventDefault()
+  })
+  lightBox.addEventListener('mousewheel', (e) => {
+    e.preventDefault()
+  })
+  let width = window.innerWidth * 0.8;
+  lightBox.onclick = () => {
+    let img = lightBox.querySelector('img');
+    lightBox.style = '';
+    img && img.remove();
+  }
+  imgs.forEach(item => {
+    item.onclick = function (e) {
+      let lightImg = document.createElement('img');
+      lightImg.src = this.src;
+      lightBox.style = `height: 100%; opacity: 1; background-color: rgba(0, 0, 0, 0.5);cursor: zoom-out;`;
+      lightImg.style = `width: ${width}px; border: 1px solid #fff; border-radius: 2px;`;
+      lightImg.onclick = function () {
+        lightBox.style = '';
+        this.remove();
+      }
+      lightBox.append(lightImg);
+    }
+  })
 </script>
   </div>
 </body>
@@ -4379,7 +5189,6 @@ import re
   escapeMap.set('&quot;', '"');
   escapeMap.set('&amp;', '&');
 </script> -->
-
 
 
 </html>

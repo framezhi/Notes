@@ -2,13 +2,100 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://notes.yuyzzz.top</id>
     <title>Yuyzzz&apos;s Notes</title>
-    <updated>2021-12-29T15:25:37.497Z</updated>
+    <updated>2021-12-30T02:47:56.534Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://notes.yuyzzz.top"/>
     <link rel="self" href="https://notes.yuyzzz.top/atom.xml"/>
     <logo>https://notes.yuyzzz.top/images/avatar.png</logo>
     <icon>https://notes.yuyzzz.top/favicon.ico</icon>
     <rights>All rights reserved 2021, Yuyzzz&apos;s Notes</rights>
+    <entry>
+        <title type="html"><![CDATA[11. 总线]]></title>
+        <id>https://notes.yuyzzz.top/post/11-zong-xian/</id>
+        <link href="https://notes.yuyzzz.top/post/11-zong-xian/">
+        </link>
+        <updated>2021-12-30T02:45:18.000Z</updated>
+        <summary type="html"><![CDATA[<p>介绍了总线的类型、标准、特性、以及一些系统总线和外部总线</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>介绍了总线的类型、标准、特性、以及一些系统总线和外部总线</p>
+<!-- more -->
+<h2 id="111-总线的概念">11.1 总线的概念</h2>
+<ol>
+<li>
+<p>什么是总线：</p>
+<ul>
+<li>总线是连接计算机各组成部件的公用数据通路。连接在总线上的各个部件以分时的方式共享总线，实现数据传送。</li>
+<li>计算机工作的过程，实质上就是数据流通过总线在各个部件之间流动的过程。因此，总线也是计算机系统中的重要组成部分。</li>
+</ul>
+<p>在微机系统中，总线的分类：</p>
+<ul>
+<li>片内总线：用以连接CPU内部的各个部件，比如ALU、通用寄存器、内部Cache等。</li>
+<li>片级总线：用以连接CPU、存储器及I/O接口等电路，构成所谓的主机板</li>
+<li>系统总线：主要用来连接外部设备。</li>
+</ul>
+</li>
+<li>
+<p>总线的作用：</p>
+<ul>
+<li>连接计算机的各组成部件，构成不同规模的计算机系统；</li>
+<li>在各组成部件之间形成通路，实现各种数据信息的传送。</li>
+</ul>
+</li>
+<li>
+<p>总线的特性：</p>
+<ul>
+<li>分时：同一总线可由多个部件分时使用。但在同一时刻，只能有一个部件发送数据，可有多个部件接收数据</li>
+<li>共享：总线为挂接在其上的多个部件所共有</li>
+</ul>
+</li>
+<li>
+<p>总线标准</p>
+<ul>
+<li>机械结构规范：模块尺寸、总线插头、总线接插件及安装尺寸均有统一规定。</li>
+<li>功能规范：总线每条信号线（引脚的名称）、功能及工作过程要有统一规定。</li>
+<li>电气规范：总线每条信号线的有效电平、动态转换时间、负载能力等。</li>
+</ul>
+</li>
+<li>
+<p>总线组成：</p>
+<ul>
+<li>数据总线：数据总线用来传送数据，其位数亦称为总线的宽度。它反映的是一次传送数据的位数</li>
+<li>地址总线：地址总线用来传送存储器或外设端口地址。无论是存储器还是外部设备，所有数据按地址存储</li>
+<li>控制总线：用于传送各种控制信号。在不同的总线结构中，控制总线往往有较大的差异，但基本信号必不可少</li>
+<li>电源线和地线：可能有多种电源线和多条地线</li>
+</ul>
+</li>
+</ol>
+<h2 id="112-系统总线">11.2 系统总线</h2>
+<h3 id="1121-isa总线">11.2.1 ISA总线</h3>
+<p>ISA（Industry Standard Architecture，工业标准体系结构）总线是IBM公司为PC/AT电脑而制定的总线标准，为16位体系结构，只能支持16位的I/O设备，数据传输速率大约是18MB/s，也称为AT标准。</p>
+<p>接口信号如下：</p>
+<img src="https://i0.hdslb.com/bfs/album/91bf56d6e24186b4c7adf13b60706e6dab792a51.png" alt="image-20211230103843103" style="zoom:80%;" />
+<h3 id="1122-eisa总线">11.2.2 EISA总线</h3>
+<p>EISA（Extended Industry Standard Architecture，扩展工业标准结构）是EISA集团为配合32位CPU而设计的总线扩展标准</p>
+<p>EISA总线的输出/输出（I/O）总线和微处理总线是分离的，因此I/O总线可保持低时钟速率以支持ISA卡而微处理器总线则可以高速率运行。EISA机器可以向多个用户提供高速磁盘输出。</p>
+<h3 id="1123-pci总线">11.2.3 PCI总线</h3>
+<p>PCI有32位和64位两种，32位PCI有120个引脚，64位PCI有184个引脚，目前常用的是32位PCI</p>
+<h2 id="113-外部总线">11.3 外部总线</h2>
+<h3 id="1131-rs-232c串行总线">11.3.1 RS-232C串行总线</h3>
+<p>EIA（Electronics Industries Association）RS（Recommended Standard）-232C是使用广泛的串行异步通信接口。实质上是一种标准</p>
+<h3 id="1132-usb总线">11.3.2 USB总线</h3>
+<p>USB（Universal Serial Bus）总线的中文含义是通用串行总线，它是一种快速同步传输的双向串行接口</p>
+<p>USB硬件结构：</p>
+<ul>
+<li>USB主机（Host）</li>
+<li>USB设备（USB Device）</li>
+<li>USB集线器（HUB）：一个USB主机总与一个USB根集线器（USB root HUB）相连。</li>
+</ul>
+<p>USB数据传输方式：</p>
+<ul>
+<li>控制传输方式</li>
+<li>等时传输方式</li>
+<li>中断传输方式</li>
+<li>数据块传输方式</li>
+</ul>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[10. 数模与模数转换及其应用]]></title>
         <id>https://notes.yuyzzz.top/post/10-shu-mo-yu-mo-shu-zhuan-huan-ji-qi-ying-yong/</id>
@@ -3613,43 +3700,6 @@ XLAT 表格首地址
 <p>写周期时序</p>
 <img src="https://tva1.sinaimg.cn/large/006pkgSjgy1gvyjubky6rj30x00syn4n.jpg" alt="image.png" style="zoom:50%;" /></li>
 </ol>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[1. 数和数制]]></title>
-        <id>https://notes.yuyzzz.top/post/1-shu-he-shu-zhi/</id>
-        <link href="https://notes.yuyzzz.top/post/1-shu-he-shu-zhi/">
-        </link>
-        <updated>2021-10-31T07:59:15.000Z</updated>
-        <summary type="html"><![CDATA[<p>基本码值的转换</p>
-]]></summary>
-        <content type="html"><![CDATA[<p>基本码值的转换</p>
-<!--more-->
-<h2 id="11-带符号二进制数转换">1.1 带符号二进制数转换</h2>
-<ol>
-<li>
-<p>原码：</p>
-<img src="https://tva1.sinaimg.cn/large/006pkgSjgy1gvtzozlchbj30wi08kmxt.jpg" alt="image-20211011182445892.png" style="zoom:67%;" />
-<p>表示整数范围：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>−</mo><mo>(</mo><msup><mn>2</mn><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></msup><mo>−</mo><mn>1</mn><mo>)</mo><mtext> </mtext><mo>+</mo><mo>(</mo><msup><mn>2</mn><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></msup><mo>−</mo><mn>1</mn><mo>)</mo></mrow><annotation encoding="application/x-tex">-(2^{n-1}-1)~+(2^{n-1}-1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord">−</span><span class="mopen">(</span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">n</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mspace nobreak"> </span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">n</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span></span></span></span></p>
-</li>
-<li>
-<p>反码：</p>
-<img src="https://tva1.sinaimg.cn/large/006pkgSjgy1gvtzpdbuluj30w805w3z6.jpg" alt="image-20211011184552708.png" style="zoom:67%;" />
-<p>表示整数范围：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>−</mo><mo>(</mo><msup><mn>2</mn><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></msup><mo>−</mo><mn>1</mn><mo>)</mo><mtext> </mtext><mo>+</mo><mo>(</mo><msup><mn>2</mn><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></msup><mo>−</mo><mn>1</mn><mo>)</mo></mrow><annotation encoding="application/x-tex">-(2^{n-1}-1)~+(2^{n-1}-1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord">−</span><span class="mopen">(</span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">n</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mspace nobreak"> </span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">n</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span></span></span></span></p>
-</li>
-<li>
-<p>补码：</p>
-<img src="https://tva1.sinaimg.cn/large/006pkgSjgy1gvtzpo9f3yj30xy084gm7.jpg" alt="image-20211011184726932.png" style="zoom:67%;" />
-<p>表示整数范围：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>−</mo><msup><mn>2</mn><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></msup><mtext> </mtext><mo>+</mo><mo>(</mo><msup><mn>2</mn><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></msup><mo>−</mo><mn>1</mn><mo>)</mo></mrow><annotation encoding="application/x-tex">-2^{n-1}~+(2^{n-1}-1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.897438em;vertical-align:-0.08333em;"></span><span class="mord">−</span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">n</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mspace nobreak"> </span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">n</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span></span></span></span></p>
-</li>
-</ol>
-<h2 id="12-十进制数的编码">1.2 十进制数的编码</h2>
-<p>关于8421BCD码</p>
-<ul>
-<li>压缩8421BCD码：一个字节可以表示两位十进制数</li>
-<li>非压缩8421BCD码：一个字节只能表示一位十进制数</li>
-</ul>
-<img src="https://tva1.sinaimg.cn/large/006pkgSjgy1gvtzpz5o6gj31a00tgayp.jpg" alt="image-20211011230609176.png" style="zoom:50%;" />
 ]]></content>
     </entry>
 </feed>
